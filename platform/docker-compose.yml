@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  "backend-application":
+    build: "./backend-application"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./backend-application/src:/backend-application/src"
+    # depends_on:
+    #   - database
+  # database:
+  #   image: mysql:5.7.32
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=password
+  #     - MYSQL_USER=root
+  #     - MYSQL_DATABASE=myDB
+  #     - MYSQL_HOST=localhost
+  #   volumes:
+  #     - ./database/initialize-database.sql:/docker-entrypoint-initdb.d/initialize-database.sql
+
+    
