@@ -1,14 +1,11 @@
 const express = require("express")
-const expressHandlebars = require('express-handlebars');
 const app = express()
-const bodyParser = require('body-parser')
-require('dotenv').config()
-
-module.exports = function ({ chargersRouter, transactionsRouter, reservationsRouter, authenticationRouter, adminRouter, chargePointsRouter, ocppInterface }) { //authenticationRouter
 
 
-    app.use(bodyParser.urlencoded({ extended: false }))
-    app.use(bodyParser.json())
+module.exports = function ({ restAPI }) { 
+
+    const app = express()
+
 
     app.use(function (request, response, next) {
         response.setHeader("Access-Control-Allow-Origin", "*") // "localhost:3000"
@@ -19,7 +16,7 @@ module.exports = function ({ chargersRouter, transactionsRouter, reservationsRou
     })
 
 
-    app.use('/chargers', chargersRouter)
+    app.use('/Routers/rest-api', restAPI)
 
     return app
 }
