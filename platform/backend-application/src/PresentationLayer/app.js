@@ -1,6 +1,15 @@
 const express = require("express")
 const app = express()
 
+const dbURI = "mongodb+srv://Intelligenta:Demo12@cluster0.qmb43.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+
+const MongoClient = require('mongodb').MongoClient
+const client = new MongoClient(dbURI,{
+    useNewUrlparser:true,
+    useUnifiedTopology:true
+    
+})
+
 
 module.exports = function ({ restAPI }) { 
 
