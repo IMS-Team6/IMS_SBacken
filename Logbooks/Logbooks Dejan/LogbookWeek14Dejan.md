@@ -6,13 +6,9 @@
 
   - The project Kanban board was divided into following column EPICs, User Stories, TODO, In Progress, Ready To Test, Done 
 
-  - In our communication channel "Discord", I've created some structure and added channel #how-we-work. This channel consist of information necessary 
+  - In our communication channel "Discord", I've created some structure and added channel #how-we-work. This channel consist of information necessary to accomplish good workflow and eliminate confusion. I've written "how-to" series for GitHub. This is how we create Stories, Tickets, pull requests etc. 
 
-  to accomplish good workflow and eliminate confusion. I've written "how-to" series for GitHub. This is how we create Stories, Tickets, pull requests etc. 
-
-  - Me, Osman and Bahja identified first what all our EPICs had in common. Later we focused on what EPIC should be worked on first. We split the EPIC into 
-
-  user stories, from them we created necessary tickets to accomplish the story.  
+  - Me, Osman and Bahja identified first what all our EPICs had in common. Later we focused on what EPIC should be worked on first. We split the EPIC into user stories, from them we created necessary tickets to accomplish the story.  
 
   - Me and Bahja did some pair programming after our backend "team" meeting. 
 
