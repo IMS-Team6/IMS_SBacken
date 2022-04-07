@@ -6,18 +6,15 @@ services:
       - "8080:8080"
     volumes:
       - "./backend-application/src:/backend-application/src"
-    # depends_on:
-    #   - database
-  # database:
-  #   image: mysql:5.7.32
-  #   ports:
-  #     - "3306:3306"
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=password
-  #     - MYSQL_USER=root
-  #     - MYSQL_DATABASE=myDB
-  #     - MYSQL_HOST=localhost
-  #   volumes:
-  #     - ./database/initialize-database.sql:/docker-entrypoint-initdb.d/initialize-database.sql
-
+    depends_on:
+      - mongo-db
+  mongo-db:
+    build: ./mongo-db
+    image: mongo:latest
+    ports:
+       - "27017:27017"
+    environment:
+       MONGO_DB: mongodb
+       MONGODB_PASSWORD: abc12
+ 
     
