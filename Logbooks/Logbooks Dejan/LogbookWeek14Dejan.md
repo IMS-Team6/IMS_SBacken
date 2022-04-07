@@ -12,9 +12,7 @@
 
   - Me and Bahja did some pair programming after our backend "team" meeting. 
 
-  - Sync meeting with the entire Team 6. During this meeting each team presented their requirements and dependencies. It was decided that the goal for  
-
-  Sprint 0 - setting up is to makes sure that every basic functionality should work locally.  
+  - Sync meeting with the entire Team 6. During this meeting each team presented their requirements and dependencies. It was decided that the goal for Sprint 0 - setting up is to makes sure that every basic functionality should work locally.  
 
   - Adding to the meeting, i had a small tutorial and explained the "how-to" in GitHub. Example, how to create a pull request and what to consider when committing 
 
