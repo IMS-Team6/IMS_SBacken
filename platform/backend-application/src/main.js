@@ -2,6 +2,8 @@ const awilix = require("awilix");
 
 const container = awilix.createContainer();
 
+
+
 container.register({
   //--------------------- Belongs to same resources------------------//
   //Account
@@ -9,6 +11,8 @@ container.register({
 //   accountManager: awilix.asFunction(require("./bll/account-manager")),
 //   accountValidator: awilix.asFunction(require("./bll/account-validator")),
 //   accountRepository: awilix.asFunction(require("./dal/account-repository")),
+  //This is a test query 
+  database: awilix.asFunction(require("./DataAccess/getPositionQuery/get-position")),
 
   //--------------------- Others------------------//
   globals: awilix.asFunction(require("./globals")),
@@ -21,4 +25,3 @@ app.listen(8080, function () {
   console.log("Web application listening on port 8080.");
 });
 
-// Start listening for incoming HTTP requests!

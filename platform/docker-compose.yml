@@ -9,12 +9,14 @@ services:
     depends_on:
       - mongo-db
   mongo-db:
-    build: ./mongo-db
     image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+        MONGO_INITDB_DATABASE: mongodb
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - "./mongo-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
     ports:
        - "27017:27017"
-    environment:
-       MONGO_DB: mongodb
-       MONGODB_PASSWORD: abc12
- 
-    
