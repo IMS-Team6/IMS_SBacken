@@ -1,7 +1,12 @@
 # Logbook Week 15 - Sprint 1 - API and migration to host - Total hours this week: 8.5hours... and counting 
   
-  - Week started with sprint palnning, loads of discussion about our next steps, our blockers etc. In the backend it was decided to start working on the base functionality of REST API to follow the three layered architecture(TLA). Hardware has decided to focus on the bluetooth connection, there are some blockers in that regard, and front-end will focus on how to connect the bluetooth module to the application and building the UI fragments. (120min)
-  - In the backend team, we have created some more tickets that describes features we need in order to fufill our user stories. Bahja and Osman will work together(pair programming) on the API, the API should follow the TLA. My focus is the migration to host.(~60min)
-  - There has come up some discussion on how we get and store positions sent from the mower, given the requierments from front-end and mower we have come up with a object. This is probably going to be changed in the future.(30min)
-  - Looking into the position data, how it should be store, how it will be used etc. I've drawn a solution that might help the team better understand the solution. There are few vaiable solutions on how to draw. Either by projecting vector from vectors A->B(B-A), or vector from point A to point B. (120min)
-  - Looking into our host solution, keeping it cheap and futureproof. I've spent few hours trying to figure out how to use Azures' docker environment(because it's cheaper then other solutions, using github backpack and getting 100$ azure credits) as it costs 13$/month and first 30days free. Although might change to AWS Lightsail if Azure gets too complicated.(180min)
+    
+  - Week started with sprint planning, loads of discussion about our next steps, our blockers etc. In the backend it was decided to start working on the base functionality of REST API to follow the three layered architecture(TLA). Hardware has decided to focus on the Bluetooth connection, there are some blockers in that regard, and front-end will focus on how to connect the Bluetooth module to the application and building the UI fragments. (120min) 
+
+  - In the backend team, we have created some more tickets that describes features we need in order to fulfill our user stories. Bahja and Osman will work together(pair programming) on the API, the API should follow the TLA. My focus is the migration to host.(~60min) 
+
+  - There has come up some discussion on how we get and store positions sent from the mower, given the requirements from front-end and mower we have come up with a object. This is probably going to be changed in the future.(30min) 
+
+  - Looking into the position data, how it should be store, how it will be used etc. I've drawn a solution that might help the team better understand the solution. There are few viable solutions on how to draw. Either by projecting vector from vectors A->B(B-A), or vector from point A to point B. (120min) 
+
+  - Looking into our host solution, keeping it cheap and futureproof. I've spent few hours trying to figure out how to use Azures' docker environment(because it's cheaper then other solutions, using GitHub backpack and getting 100$ azure credits) as it costs 13$/month and first 30days free. Although might change to AWS LightSail if Azure gets too complicated.(180min) 
