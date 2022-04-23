@@ -2,10 +2,10 @@ const express = require('express')
 const jwt = require('jsonwebtoken');
 
 
-module.exports = function ({database}) {
+module.exports = function({ database }) {
     const router = express.Router()
 
-    router.use('/*',function (request, response, next) {
+    router.use('/*', function(request, response, next) {
         console.log(request.method, request.url)
 
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080")
@@ -17,10 +17,10 @@ module.exports = function ({database}) {
     })
 
     //This is a test function
-    router.get('/home', async function (request, response) {
-        
-            response.status(201).json(await database.getPosition());
-        
+    router.get('/home', async function(request, response) {
+
+        response.status(201).json(await database.getPosition());
+
     })
 
 
