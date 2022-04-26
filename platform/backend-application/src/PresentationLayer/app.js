@@ -10,7 +10,7 @@ const app = express()
     
     const app = express()
 
-    app.use('/api/', restAPI)
+    app.use('/api', restAPI)
 
     return app
 }

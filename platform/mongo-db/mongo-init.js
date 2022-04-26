@@ -13,5 +13,5 @@ db.position.insert(
         x: [],
         y: []
     }
-  }
+  }  
 );
