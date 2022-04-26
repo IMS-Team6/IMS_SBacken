@@ -1,12 +1,11 @@
 db.auth("root","password")
 
-// This is a test collection
 db.createCollection('session');
 
 db.session.insert(
   {
       Session: {
-        session_id: "",
+        sessionId: "",
         robotState: "",
         positions: {
           posX: [],

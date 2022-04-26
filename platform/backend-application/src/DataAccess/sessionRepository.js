@@ -7,9 +7,9 @@ module.exports = function() {
     const exports = {}
 
     //This is a test function!
-    exports.getPosition = async function () {
+    exports.getSession = async function () {
         await dbClient.connect();
-        const users = dbClient.db("mongodb").collection("position")
+        const users = dbClient.db("mongodb").collection("session")
         var result = await users.findOne();
 
         dbClient.close();
@@ -18,7 +18,7 @@ module.exports = function() {
 
     exports.postSession = async function () {
         await dbClient.connect();
-        const users = dbClient.db("mongodb").collection("position")
+        const users = dbClient.db("mongodb").collection("session")
         var result = await users.insetOne()
 
         dbClient.close();
