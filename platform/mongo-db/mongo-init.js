@@ -1,21 +1,19 @@
-db.auth("root","password")
+db.auth("root", "password")
 
 db.createCollection('session');
 
-db.session.insert(
-  {
-      Session: {
-        sessionId: "",
+db.session.insert({
+    Session: {
+        sessionID: "",
         robotState: "",
         positions: {
-          posX: [],
-          posY: []
+            posX: [],
+            posY: []
         },
         collision: true || false,
         collisionPos: {
-          collX: [],
-          collY: []
+            collX: [],
+            collY: []
         },
     }
-  }
-);
+});
