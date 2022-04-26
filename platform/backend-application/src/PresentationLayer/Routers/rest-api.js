@@ -30,6 +30,13 @@ module.exports = function ({database}) {
     })
 
     //This is a test function
+
+    router.get('/position', async function (request, response) { 
+            response.status(201).json(await database.getPosition());
+
+    })
+
+   
     router.get('/position', async function (request, response) {
         
             response.status(201).json(

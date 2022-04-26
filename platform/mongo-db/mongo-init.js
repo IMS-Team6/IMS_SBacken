@@ -2,7 +2,6 @@ db.auth("root","password")
 
 // This is a test collection
 db.createCollection('position');
-
 db.position.insert(
   {
       Positions: {

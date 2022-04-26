@@ -16,5 +16,22 @@ module.exports = function() {
         return result;
     }
 
+  exports.getPositionForMower = async function (){
+      const positions = {
+        Positions: {
+            session_id: "", 
+            session_duration:{
+              start: "yyyy/m/d gtm+1", 
+              stop: ""
+            },
+            x:[1], 
+            y:[1]} 
+      } 
+      return positions
+      }
+
+
+
+
     return exports
 }
