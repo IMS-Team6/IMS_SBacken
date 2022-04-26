@@ -4,7 +4,15 @@ db.auth("root","password")
 db.createCollection('position');
 
 db.position.insert(
- {
-    Position: {x:"some X value", y:"some Y value"}
+  {
+      Positions: {
+        session_id: "",
+        session_duration:{
+        start: "yyyy/m/d gtm+1",
+        stop: ""
+        },
+        x: [],
+        y: []
+    }
   }  
 );
