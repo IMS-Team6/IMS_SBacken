@@ -1,12 +1,16 @@
-module.exports = function({positionValidation,database}){
+module.exports = function({ positionValidation, database }) {
 
     const exports = {}
-    exports.manageSession = async function(session){
+    exports.manageSession = async function(session, callback) {
         const errors = positionValidation.validatePosition(session)
-          if(errors.length > 0){
-            return errors
-   }
-    return await database.getSession()
+        console.log(errors)
+        if (errors.length > 0) {
+            callback(null, errors)
+            return
+        }
+        const x = await database.getSession()
+        callback(x, errors)
+        return
 
     }
 
