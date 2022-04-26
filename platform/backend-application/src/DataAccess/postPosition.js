@@ -1,6 +1,6 @@
 const { query } = require('express')
 
-const dbClient = require('../mongodb')
+const dbClient = require('./mongodb')
 
 
 module.exports = function() {
@@ -16,22 +16,18 @@ module.exports = function() {
         return result;
     }
 
-  exports.getPositionForMower = async function (){
-      const positions = {
-        Positions: {
-            session_id: "", 
-            session_duration:{
-              start: "yyyy/m/d gtm+1", 
-              stop: ""
-            },
-            x:[1], 
-            y:[1]} 
-      } 
-      return positions
-      }
+    exports.postSession = async function () {
+        await dbClient.connect();
+        const users = dbClient.db("mongodb").collection("position")
+        var result = await users.insetOne()
+
+        dbClient.close();
+        return result;
+    }
 
 
 
 
     return exports
+    
 }

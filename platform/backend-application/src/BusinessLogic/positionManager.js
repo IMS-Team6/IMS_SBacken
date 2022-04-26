@@ -1,12 +1,9 @@
-module.exports = function(){
+module.exports = function({positionValidation}){
+
     const exports = {}
+    exports.manageSession = function(session){
 
-
-
-    exports.getPositionForMower = function(){
-        const objs = {
-            Position: ""
-        }
     }
+
     return exports
 }

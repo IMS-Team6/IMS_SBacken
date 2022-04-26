@@ -1,17 +1,22 @@
 db.auth("root","password")
 
 // This is a test collection
-db.createCollection('position');
-db.position.insert(
+db.createCollection('session');
+
+db.session.insert(
   {
-      Positions: {
+      Session: {
         session_id: "",
-        session_duration:{
-        start: "yyyy/m/d gtm+1",
-        stop: ""
+        robotState: "",
+        positions: {
+          posX: [],
+          posY: []
         },
-        x: [],
-        y: []
+        collision: true || false,
+        collisionPos: {
+          collX: [],
+          collY: []
+        },
     }
-  }  
+  }
 );
