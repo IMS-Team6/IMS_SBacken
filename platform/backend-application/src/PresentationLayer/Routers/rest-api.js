@@ -17,12 +17,11 @@ module.exports = function ({database}) {
     })
 
     //This is a test function
-    router.get('/home', async function (request, response) {
-        
+    router.get('/position', async function (request, response) { 
             response.status(201).json(await database.getPosition());
-        
+
     })
 
-
+   
     return router
 }
