@@ -8,7 +8,7 @@ module.exports = function({ positionValidation, database }) {
             callback(null, errors)
             return
         }
-        const x = await database.getSession()
+        const x = await database.getSessions()
         callback(x, errors)
         return
 
