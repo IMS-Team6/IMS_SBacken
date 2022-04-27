@@ -5,18 +5,12 @@ const container = awilix.createContainer();
 
 
 container.register({
-  //--------------------- Belongs to same resources------------------//
-  //Account
-//   accountRouter: awilix.asFunction(require("./PresentationLayer/")),
-//   accountManager: awilix.asFunction(require("./bll/account-manager")),
-//   accountValidator: awilix.asFunction(require("./bll/account-validator")),
-//   accountRepository: awilix.asFunction(require("./dal/account-repository")),
-  //This is a test query 
-  database: awilix.asFunction(require("./DataAccess/getPositionQuery/get-position")),
+  database: awilix.asFunction(require("./DataAccess/sessionRepository")),
+  positionValidation: awilix.asFunction(require("./BusinessLogic/positionValidation")),
+  sessionManager: awilix.asFunction(require("./BusinessLogic/sessionManager")),
 
-  //--------------------- Others------------------//
   globals: awilix.asFunction(require("./globals")),
-  restAPI: awilix.asFunction(require("./PresentationLayer/Routers/rest-api")),
+  restAPI: awilix.asFunction(require("./PresentationLayer/Routers/restApi")),
   app: awilix.asFunction(require("./PresentationLayer/app")),
 });
 
