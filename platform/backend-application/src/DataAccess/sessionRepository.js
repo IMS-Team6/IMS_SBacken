@@ -59,7 +59,7 @@ module.exports = function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
         const result = await sessions.updateOne({ sessionID: sessionDataMock.sessionID }, { $push: { "positions.posX": sessionDataMock.positions.posX, "positions.posY": sessionDataMock.positions.posY } });
-
+        dbClient.close();
         return result
     }
 
@@ -76,6 +76,7 @@ module.exports = function() {
         const sessions = dbClient.db("mongodb").collection("session");
         const result = await sessions.updateOne({ sessionID: collisionDataMock.sessionID }, { $push: { "collisionPos.collX": collisionDataMock.collisionPos.collX, "collisionPos.collY": collisionData.collisionPos.collY } });
 
+        dbClient.close();
         return result
     }
 
