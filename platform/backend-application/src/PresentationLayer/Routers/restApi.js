@@ -20,22 +20,18 @@ module.exports = function({ sessionManager }) {
     })
 
     router.post('/session/:sessionId', async function(request, response) {
-        const postPosition = {
-            sessionID: '1234134',
-            roboteState: 'Moving',
-            positions: {
-                posX: 1,
-                posY: 2,
-            },
-        }
-        const sessionId = postPosition.sessionID
-        positionManager.manageSession(postPosition, function(error) {
-            if (error.length == 0) {
-                response.status(200).json()
-            } else {
-                response.status(500).json(error)
-            }
-        })
+        const sessionId = request.body.sessionID
+        const positions = request.body.positions
+        const robotState = request.body.robotState
+
+        database.insertPositions(sessionId, positions, robotState,
+            function(object, error) {
+                if (error.length == 0) {
+                    response.status(201).json(object)
+                } else {
+                    response.status(404).json(error)
+                }
+            })
     });
 
 

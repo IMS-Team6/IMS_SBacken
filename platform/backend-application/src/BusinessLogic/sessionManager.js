@@ -15,5 +15,5 @@ module.exports = function({ positionValidation, database }) {
     }
 
 
-    return exports
+
 }
