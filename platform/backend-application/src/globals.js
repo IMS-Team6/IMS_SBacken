@@ -8,6 +8,7 @@ module.exports = function() {
             positionMustNotBeNull: 'Position X and Y must not be null',
             positionWrongType: 'Wrong datatype for position X,Y',
             sessionIDNotExist: 'Session does not exist',
+            checkYourRequest: 'Bad request, check for raw data in JSON'
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);
