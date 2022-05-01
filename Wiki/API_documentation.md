@@ -1,4 +1,4 @@
-API Doccumentation:
+#API Doccumentation:
 
 URL: http://3.72.195.76/api/PATH
 
@@ -14,6 +14,7 @@ In Depth description:
 TYPE  | PATH                
 ------|-------------
 GET   |  sessions   
+
 Postman: http://3.72.195.76/api/session/123456 
 Additional Postman setting: Not required!
 
@@ -39,6 +40,7 @@ The request returns a list with session objects. The data looks like this:
 TYPE  | PATH                
 ------|-------------
 GET   |  session/sessionID(123456)
+
 Postman: http://3.72.195.76/api/session/123456 
 Additional Postman setting: Not required!  
 
@@ -65,10 +67,10 @@ The request returns the entire session Object and it's attributes.
 TYPE  | PATH                
 ------|--------------------
 POST  |  sessions/sessionID
+
 Postman: http://3.72.195.76/api/session/123456 
 Additional Postman setting: 
-Headers: 
-Key: Content-type   Value: application/json
+Headers -> Key: Content-type   Value: application/json
 Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format 
 
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/media/postman_01.png)
@@ -79,11 +81,11 @@ The request must contain all values as in this object.
 
 ```
 {   
-    "robotState":"Moving",      //
-    "positions":{               //
-        "posX":9,               //
-        "posY":9                //
+    "robotState":"Moving",      // Tells us the current state of robot
+    "positions":{               // And object containing position X and Y 
+        "posX":9,               // Position X in numeric value
+        "posY":9                // Position Y in numeric value
     },
-    "collision":true            //
+    "collision":true            // Current collision state, true or false
 }
 ```
