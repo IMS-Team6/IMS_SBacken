@@ -70,11 +70,10 @@ POST  |  sessions/sessionID
 
 Postman: http://3.72.195.76/api/session/123456 
 Additional Postman setting: 
-Headers -> Key: Content-type   Value: application/json
 Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format 
 
+#Follow these steps
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/media/postman_01.png)
-![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/media/postman_02.png)
 
 Description: Robot should generate a sessionID only once it starts the first time, the sessionID is passed in the POST request!
 The request must contain all values as in this object.

@@ -27,7 +27,7 @@ module.exports = function({ positionValidation, database }) {
 
     exports.managePostSessionData = async function(sessionData, callback) {
         const errors = [];
-        positionValidation.validateSessionPositions(sessionData).forEach(error => {
+        positionValidation.validateSessionData(sessionData).forEach(error => {
             errors.push(error);
         });
         positionValidation.validateSessionID(sessionData).forEach(error => {

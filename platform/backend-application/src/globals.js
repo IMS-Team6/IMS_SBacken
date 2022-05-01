@@ -8,7 +8,11 @@ module.exports = function() {
             positionMustNotBeNull: 'Position X and Y must not be null',
             positionWrongType: 'Wrong datatype for position X,Y',
             sessionIDNotExist: 'Session does not exist',
-            checkYourRequest: 'Bad request, check for raw data in JSON'
+            checkYourRequest: 'Bad request, check for raw data in JSON',
+            collisionIsBoolean: 'collision must be boolean',
+            collisionMustExist: 'Collision must exist in the object',
+            robotStateMustExist: 'Robot state must exist',
+            positionsMustExist: 'Positions must exist'
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);
