@@ -1,12 +1,23 @@
 module.exports = function() {
-    const exports = {}
+    const exports = {};
 
-    exports.validatePosition = function(positions) {
+    exports.validateSessionID = function(sessionData) {
         const error = [];
-        // if ((positions.posX || positions.posY) == null) {
-        //     error.push("postion can not be empty")
-        // }
-        return error
+        const regex = /^[0-9]*$/;
+        if (typeof sessionData != 'string' && regex.test(sessionData)) {
+            error.push("sessionIDNotAStr");
+        };
+        return error;
     }
-    return exports
+
+    exports.validateSessionPositions = function(sessionData) {
+        const error = [];
+        if ((sessionData.positions.posX || sessionData.positions.posY) == null) {
+            error.push("positionMustNotBeNull");
+        } else if ((sessionData.posX || sessionData.posY) == NaN) {
+            error.push("positionWrongType");
+        };
+        return error;
+    }
+    return exports;
 }

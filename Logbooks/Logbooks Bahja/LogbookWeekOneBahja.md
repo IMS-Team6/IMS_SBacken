@@ -19,6 +19,7 @@ this week we had our meetingd mon ,ons, friday  and also we had our sprint plann
 this week we had some problems with the api calls and it took long time to fix it. but we were able to fix get me and osman and we started with the write function where were trying to insert all data that the robot needs 
 
 
-# week 17
+# week 17 20 hours 
  We had our sprint planning we talked about how long we have came with our sprint goals and everyone completed their task
+ we all on the backend pair programmed together. we were working with the api calls but we coulnt still manage it but we made the get request to work. i have started with the post but still working on it 
  

@@ -2,42 +2,56 @@ const express = require('express')
 const jwt = require('jsonwebtoken');
 
 
-module.exports = function({ sessionManager }) {
-    const router = express.Router()
+module.exports = function({ sessionManager, globals }) {
+    const router = express.Router();
 
-    router.get('/session', async function(request, response) {
-        const sessionId = '1234'
+    router.get('/sessions', async function(request, response) {
 
-        sessionManager.manageSession(sessionId, function(object, error) {
-            if (error.length == 0) {
-                response.status(200).json(object)
+        sessionManager.manageGetSessions((errors, data) => {
+
+            console.log(errors, data, 'Some log?', globals.errorTranslation(errors));
+            if (errors.length == 0) {
+                response.status(200).json(data);
             } else {
-                response.status(500).json(error)
-            }
+                response.status(500).json(globals.errorTranslation(errors))
+            };
 
-        })
+        });
 
-    })
-
-    router.post('/session/:sessionId', async function(request, response) {
-        const postPosition = {
-            sessionID: '1234134',
-            roboteState: 'Moving',
-            positions: {
-                posX: 1,
-                posY: 2,
-            },
-        }
-        const sessionId = postPosition.sessionID
-        positionManager.manageSession(postPosition, function(error) {
-            if (error.length == 0) {
-                response.status(200).json()
-            } else {
-                response.status(500).json(error)
-            }
-        })
     });
 
+    router.get('/session/:sessionID', async function(request, response) {
+        const sessionID = request.params.sessionID
 
-    return router
+        sessionManager.manageGetSessionWithID(sessionID, (errors, data) => {
+
+            if (errors.length <= 0) {
+                response.status(200).json(data);
+            } else {
+                response.status(500).json(globals.errorTranslation(errors));
+            };
+
+        });
+
+    });
+
+    router.post('/session/:sessionID', async(request, response) => {
+
+        const sessionData = {
+            sessionID: request.params.sessionID,
+            positions: request.body.positions,
+            robotState: request.body.robotState,
+            collision: request.body.collision
+        };
+        sessionManager.managePostSessionData(sessionData, (errors, success) => {
+            if (errors.length == 0) {
+                response.status(200).json(success);
+            } else {
+                response.status(400).json(globals.errorTranslation(errors));
+            };
+        });
+
+    });
+
+    return router;
 }
