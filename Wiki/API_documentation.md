@@ -73,7 +73,7 @@ Additional Postman setting:
 Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format 
 
 #Follow these steps
-![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/media/postman_01.png)
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/development/Wiki/media/postman_01.png)
 
 Description: Robot should generate a sessionID only once it starts the first time, the sessionID is passed in the POST request!
 The request must contain all values as in this object.
