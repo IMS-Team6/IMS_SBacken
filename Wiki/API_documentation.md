@@ -19,6 +19,7 @@ Additional Postman setting: Not required!
 
 Description: In order to fetch positions from previous sessions and not only the latests
 The request returns a list with session objects. The data looks like this: 
+```
 [
     {
         "_id": "626ef4eef436caf350f32187", // This should not be returned! Although left for debug purpose
@@ -33,6 +34,7 @@ The request returns a list with session objects. The data looks like this:
         "collision": true
     }
 ]
+```
 
 TYPE  | PATH                
 ------|-------------
@@ -43,7 +45,7 @@ Additional Postman setting: Not required!
 Description: To make it possible to draw robot path and collisions, the request fetches specified session using sessionID.
 The request returns the entire session Object and it's attributes.
 
-
+```
 {
     "_id": "626ef4eef436caf350f32188",  //Same as previously mentioned
     "sessionID": "123456",              //
@@ -58,15 +60,24 @@ The request returns the entire session Object and it's attributes.
         "collY": [1,3,2]                // Collision at position Y, latests collision is last in list
     }
 }
+```
 
 TYPE  | PATH                
 ------|--------------------
 POST  |  sessions/sessionID
 Postman: http://3.72.195.76/api/session/123456 
-Additional Postman setting: Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format
-![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/Screenshot_2.png)
-Description: In order to fetch positions from previous sessions and not only the latests
-The request returns a list with session objects. The data looks like this: 
+Additional Postman setting: 
+Headers: 
+Key: Content-type   Value: application/json
+Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format 
+
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/media/postman_01.png)
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/media/postman_02.png)
+
+Description: Robot should generate a sessionID only once it starts the first time, the sessionID is passed in the POST request!
+The request must contain all values as in this object.
+
+```
 {   
     "robotState":"Moving",      //
     "positions":{               //
@@ -75,3 +86,4 @@ The request returns a list with session objects. The data looks like this:
     },
     "collision":true            //
 }
+```
