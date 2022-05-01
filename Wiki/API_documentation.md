@@ -76,7 +76,7 @@ Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSO
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/development/Wiki/media/postman_01.png)
 
 Description: Robot should generate a sessionID only once it starts the first time, the sessionID is passed in the POST request!
-The request must contain all values as in this object.
+The request must contain all values as in this object. sessionID must be a String consisting only of numbers 0-9!
 
 ```
 {   
