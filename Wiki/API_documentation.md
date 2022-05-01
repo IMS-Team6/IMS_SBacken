@@ -64,7 +64,7 @@ TYPE  | PATH
 POST  |  sessions/sessionID
 Postman: http://3.72.195.76/api/session/123456 
 Additional Postman setting: Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format
-
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/feature/B1.2.1/Wiki/Screenshot_2.png)
 Description: In order to fetch positions from previous sessions and not only the latests
 The request returns a list with session objects. The data looks like this: 
 {   
