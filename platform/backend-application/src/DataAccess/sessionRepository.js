@@ -7,7 +7,7 @@ module.exports = function() {
     exports.getSessions = async function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1 }).toArray();
+        const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1, _id: 0 }).toArray();
 
         dbClient.close();
         return result;
