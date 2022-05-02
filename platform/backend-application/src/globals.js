@@ -4,7 +4,7 @@ module.exports = function() {
     exports.errorTranslation = function(error_arr) {
 
         const errorTranslations = {
-            sessionIDNotAStr: 'Session must be a string',
+            sessionIDNotANumerciStr: 'Session must be a string',
             positionMustNotBeNull: 'Position X and Y must not be null',
             positionWrongType: 'Wrong datatype for position X,Y',
             sessionIDNotExist: 'Session does not exist',

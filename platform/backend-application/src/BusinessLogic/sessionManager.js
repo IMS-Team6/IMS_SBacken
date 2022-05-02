@@ -38,9 +38,8 @@ module.exports = function({ positionValidation, database }) {
             callback(errors, null);
             return;
         }
-        console.log(await database.getSessionWithID(sessionData.sessionID), '??')
+
         const exists = await database.getSessionWithID(sessionData.sessionID)
-        console.log(exists)
         if (!exists) {
             const x = await database.createSessionWithID(sessionData);
             callback(errors, x);

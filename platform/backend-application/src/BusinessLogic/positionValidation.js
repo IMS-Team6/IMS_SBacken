@@ -5,7 +5,7 @@ module.exports = function() {
         const error = [];
         const regex = /^[0-9]*$/;
         if (typeof sessionData != 'string' && regex.test(sessionData)) {
-            error.push("sessionIDNotAStr");
+            error.push("sessionIDNotANumerciStr");
         };
         return error;
     }
@@ -21,15 +21,14 @@ module.exports = function() {
         } else if (sessionData.positions.posX == NaN || sessionData.positions.posY == NaN) {
             error.push("positionWrongType");
         };
-        if (sessionData.robotState == (null || undefined)) {
+        if (typeof sessionData.robotState == (null || undefined)) {
             error.push("robotStateMustExist");
         };
         if (sessionData.collision == null || undefined) {
             error.push("collisionMustExist");
-        } else if (sessionData.collision != true || false) {
+        } else if (typeof sessionData.collision != 'boolean') {
             error.push("collisionIsBoolean");
         };
-        console.log(error, 'no error?');
         return error;
     }
     return exports;

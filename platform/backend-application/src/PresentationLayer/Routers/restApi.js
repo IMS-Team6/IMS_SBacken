@@ -9,7 +9,6 @@ module.exports = function({ sessionManager, globals }) {
 
         sessionManager.manageGetSessions((errors, data) => {
 
-            console.log(errors, data, 'Some log?', globals.errorTranslation(errors));
             if (errors.length == 0) {
                 response.status(200).json(data);
             } else {
@@ -43,7 +42,7 @@ module.exports = function({ sessionManager, globals }) {
             robotState: request.body.robotState,
             collision: request.body.collision
         };
-        console.log(request.body)
+
         if (Object.keys(request.body).length === 0 && Object.getPrototypeOf(request.body) === Object.prototype) {
             const error = ['checkYourRequest'];
             response.status(400).json(globals.errorTranslation(error));
