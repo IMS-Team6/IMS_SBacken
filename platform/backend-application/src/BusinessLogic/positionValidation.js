@@ -8,7 +8,7 @@ module.exports = function() {
             error.push("sessionIDNotANumerciStr");
         };
         return error;
-    }
+    };
 
     exports.validateSessionData = function(sessionData) {
         const error = [];
@@ -30,6 +30,7 @@ module.exports = function() {
             error.push("collisionIsBoolean");
         };
         return error;
-    }
+    };
+
     return exports;
-}
+};
