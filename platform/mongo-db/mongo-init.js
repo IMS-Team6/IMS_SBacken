@@ -1,24 +1,43 @@
-db.auth("root","password")
+db.auth("root", "password")
 
-// This is a test collection
-db.createCollection('position');
-
-db.position.insert(
- {
-    Position: {x:"some X value", y:"some Y value"}
-  }  
-);
+db.createCollection('session');
 
 db.createCollection('collisonImg');
 
-db.collisonImg.insert(
-  {
-     sessionID: '', 
-     collision: true ||false, 
-     collisionsAt: undefined || {
-      posX: 1,
-      posY: 2, 
-     },
-     imgURI: './'
-   }  
- );
+db.collisonImg.insert({
+    sessionID: '',
+    collision: true || false,
+    collisionsAt: undefined || {
+        posX: 1,
+        posY: 2,
+    },
+    imgURI: './'
+});
+
+db.session.insert({
+    sessionID: "987654",
+    robotState: "",
+    positions: {
+        posX: [],
+        posY: []
+    },
+    collision: false,
+    collisionPos: {
+        collX: [],
+        collY: []
+    },
+});
+
+db.session.insert({
+    sessionID: "123456",
+    robotState: "Moving",
+    positions: {
+        posX: [0, 1, 1, 0, -1, -2, -2, -1],
+        posY: [0, 1, 2, 3, 3, 2, 1, 0]
+    },
+    collision: true,
+    collisionPos: {
+        collX: [1, 0, -2, -1],
+        collY: [1, 3, 2, 0]
+    },
+});
