@@ -1,18 +1,18 @@
-module.exports = function({ positionValidation, database }) {
+module.exports = function({ sessionValidation, database }) {
 
     const exports = {};
 
 
     exports.manageGetSessions = async function(callback) {
         const errors = [];
-        const x = await database.getSessions(errors);
+        const x = await database.getSessions();
         callback(errors, x);
         return;
     };
 
     exports.manageGetSessionWithID = async function(sessionData, callback) {
         const errors = [];
-        positionValidation.validateSessionID(sessionData).forEach(error => {
+        sessionValidation.validateSessionID(sessionData).forEach(error => {
             errors.push(error);
         });
         if (errors.length > 0) {
@@ -27,10 +27,10 @@ module.exports = function({ positionValidation, database }) {
 
     exports.managePostSessionData = async function(sessionData, callback) {
         const errors = [];
-        positionValidation.validateSessionData(sessionData).forEach(error => {
+        sessionValidation.validateSessionData(sessionData).forEach(error => {
             errors.push(error);
         });
-        positionValidation.validateSessionID(sessionData).forEach(error => {
+        sessionValidation.validateSessionID(sessionData).forEach(error => {
             errors.push(error);
         });
 

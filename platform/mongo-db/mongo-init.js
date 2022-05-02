@@ -6,12 +6,11 @@ db.createCollection('collisonImg');
 
 db.collisonImg.insert({
     sessionID: '',
-    collision: true || false,
-    collisionsAt: undefined || {
+    collisionsAt: {
         posX: 1,
         posY: 2,
     },
-    imgURI: './'
+    imgName: './'
 });
 
 db.session.insert({

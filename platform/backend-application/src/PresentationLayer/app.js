@@ -1,9 +1,8 @@
 const express = require("express");
-const app = express();
 const bodyParser = require('body-parser');
 
 
-module.exports = function({ restAPI }) {
+module.exports = function({ restAPI, fileService }) {
     const app = express();
     app.use(bodyParser.json());
 
@@ -23,6 +22,7 @@ module.exports = function({ restAPI }) {
     });
 
     app.use('/api', restAPI);
+    app.use('/api', fileService);
 
     return app;
 }
