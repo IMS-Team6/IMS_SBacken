@@ -1,6 +1,6 @@
 const formidable = require('formidable');
 
-module.exports = function({ fileValidation, globals, fileHandler, sessionValidation, database, fileRepository }) {
+module.exports = function({ fileValidation, globals, fileHandler, sessionValidation, fileRepository }) {
 
     const uploadPath = globals.uploadPath();
 
@@ -24,11 +24,15 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             const newImgName = sessionID + '_' + timeStamp + '_' + files.collisionImg.originalFilename;
             const newPath = uploadPath + newImgName;
 
-            const dbSuccess = await fileRepository.insertCollisionImg(sessionID, fields, newImgName);
+
             fileHandler.writeFileToServer(newPath, oldPath, function(err, success) {
                 if (err > 0) {
                     errors.push(err)
                 }
+                const dbSuccess = await fileRepository.insertCollisionImg(sessionID, fields, newImgName);
+
+                //When file written to server, and callback is sucess. Use newPath and send image to Google API! Store the img description object to imgCollision
+                //Do it here...
                 callback(errors, { dbSuccess, success })
             })
         })
@@ -47,6 +51,7 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         const imgArrayPath = [];
         const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
 
+        //This can be avoided if path is stored in database, but that would later
         imgArrayObjects.forEach(imgObject => {
             imgArrayPath.push({
                 name: imgObject.imgName,
@@ -55,20 +60,6 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         })
         console.log(imgArrayPath, 'Array with path and name? ')
         callback(errors, imgArrayPath);
-        //     [{
-        //         path: uploadPath + '/1651508580390obstacle.png',
-        //         name: '1651508580390obstacle.png'
-        //     },
-        //     {
-        //         path: uploadPath + '/1651511981320obstacle.png',
-        //         name: '1651511981320obstacle.png'
-        //     },
-        //     {
-        //         path: uploadPath + '/1651511983024obstacle.png',
-        //         name: '1651511983024obstacle.png'
-        //     }
-        // ]
-
     }
 
     return exports

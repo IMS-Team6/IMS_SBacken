@@ -1,5 +1,5 @@
 const { query } = require('express');
-const dbClient = require('./mongodb');
+const dbClient = require('./connectMongodb');
 
 module.exports = function() {
     const exports = {};
