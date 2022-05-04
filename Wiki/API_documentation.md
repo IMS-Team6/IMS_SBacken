@@ -9,7 +9,7 @@ GET   |  session/sessionID  |   Returns an session Object with all attributes
 POST  |  session/sessionID  |   Writes positions sent from robot, must contain collision status (ture||false)
 
 
-In Depth description:
+# ----------- Get *Sessions* -----------
 
 TYPE  | URL | PATH              
 ------|-----|--------
@@ -47,29 +47,47 @@ The request returns a list with session objects. The data looks like this:
 ]
 ```
 
-TYPE  | PATH                
-------|-------------
-GET   |  session/sessionID(123456)
 
-Postman: http://3.72.195.76/api/session/123456 
-Additional Postman setting: Not required!  
+# ----------- Get *session* -----------
+
+TYPE  | URL | PATH              
+------|-----|--------
+GET   |  http://3.72.195.76/api/ | session/${sessionID}   
+
+Postman examle| Additional setting |
+--------------|--------------------|
+| http://3.72.195.76/api/session/123456 |Not required! |
+
+
+
+Key | Value | Datatype | Purpose 
+----|-------|----------|---------
+SessionID | '1234... numeric string' | String | Unique session identifier | 
+robotState | "START", "STOP","MOVING"| String | Robot current state | 
+collision | True or False | Boolean | Easy check if sessions contains collisions |
+positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
+posX | [1,2,3,4] | Array[] | Returns Array[] with values for position X | 
+posY | [9,8,7,6] | Array[] | Returns Array[] with values for position Y |
+collisionPos | {collX[], collY[]} | Object{} | Returns objects with positions X and Y where collisions occured |
+collX | [1,2,3,4] | Array[] | Returns Array[] with values for position X where collision occured | 
+collY | [9,8,7,6] | Array[] | Returns Array[] with values for position Y where collision occured |
 
 Description: To make it possible to draw robot path and collisions, the request fetches specified session using sessionID.
 The request returns the entire session Object and it's attributes.
 
 ```
 {
-    "_id": "626ef4eef436caf350f32188",  //Same as previously mentioned
-    "sessionID": "123456",              //
-    "robotState": "Moving",             //
-    "positions": {                      // Use this object to target posX and posY, can be used as following: positions.posX[i]
-        "posX": [0,1,1,0,],             // Positions X, latests position is last in list
-        "posY": [0,1,2,3,]              // Positions Y, latests position is last in list
+    "_id": "626ef4eef436caf350f32188",  
+    "sessionID": "123456",              
+    "robotState": "Moving",             
+    "positions": {                      
+        "posX": [0,1,1,0,],             
+        "posY": [0,1,2,3,]              
     },
-    "collision": true,                  // Tells whatever there are any collisions in the session
-    "collisionPos": {                   // Use this object to target collX and collX, can be used as following: collisionPos.collX[i]
-        "collX": [1,0,-2,],             // Collision at position X, latests collision is last in list
-        "collY": [1,3,2]                // Collision at position Y, latests collision is last in list
+    "collision": true,                  
+    "collisionPos": {                   
+        "collX": [1,0,-2,],             
+        "collY": [1,3,2]                
     }
 }
 ```
