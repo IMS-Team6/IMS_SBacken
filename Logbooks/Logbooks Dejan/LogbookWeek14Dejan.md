@@ -1,4 +1,5 @@
 # Logbook Week 14 ("First week") Sprint 0 - setting up Total hours this week: ~15hours
+*Note: Hours per week do not include lectures and other discussions...* 
 
   - During this week I've created a GitHub Organization as recommended by Bahja (10min)
 
