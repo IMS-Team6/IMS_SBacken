@@ -1,9 +1,9 @@
-# Logbook Week 15 - Sprint 1 - API and migration to host - Total hours this week: ~22hours
+# Logbook Week 15 - Sprint 1 - API and migration to host - Total hours this week: ~23hours
   
     
   - Week started with sprint planning, loads of discussion about our next steps, our blockers etc. In the backend it was decided to start working on the base functionality of REST API to follow the three layered architecture(TLA). Hardware has decided to focus on the Bluetooth connection, there are some blockers in that regard, and front-end will focus on how to connect the Bluetooth module to the application and building the UI fragments. (120min) 
 
-  - In the backend team, we have created some more tickets that describes features we need in order to fulfill our user stories. Bahja and Osman will work together(pair programming) on the API, the API should follow the TLA. My focus is the migration to host.(~60min) 
+  - In the backend team, we have created some more tickets that describes features we need in order to fulfill our user stories. Bahja and Osman will work together(pair programming) on the API, the API should follow the TLA. My focus is the migration to host.(~120min) 
 
   - There has come up some discussion on how we get and store positions sent from the mower, given the requirements from front-end and mower we have come up with a object. This is probably going to be changed in the future.(30min) 
 
