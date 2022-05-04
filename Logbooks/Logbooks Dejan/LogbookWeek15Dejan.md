@@ -17,3 +17,4 @@
       - finally It works! 
   - Uploading the project to AWS Lightsail, few minutes as the Bitnami server already has git installed. All i had to do is git pull and change to developlent repo.
   - Retrospective for this week was okey, there were still some things to figure out in different teams. Our team (Backend), started working on positions requests. 120min  
+  - Weekend: Helping Bahja setting up her environment on Mac M1 (True hell...) Spent over 6hours doing this, not sure if this can be counted in the project hours
