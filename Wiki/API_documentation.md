@@ -1,6 +1,6 @@
 #API Doccumentation:
 
-URL: http://3.72.195.76/api/PATH
+URI: http://3.72.195.76/api/PATH
 
 TYPE  | PATH                |   Description
 ------|---------------------|------------
@@ -11,7 +11,7 @@ POST  |  session/sessionID  |   Writes positions sent from robot, with current s
 
 # ----------- GET *Sessions* -----------
 
-TYPE  | URI | PATH              
+TYPE  | URL | PATH              
 ------|-----|--------
 GET   |  http://3.72.195.76/api/ | session/${sessionID}   
 
@@ -21,7 +21,7 @@ Postman examle| Additional setting |
 
 
 
-Key | Value | Datatype | Purpose 
+Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
 SessionID | '1234... numeric string' | String | Unique session identifier |
 robotState | "START", "STOP","MOVING"| String | Robot current state |
@@ -50,7 +50,7 @@ The request returns a list with session objects. The data looks like this:
 
 # ----------- GET *session* -----------
 
-TYPE  | URI | PATH              
+TYPE  | URL | PATH              
 ------|-----|--------
 GET   |  http://3.72.195.76/api/ | session/${sessionID}   
 
@@ -60,7 +60,7 @@ Postman examle| Additional setting |
 
 
 
-Key | Value | Datatype | Purpose 
+Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
 SessionID | '1234... numeric string' | String | Unique session identifier | 
 robotState | "START", "STOP","MOVING"| String | Robot current state | 
@@ -94,7 +94,7 @@ The request returns the entire session Object and it's attributes.
 
 # ----------- POST *session* -----------
 
-TYPE  | URI | PATH              
+TYPE  | URL | PATH              
 ------|-----|--------
 POST   |  http://3.72.195.76/api/ | session/${sessionID}   
 
@@ -105,7 +105,7 @@ Postman examle| Additional setting |
 
 ***NOTE! sessionID is passed in the URI***
 
-Key | Value | Datatype | Purpose 
+Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
 robotState | "START", "STOP","MOVING"| String | Robot current state |
 positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
