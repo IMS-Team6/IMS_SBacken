@@ -23,9 +23,9 @@ Postman examle| Additional setting |
 
 Key | Value | Datatype | Purpose 
 ----|-------|----------|---------
-SessionID | '1234... numeric string' | String | Unique session identifier
-robotState | "START", "STOP","MOVING"| String | Robot current state
-collision | True or False | Boolean | Easy check if sessions contains collisions
+SessionID | '1234... numeric string' | String | Unique session identifier |
+robotState | "START", "STOP","MOVING"| String | Robot current state |
+collision | True or False | Boolean | Easy check if sessions contains collisions | 
 
 Description: In order to fetch positions from previous sessions and not only the latests
 The request returns a list with session objects. The data looks like this: 
@@ -92,9 +92,22 @@ The request returns the entire session Object and it's attributes.
 }
 ```
 
-TYPE  | PATH                
-------|--------------------
-POST  |  sessions/sessionID
+
+TYPE  | URL | PATH              
+------|-----|--------
+POST   |  http://3.72.195.76/api/ | session/${sessionID}   
+
+Postman examle| Additional setting |
+--------------|--------------------|
+| http://3.72.195.76/api/session/123456 | Headers: Content/type : application/json |
+|| Body : Raw : JSON|
+
+
+Key | Value | Datatype | Purpose 
+----|-------|----------|---------
+SessionID | '1234... numeric string' | String | Unique session identifier |
+robotState | "START", "STOP","MOVING"| String | Robot current state |
+collision | True or False | Boolean | Easy check if sessions contains collisions | 
 
 Postman: http://3.72.195.76/api/session/123456 
 Additional Postman setting: 
