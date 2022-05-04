@@ -65,10 +65,10 @@ Key | Value | Data Type | Purpose
 SessionID | '1234... numeric string' | String | Unique session identifier | 
 robotState | "START", "STOP","MOVING"| String | Robot current state | 
 collision | True or False | Boolean | Easy check if sessions contains collisions |
-positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
+positions | {posX[], posY[]} | Object{[],[]} | Returns object with positions X and Y | 
 posX | [1,2,3,4] | Array[Int] | Returns Array[] with values for position X | 
 posY | [9,8,7,6] | Array[Int] | Returns Array[] with values for position Y |
-collisionPos | {collX[], collY[]} | Object{} | Returns objects with positions X and Y where collisions occured |
+collisionPos | {collX[], collY[]} | Object{[],[]} | Returns objects with positions X and Y where collisions occured |
 collX | [1,2,3,4] | Array[Int] | Returns Array[] with values for position X where collision occured | 
 collY | [9,8,7,6] | Array[Int] | Returns Array[] with values for position Y where collision occured |
 
@@ -108,9 +108,9 @@ Postman examle| Additional setting |
 Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
 robotState | "START", "STOP","MOVING"| String | Robot current state |
-positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
-posX | [1,2,3,4] | Array[Int] | Returns Array[] with values for position X | 
-posY | [9,8,7,6] | Array[Int] | Returns Array[] with values for position Y |
+positions | {posX:1, posY:2} | Object{} | Returns object with positions X and Y | 
+posX | 1 | Int | Returns Int value for position X | 
+posY | 2 | Int | Returns Int value for position Y |
 collision | True or False | Boolean | Collision occured | 
 
 
