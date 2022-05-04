@@ -1,5 +1,6 @@
 
 # Logbook Week 16 - Sprint 2 - Pre study on reading/writing files - Total hours this week: ~20 hours *Easter-friday 4 days week*
+*Note: Hours per week do not include lectures and other discussions...* 
 
   - This week during the Sprint planning, we set new goals. Our team did not manage to finish the functions for reading and writing positions. There is a lot of uncertanty abot what data should be send and recieved. Because of that i've decided to join the hardare team during their sessions, looke at how they work and how they are planning to write the code. This gave me some idea of how the data is going to be recived and what data we will need to send to front end. (120min).
   - Sprint planing: During the sprint planing our Team didn't meed the goal, writing API requests for position data. (Spring planning: 60min)
