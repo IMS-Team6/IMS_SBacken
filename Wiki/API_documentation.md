@@ -20,6 +20,13 @@ Additional Postman setting: Not required!
 
 Description: In order to fetch positions from previous sessions and not only the latests
 The request returns a list with session objects. The data looks like this: 
+Key | Value | Datatype | Purpose 
+----|-------|----------|---------
+SessionID | 'some numeric string' | String | Unique identifier for the session
+robotState | "START", "STOP","MOVING"| String | Robot current state
+collision | True or False | Boolean | Easy check if sessions contains collisions
+
+
 ```
 [
     {
