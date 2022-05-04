@@ -1,5 +1,5 @@
 # Logbook Week 15 - Sprint 1 - API and migration to host - Total hours this week: ~23hours
-  
+ *Note: Hours per week do not include lectures and other discussions...* 
     
   - Week started with sprint planning, loads of discussion about our next steps, our blockers etc. In the backend it was decided to start working on the base functionality of REST API to follow the three layered architecture(TLA). Hardware has decided to focus on the Bluetooth connection, there are some blockers in that regard, and front-end will focus on how to connect the Bluetooth module to the application and building the UI fragments. (120min) 
 
