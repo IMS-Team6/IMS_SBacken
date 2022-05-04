@@ -9,9 +9,9 @@ GET   |  session/sessionID  |   Returns an session Object with all attributes
 POST  |  session/sessionID  |   Writes positions sent from robot, must contain collision status (ture||false)
 
 
-# ----------- Get *Sessions* -----------
+# ----------- GET *Sessions* -----------
 
-TYPE  | URL | PATH              
+TYPE  | URI | PATH              
 ------|-----|--------
 GET   |  http://3.72.195.76/api/ | session/${sessionID}   
 
@@ -48,9 +48,9 @@ The request returns a list with session objects. The data looks like this:
 ```
 
 
-# ----------- Get *session* -----------
+# ----------- GET *session* -----------
 
-TYPE  | URL | PATH              
+TYPE  | URI | PATH              
 ------|-----|--------
 GET   |  http://3.72.195.76/api/ | session/${sessionID}   
 
@@ -92,8 +92,9 @@ The request returns the entire session Object and it's attributes.
 }
 ```
 
+# ----------- POST *session* -----------
 
-TYPE  | URL | PATH              
+TYPE  | URI | PATH              
 ------|-----|--------
 POST   |  http://3.72.195.76/api/ | session/${sessionID}   
 
@@ -102,16 +103,16 @@ Postman examle| Additional setting |
 | http://3.72.195.76/api/session/123456 | Headers: Content/type : application/json |
 || Body : Raw : JSON|
 
+***NOTE! sessionID is passed in the URI***
 
 Key | Value | Datatype | Purpose 
 ----|-------|----------|---------
-SessionID | '1234... numeric string' | String | Unique session identifier |
 robotState | "START", "STOP","MOVING"| String | Robot current state |
-collision | True or False | Boolean | Easy check if sessions contains collisions | 
+positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
+posX | [1,2,3,4] | Array[] | Returns Array[] with values for position X | 
+posY | [9,8,7,6] | Array[] | Returns Array[] with values for position Y |
+collision | True or False | Boolean | Collision occured | 
 
-Postman: http://3.72.195.76/api/session/123456 
-Additional Postman setting: 
-Body -> raw -> JSON  //Make sure to have "Body" selected. Send "raw" data in JSON format 
 
 #Follow these steps
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/development/Wiki/media/postman_01.png)
@@ -121,11 +122,11 @@ The request must contain all values as in this object. sessionID must be a Strin
 
 ```
 {   
-    "robotState":"Moving",      // Tells us the current state of robot
-    "positions":{               // And object containing position X and Y 
-        "posX":9,               // Position X in numeric value
-        "posY":9                // Position Y in numeric value
+    "robotState":"Moving",      
+    "positions":{               
+        "posX":9,              
+        "posY":9               
     },
-    "collision":true            // Current collision state, true or false
+    "collision":true           
 }
 ```
