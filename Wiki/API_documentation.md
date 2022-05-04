@@ -66,11 +66,11 @@ SessionID | '1234... numeric string' | String | Unique session identifier |
 robotState | "START", "STOP","MOVING"| String | Robot current state | 
 collision | True or False | Boolean | Easy check if sessions contains collisions |
 positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
-posX | [1,2,3,4] | Array[] | Returns Array[] with values for position X | 
-posY | [9,8,7,6] | Array[] | Returns Array[] with values for position Y |
+posX | [1,2,3,4] | Array[Int] | Returns Array[] with values for position X | 
+posY | [9,8,7,6] | Array[Int] | Returns Array[] with values for position Y |
 collisionPos | {collX[], collY[]} | Object{} | Returns objects with positions X and Y where collisions occured |
-collX | [1,2,3,4] | Array[] | Returns Array[] with values for position X where collision occured | 
-collY | [9,8,7,6] | Array[] | Returns Array[] with values for position Y where collision occured |
+collX | [1,2,3,4] | Array[Int] | Returns Array[] with values for position X where collision occured | 
+collY | [9,8,7,6] | Array[Int] | Returns Array[] with values for position Y where collision occured |
 
 Description: To make it possible to draw robot path and collisions, the request fetches specified session using sessionID.
 The request returns the entire session Object and it's attributes.
@@ -109,8 +109,8 @@ Key | Value | Datatype | Purpose
 ----|-------|----------|---------
 robotState | "START", "STOP","MOVING"| String | Robot current state |
 positions | {posX[], posY[]} | Object{} | Returns object with positions X and Y | 
-posX | [1,2,3,4] | Array[] | Returns Array[] with values for position X | 
-posY | [9,8,7,6] | Array[] | Returns Array[] with values for position Y |
+posX | [1,2,3,4] | Array[Int] | Returns Array[] with values for position X | 
+posY | [9,8,7,6] | Array[Int] | Returns Array[] with values for position Y |
 collision | True or False | Boolean | Collision occured | 
 
 
