@@ -1,4 +1,4 @@
-# Logbook Week 15 - Sprint 1 - API and migration to host - Total hours this week: 8.5hours... and counting 
+# Logbook Week 15 - Sprint 1 - API and migration to host - Total hours this week: ~22hours
   
     
   - Week started with sprint planning, loads of discussion about our next steps, our blockers etc. In the backend it was decided to start working on the base functionality of REST API to follow the three layered architecture(TLA). Hardware has decided to focus on the Bluetooth connection, there are some blockers in that regard, and front-end will focus on how to connect the Bluetooth module to the application and building the UI fragments. (120min) 
@@ -16,4 +16,4 @@
       - setting up apache was straight forward, change the config file, save and reboot... Around 30min-1hour 
       - finally It works! 
   - Uploading the project to AWS Lightsail, few minutes as the Bitnami server already has git installed. All i had to do is git pull and change to developlent repo.
-  - Retrospective for this week was okey, there were still some things to figure out in different teams. Our team (Backend), started working on positions requests.  
+  - Retrospective for this week was okey, there were still some things to figure out in different teams. Our team (Backend), started working on positions requests. 120min  
