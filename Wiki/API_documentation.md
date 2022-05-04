@@ -11,29 +11,32 @@ POST  |  session/sessionID  |   Writes positions sent from robot, must contain c
 
 In Depth description:
 
-TYPE  | PATH                
-------|-------------
-GET   |  sessions   
+TYPE  | URL | PATH              
+------|-----|--------
+GET   |  http://3.72.195.76/api/ | session/${sessionID}   
 
-Postman: http://3.72.195.76/api/session/123456 
-Additional Postman setting: Not required!
+Postman examle| Additional setting |
+--------------|--------------------|
+| http://3.72.195.76/api/session/123456 |Not required! |
 
-Description: In order to fetch positions from previous sessions and not only the latests
-The request returns a list with session objects. The data looks like this: 
+
+
 Key | Value | Datatype | Purpose 
 ----|-------|----------|---------
-SessionID | 'some numeric string' | String | Unique identifier for the session
+SessionID | '1234... numeric string' | String | Unique session identifier
 robotState | "START", "STOP","MOVING"| String | Robot current state
 collision | True or False | Boolean | Easy check if sessions contains collisions
 
+Description: In order to fetch positions from previous sessions and not only the latests
+The request returns a list with session objects. The data looks like this: 
 
 ```
 [
     {
         "_id": "626ef4eef436caf350f32187", // This should not be returned! Although left for debug purpose
-        "sessionID": "987654",             // Use this to fetch specific session
-        "robotState": "",                  // Use this state to handle current ongoing session
-        "collision": false                 // Use this check to draw collisions
+        "sessionID": "987654",             
+        "robotState": "",                  
+        "collision": false                 
     },
     {
         "_id": "626ef4eef436caf350f32188",
