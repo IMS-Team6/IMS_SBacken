@@ -1,4 +1,5 @@
 # Logbook Week 13 (Introduction week) Total hours this week:~10hrs
+*Note: Hours per week do not include lectures and other discussions...* 
 
 During this week, i have:
   - Created different channels in our discord, each channel has its purpose 
