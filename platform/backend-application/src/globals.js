@@ -20,7 +20,8 @@ module.exports = function() {
             collisionMustExist: 'Collision must exist in the object',
             robotStateMustExist: 'Robot state must exist',
             positionsMustExist: 'Positions must exist',
-            fileSizeLimit: 'Filie size is to big, max size 20MB'
+            fileSizeLimit: 'File size is too big, max size 20MB',
+            fileTypeNotSupported: 'File type is not supported'
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

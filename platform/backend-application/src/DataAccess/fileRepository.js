@@ -13,12 +13,15 @@ module.exports = function() {
         delete collisionImg['_id']
         console.log(fields, 'from REpo')
         collisionImg.sessionID = sessionID;
-        collisionImg.collisionsAt.posX = fields.posX;
+        collisionImg.collisionsAt.posX = fields.posX;  //.posX
         collisionImg.collisionsAt.posY = fields.posY;
         collisionImg.imgName = imgName;
 
         // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
         const resultX = await sessions.insertOne(collisionImg);
+
+        // ifsats som kollar errors från mongodb. skicka tillbaka egen error. ex. internall server error
+        console.log(resultX);
 
         dbClient.close();
         return resultX;

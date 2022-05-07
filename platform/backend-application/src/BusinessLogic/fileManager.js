@@ -15,17 +15,36 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         });
 
         form.parse(request, async function(err, fields, files) {
+            console.log("Parsing done.");
+            console.dir(request.headers);
+            console.log(fields);
+            console.log(files);
+
             if (err) {
                 callback(err, []);
                 return;
             }
+
+            //file error handling
+            const file = files.collisionImg;
+            console.log(file)
+            fileValidation.validateFile(file).forEach(error => {
+                errors.push(error);
+            });
+
+            if (errors.length > 0) {
+                callback(errors, null);
+                return;
+            }
+
             const oldPath = files.collisionImg.filepath;
             const timeStamp = new Date().valueOf().toString()
             const newImgName = sessionID + '_' + timeStamp + '_' + files.collisionImg.originalFilename;
             const newPath = uploadPath + newImgName;
 
 
-            fileHandler.writeFileToServer(newPath, oldPath, function(err, success) {
+
+            fileHandler.writeFileToServer(newPath, oldPath, async function(err, success) {
                 if (err > 0) {
                     errors.push(err)
                 }
