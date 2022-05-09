@@ -5,8 +5,8 @@ module.exports = function({ positionValidation, database }) {
 
     exports.manageGetSessions = async function(callback) {
         const errors = [];
-        const x = await database.getSessions(errors);
-        callback(errors, x);
+        const getSessions = await database.getSessions(errors);
+        callback(errors, getSessions);
         return;
     };
 
@@ -19,8 +19,8 @@ module.exports = function({ positionValidation, database }) {
             callback(errors, null);
             return;
         }
-        const x = await database.getSessionWithID(sessionData);
-        callback(errors, x);
+        const getSessionId = await database.getSessionWithID(sessionData);
+        callback(errors, getSessionId);
         return;
 
     };
@@ -41,12 +41,12 @@ module.exports = function({ positionValidation, database }) {
 
         const exists = await database.getSessionWithID(sessionData.sessionID)
         if (!exists) {
-            const x = await database.createSessionWithID(sessionData);
-            callback(errors, x);
+            const createSessionId = await database.createSessionWithID(sessionData);
+            callback(errors, createSessionId);
             return;
         }
-        const x = await database.writePositions(sessionData);
-        callback(errors, x);
+        const writePosition = await database.writePositions(sessionData);
+        callback(errors, writePosition);
         return;
 
     };
