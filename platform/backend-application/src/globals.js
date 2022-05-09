@@ -21,7 +21,10 @@ module.exports = function() {
             robotStateMustExist: 'Robot state must exist',
             positionsMustExist: 'Positions must exist',
             fileSizeLimit: 'File size is too big, max size 20MB',
-            fileTypeNotSupported: 'File type is not supported'
+            fileTypeNotSupported: 'File type is not supported',
+            collisionsAtMustExist: 'Collision positions must exist',
+            invalidImageKey: 'Wrong collision image key name',
+            internalError: "Internal server error"
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

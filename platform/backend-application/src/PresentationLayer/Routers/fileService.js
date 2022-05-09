@@ -6,16 +6,15 @@ module.exports = function({ globals, fileManager, fileRepository }) {
     const uploadPath = globals.uploadPath();
     const router = express.Router()
 
-
-    //This is a test function
-
     router.post('/upload/:sessionID', (request, response, next) => {
 
-        const sessionID = request.params.sessionID;
+        const payload = {
+            sessionID: request.params.sessionID,
+        };
 
-        fileManager.manageFileUpload(sessionID, request, function(errs, success) {
-            if (errs > 0) {
-                response.send(err)
+        fileManager.manageFileUpload(payload, request, function(errs, success) {
+            if (errs) {
+                response.send(globals.errorTranslation(errs))
                 return
             }
             response.send('success');

@@ -4,27 +4,28 @@ const dbClient = require('./connectMongodb');
 module.exports = function() {
     const exports = {};
 
-    exports.insertCollisionImg = async function(sessionID, fields, imgName) {
+    exports.insertCollisionImg = async function(sessionID, collisionsAt, imgName) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
         //This duplicates the entier object from mongoDB without _id
         var collisionImg = await sessions.findOne({ sessionID: '' }, { _id: 0 });
         // Set the values from sessinData to the duplicated object
         delete collisionImg['_id']
-        console.log(fields, 'from REpo')
         collisionImg.sessionID = sessionID;
-        collisionImg.collisionsAt.posX = fields.posX;  //.posX
-        collisionImg.collisionsAt.posY = fields.posY;
+        collisionImg.collisionsAt.posX = collisionsAt.posX;  //.posX
+        collisionImg.collisionsAt.posY = collisionsAt.posY;
         collisionImg.imgName = imgName;
 
-        // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
-        const resultX = await sessions.insertOne(collisionImg);
+        try{
+            // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
+            const resultX = await sessions.insertOne(collisionImg);
+            dbClient.close();
+            return resultX;
 
-        // ifsats som kollar errors från mongodb. skicka tillbaka egen error. ex. internall server error
-        console.log(resultX);
+        }catch{
 
-        dbClient.close();
-        return resultX;
+            return ["internalError"]
+        }
     };
 
     exports.getAllCollisionImg = async function(sessionID) {
