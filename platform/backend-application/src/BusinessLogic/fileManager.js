@@ -1,4 +1,6 @@
 const formidable = require('formidable');
+const vision = require('@google-cloud/vision');
+const googleClient = new vision.ImageAnnotatorClient();
 
 module.exports = function({ fileValidation, globals, fileHandler, sessionValidation, fileRepository }) {
 
@@ -25,10 +27,15 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             const newPath = uploadPath + newImgName;
 
 
-            fileHandler.writeFileToServer(newPath, oldPath, function(err, success) {
+            fileHandler.writeFileToServer(newPath, oldPath, async function(err, success) {
                 if (err > 0) {
                     errors.push(err)
                 }
+                const [result] = await googleClient.labelDetection(newPath);
+                const labels = result.labelAnnotations;
+                console.log('Labels:', labels);
+                labels.forEach(label => console.log(label.description));
+
                 const dbSuccess = await fileRepository.insertCollisionImg(sessionID, fields, newImgName);
 
                 //When file written to server, and callback is sucess. Use newPath and send image to Google API! Store the img description object to imgCollision

@@ -8,6 +8,8 @@ services:
       - "./backend-application/src:/backend-application/src"
     depends_on:
       - mongo-db
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/backend-application/src/graphite-dynamo-349714-d77272278b58.json
   mongo-db:
     image: mongo:latest
     container_name: mongodb
