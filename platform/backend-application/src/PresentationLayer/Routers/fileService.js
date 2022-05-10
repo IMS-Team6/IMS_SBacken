@@ -48,7 +48,7 @@ module.exports = function({ globals, fileManager, fileRepository }) {
         const sessionID = request.params.sessionID
         const imgName = request.params.imgName
 
-        fileManager.manageSingelFileDownload(sessionID, imgName, function(error, imgPath) {
+        fileManager.manageSingleFileDownload(sessionID, imgName, function(error, imgPath) {
             if (error > 0) {
                 response.status(400).json('Failed')
             }

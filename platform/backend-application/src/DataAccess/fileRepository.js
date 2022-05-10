@@ -21,9 +21,7 @@ module.exports = function() {
             const resultX = await sessions.insertOne(collisionImg);
             dbClient.close();
             return resultX;
-
         }catch{
-
             return ["internalError"]
         }
     };
@@ -31,21 +29,33 @@ module.exports = function() {
     exports.getAllCollisionImg = async function(sessionID) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
-        //This duplicates the entier object from mongoDB without _id
-        const result = await sessions.find({ sessionID: sessionID }).toArray();
+        
+        try{
+            //This duplicates the entier object from mongoDB without _id
+            const result = await sessions.find({ sessionID: sessionID }).toArray();
+            dbClient.close();
+            return result;
+        }catch{
+            return ["internalError"]
+        }
 
-        dbClient.close();
-        return result;
+        
     };
 
     exports.getOneCollisionImg = async function(sessionID, imgName) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
-        //This duplicates the entier object from mongoDB without _id
-        var result = await sessions.findOne({ sessionID: sessionID, imgName: imgName }, { _id: 0 });
 
-        dbClient.close();
-        return result;
+        try{
+            //This duplicates the entier object from mongoDB without _id
+            var result = await sessions.findOne({ sessionID: sessionID, imgName: imgName }, { _id: 0 });
+            dbClient.close();
+            return result;
+        }catch{
+            return ["internalError"]
+        }
+
+        
     };
 
 

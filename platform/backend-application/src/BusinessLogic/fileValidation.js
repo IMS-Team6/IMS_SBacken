@@ -6,16 +6,13 @@ module.exports = function({ globals }) {
         const maxFileSize = 1024 * 1024 * 1; //Add to globals folder   
         const allowedExtensions = /(\jpg|\jpeg|\svg|\png)$/i;   // allowed image formats: jpg/jpeg/png/svg
 
-        console.log('Validating file type...')
-        
+        console.log('validating file type...')
         if (!allowedExtensions.exec(file.mimetype)) {
             error.push('fileTypeNotSupported')
-            console.log('filetype: ' + file.mimetype)
             return error
           }
 
-          console.log('Validating file size...')
-          console.log('filesize: ' + file.size)
+          console.log('validating file size...')
         if (file.size > maxFileSize) {
             error.push('fileSizeLimit')
         }

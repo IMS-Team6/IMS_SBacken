@@ -74,8 +74,16 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         })
     }
 
-    exports.manageSingelFileDownload = async function(sessionID, imgName, callback) {
+    exports.manageSingleFileDownload = async function(sessionID, imgName, callback) {
         const errors = [];
+        sessionValidation.validateSessionID(uploadData.sessionID).forEach(error => {
+            errors.push(error);
+        });
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+
         const oneImg = await fileRepository.getOneCollisionImg(sessionID, imgName);
         console.log(oneImg)
         const imgPath = uploadPath + oneImg.imgName;
@@ -85,6 +93,15 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
     exports.manageMultipleFileDownload = async function(sessionID, callback) {
         const errors = [];
         const imgArrayPath = [];
+
+        sessionValidation.validateSessionID(uploadData.sessionID).forEach(error => {
+            errors.push(error);
+        });
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+
         const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
 
         //This can be avoided if path is stored in database, but that would later
