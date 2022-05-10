@@ -6,4 +6,4 @@
   - Rewriting documentation for Rest API (60min)
   - Meeting with backend-team 120min
   - Retrospective/Demo 60min 
-  - Yet another meeting 120min
+  - Yet another meeting and creating "issues" 120min
