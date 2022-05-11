@@ -1,11 +1,11 @@
 const formidable = require('formidable');
 const vision = require('@google-cloud/vision');
+
 const googleClient = new vision.ImageAnnotatorClient();
 
 module.exports = function({ fileValidation, globals, fileHandler, sessionValidation, fileRepository }) {
 
     const uploadPath = globals.uploadPath();
-
     const exports = {}
 
     exports.manageFileUpload = function(sessionID, request, callback) {
@@ -16,7 +16,7 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             errors.push(error);
         });
 
-        form.parse(request, async function(err, fields, files) {
+        form.parse(request, function(err, fields, files) {
             if (err) {
                 callback(err, []);
                 return;
@@ -31,10 +31,12 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
                 if (err > 0) {
                     errors.push(err)
                 }
-                const [result] = await googleClient.labelDetection(newPath);
-                const labels = result.labelAnnotations;
-                console.log('Labels:', labels);
-                labels.forEach(label => console.log(label.description));
+
+                const request = { image: { source: { filename: newPath } } }
+                const [result] = await googleClient.objectLocalization(request);
+                const objects = result.localizedObjectAnnotations;
+
+                fileHandler.highlightImageObjects(newPath, objects);
 
                 const dbSuccess = await fileRepository.insertCollisionImg(sessionID, fields, newImgName);
 
