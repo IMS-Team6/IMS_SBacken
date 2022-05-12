@@ -13,6 +13,17 @@ module.exports = function() {
         return result;
     }
 
+    exports.getSessionRobotState = async function() {
+        //return dbClient.serverStatus()
+        await dbClient.connect()
+        const sessions = dbClient.db("mongodb").collection("session");
+        const result = await sessions.findOne({ robotState: thisRobotState })
+        console.log(result);
+        dbClient.close();
+        return result;
+
+
+    }
     exports.getSessionWithID = async function(thisSessionID) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
@@ -21,7 +32,6 @@ module.exports = function() {
         dbClient.close();
         return result;
     };
-
     //Call this function on robotState: START
     exports.createSessionWithID = async function(sessionData) {
         await dbClient.connect();
@@ -39,6 +49,7 @@ module.exports = function() {
             duplicate.collisionPos.collX.push(sessionData.positions.posX);
             duplicate.collisionPos.collY.push(sessionData.positions.posY);
         }
+
 
         // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
         const resultX = await sessions.insertOne(duplicate);
