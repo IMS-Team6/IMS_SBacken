@@ -12,7 +12,8 @@ module.exports = function() {
             collisionIsBoolean: 'collision must be boolean',
             collisionMustExist: 'Collision must exist in the object',
             robotStateMustExist: 'Robot state must exist',
-            positionsMustExist: 'Positions must exist'
+            positionsMustExist: 'Positions must exist',
+            positionTypeIsNotInteger: "postion type is not an intenger"
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

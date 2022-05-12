@@ -19,7 +19,7 @@ module.exports = function({ positionValidation, sessionRepository }) {
             callback(errors, null);
             return;
         }
-        const getSessionId = await sessionRepository.getSessionWithID(sessionData);
+        const getSessionId = await sessionRepository.getSessionRobotState(sessionData.sessionID);
         callback(errors, getSessionId);
         return;
 
@@ -48,6 +48,8 @@ module.exports = function({ positionValidation, sessionRepository }) {
             return;
 
         }
+        const robotState = await sessionRepository.getSessionWithID(sessionData.sessionID)
+
         const writePosition = await sessionRepository.writePositions(sessionData);
         callback(errors, writePosition);
         return;
@@ -67,7 +69,7 @@ module.exports = function({ positionValidation, sessionRepository }) {
         }
         try {
 
-            const getState = await sessionRepository.getSessionRobotState(sessionData);
+            //   const getState = await sessionRepository.getSessionRobotState(sessionData);
             const previousState = await sessionRepository.getSessionWithID(errors);
             if (getState == previousState) {
                 callback(null, "Move");

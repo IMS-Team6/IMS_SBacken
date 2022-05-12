@@ -13,11 +13,11 @@ module.exports = function() {
         return result;
     }
 
-    exports.getSessionRobotState = async function() {
+    exports.getSessionRobotState = async function(sessionID) {
         //return dbClient.serverStatus()
         await dbClient.connect()
         const sessions = dbClient.db("mongodb").collection("session");
-        const result = await sessions.findOne({ robotState: thisRobotState })
+        const result = await sessions.findOne({ robotState })
         console.log(result);
         dbClient.close();
         return result;
