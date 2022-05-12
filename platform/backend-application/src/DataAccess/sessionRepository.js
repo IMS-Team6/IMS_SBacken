@@ -1,5 +1,5 @@
 const { query } = require('express');
-const dbClient = require('./mongodb');
+const dbClient = require('./connectMongodb');
 
 module.exports = function() {
     const exports = {};
@@ -62,9 +62,6 @@ module.exports = function() {
         dbClient.close();
         return result;
     };
-
-
-
 
     return exports;
 

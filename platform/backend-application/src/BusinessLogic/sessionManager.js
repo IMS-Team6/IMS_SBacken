@@ -1,25 +1,25 @@
-module.exports = function({ positionValidation, database }) {
+module.exports = function({ sessionValidation, sessionRepository }) {
 
     const exports = {};
 
 
     exports.manageGetSessions = async function(callback) {
         const errors = [];
-        const x = await database.getSessions(errors);
+        const x = await sessionRepository.getSessions();
         callback(errors, x);
         return;
     };
 
     exports.manageGetSessionWithID = async function(sessionData, callback) {
         const errors = [];
-        positionValidation.validateSessionID(sessionData).forEach(error => {
+        sessionValidation.validateSessionID(sessionData).forEach(error => {
             errors.push(error);
         });
         if (errors.length > 0) {
             callback(errors, null);
             return;
         }
-        const x = await database.getSessionWithID(sessionData);
+        const x = await sessionRepository.getSessionWithID(sessionData);
         callback(errors, x);
         return;
 
@@ -27,10 +27,10 @@ module.exports = function({ positionValidation, database }) {
 
     exports.managePostSessionData = async function(sessionData, callback) {
         const errors = [];
-        positionValidation.validateSessionData(sessionData).forEach(error => {
+        sessionValidation.validateSessionData(sessionData).forEach(error => {
             errors.push(error);
         });
-        positionValidation.validateSessionID(sessionData).forEach(error => {
+        sessionValidation.validateSessionID(sessionData).forEach(error => {
             errors.push(error);
         });
 
@@ -39,13 +39,13 @@ module.exports = function({ positionValidation, database }) {
             return;
         }
 
-        const exists = await database.getSessionWithID(sessionData.sessionID)
+        const exists = await sessionRepository.getSessionWithID(sessionData.sessionID)
         if (!exists) {
-            const x = await database.createSessionWithID(sessionData);
+            const x = await sessionRepository.createSessionWithID(sessionData);
             callback(errors, x);
             return;
         }
-        const x = await database.writePositions(sessionData);
+        const x = await sessionRepository.writePositions(sessionData);
         callback(errors, x);
         return;
 

@@ -2,6 +2,17 @@ db.auth("root", "password")
 
 db.createCollection('session');
 
+db.createCollection('collisonImg');
+
+db.collisonImg.insert({
+    sessionID: '',
+    collisionsAt: {
+        posX: 1,
+        posY: 2,
+    },
+    imgName: './'
+});
+
 db.session.insert({
     sessionID: "987654",
     robotState: "",
