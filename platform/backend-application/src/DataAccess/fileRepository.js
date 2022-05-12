@@ -43,7 +43,7 @@ module.exports = function() {
     };
 
     exports.getAllCollisionImg = async function(sessionID) {
-        const errors = [];
+        
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
         

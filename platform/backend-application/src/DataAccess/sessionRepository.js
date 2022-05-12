@@ -27,7 +27,7 @@ module.exports = function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
         //This duplicates the entier object from mongoDB without _id
-        var duplicate = await sessions.findOne({ sessionID: '987654' }, { _id: 0 });
+        var duplicate = await sessions.findOne({ sessionID: '987654'}, { _id: 0 });
         // Set the values from sessinData to the duplicated object
         delete duplicate['_id']
         duplicate.sessionID = sessionData.sessionID;
@@ -48,6 +48,13 @@ module.exports = function() {
     };
 
     exports.writePositions = async function(sessionData) {
+        
+        await dbClient.connect();
+        const sessions = dbClient.db("mongodb").collection("session");
+        var duplicate = await sessions.findOne({ sessionID: sessionData.sessionID}, { _id: 0 });
+        if(dublicate.robotState == "Stop" || sessionData.robotState == "Start"){
+            return ["wrongRobotState"]
+        }
 
         let query = {};
         if (sessionData.collision === true) {
@@ -55,9 +62,7 @@ module.exports = function() {
         } else {
             query = { $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
         };
-
-        await dbClient.connect();
-        const sessions = dbClient.db("mongodb").collection("session");
+        
         const result = await sessions.updateOne({ sessionID: sessionData.sessionID }, query);
         dbClient.close();
         return result;

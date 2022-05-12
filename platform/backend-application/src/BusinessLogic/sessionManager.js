@@ -46,6 +46,7 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             return;
         }
         const x = await sessionRepository.writePositions(sessionData);
+        
         callback(errors, x);
         return;
 
