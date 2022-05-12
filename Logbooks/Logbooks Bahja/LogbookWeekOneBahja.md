@@ -23,3 +23,5 @@ this week we had some problems with the api calls and it took long time to fix i
  We had our sprint planning we talked about how long we have came with our sprint goals and everyone completed their task
  we all on the backend pair programmed together. we were working with the api calls but we coulnt still manage it but we made the get request to work. i have started with the post but still working on it 
  
+# week 18 13 hours 
+ what i did this week was that changes the variable names to a propper name and making the code easy to read and we had our meeting together with the group 

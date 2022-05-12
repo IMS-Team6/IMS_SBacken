@@ -20,7 +20,9 @@ module.exports = function() {
             error.push("positionMustNotBeNull");
         } else if (sessionData.positions.posX == NaN || sessionData.positions.posY == NaN) {
             error.push("positionWrongType");
-        };
+        } else if ((sessionData.positions.posX % 1) != 0 || (sessionData.positions.posY % 1) != 0) {
+            error.push("positionTypeIsNotInteger");
+        }
         if (typeof sessionData.robotState == (null || undefined)) {
             error.push("robotStateMustExist");
         };

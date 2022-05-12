@@ -5,8 +5,8 @@ module.exports = function({ sessionValidation, sessionRepository }) {
 
     exports.manageGetSessions = async function(callback) {
         const errors = [];
-        const x = await sessionRepository.getSessions();
-        callback(errors, x);
+        const getSessions = await sessionRepository.getSessions(errors);
+        callback(errors, getSessions);
         return;
     };
 
@@ -19,11 +19,13 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             callback(errors, null);
             return;
         }
-        const x = await sessionRepository.getSessionWithID(sessionData);
-        callback(errors, x);
+        const getSessionId = await sessionRepository.getSessionRobotState(sessionData.sessionID);
+        callback(errors, getSessionId);
         return;
 
     };
+
+
 
     exports.managePostSessionData = async function(sessionData, callback) {
         const errors = [];
@@ -41,18 +43,42 @@ module.exports = function({ sessionValidation, sessionRepository }) {
 
         const exists = await sessionRepository.getSessionWithID(sessionData.sessionID)
         if (!exists) {
-            const x = await sessionRepository.createSessionWithID(sessionData);
-            callback(errors, x);
+            const createSessionId = await sessionRepository.createSessionWithID(sessionData);
+            callback(errors, createSessionId);
             return;
+
         }
-        const x = await sessionRepository.writePositions(sessionData);
+        const writePosition = await sessionRepository.writePositions(sessionData);
         
-        callback(errors, x);
+        callback(errors, writePosition);
         return;
+
+
 
     };
 
+    exports.manageGetSessionRobotState = async function(sessionData, callback) {
+        const errors = [];
+        positionValidation.validateSessionID(sessionData).forEach(error => {
+            errors.push(error);
+        });
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+        try {
 
+            //   const getState = await sessionRepository.getSessionRobotState(sessionData);
+            const previousState = await sessionRepository.getSessionWithID(errors);
+            if (getState == previousState) {
+                callback(null, "Move");
+            } else
+                callback(null, "Stop");
+            return;
+
+        } catch (error) {
+            callback(error, null)
+        }
+    }
     return exports;
-
 }
