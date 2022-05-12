@@ -36,7 +36,7 @@ module.exports = function({ sessionManager, globals }) {
 
     router.post('/session/:sessionID', async(request, response) => {
 
-        const sessionData = {
+        const payload = {
             sessionID: request.params.sessionID,
             positions: request.body.positions,
             robotState: request.body.robotState,
@@ -48,7 +48,7 @@ module.exports = function({ sessionManager, globals }) {
             response.status(400).json(globals.errorTranslation(error));
             return;
         }
-        sessionManager.managePostSessionData(sessionData, (errors, success) => {
+        sessionManager.managePostSessionData(payload, (errors, success) => {
             if (errors.length == 0) {
                 response.status(200).json(success);
             } else {

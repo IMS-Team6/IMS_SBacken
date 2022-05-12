@@ -8,29 +8,60 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
     const uploadPath = globals.uploadPath();
     const exports = {}
 
-    exports.manageFileUpload = function(sessionID, request, callback) {
+    exports.manageFileUpload = function(uploadData, request, callback) {
         const form = new formidable.IncomingForm();
         const errors = [];
-
-        sessionValidation.validateSessionID(sessionID).forEach(error => {
+        sessionValidation.validateSessionID(uploadData.sessionID).forEach(error => {
             errors.push(error);
         });
 
-        form.parse(request, function(err, fields, files) {
+        console.log("trying to parse...");
+        form.parse(request, async function(err, fields, files) {
             if (err) {
                 callback(err, []);
                 return;
             }
+            const collisionsAt = {
+                posX: fields.posX,
+                posY: fields.posY
+            }
+            console.log("validating uploadData...");
+            fileValidation.validateUploadData(collisionsAt).forEach(error => {
+                console.log('error validating uploadData: ' + error)
+                errors.push(error);
+            });
+
+            if (!files.collisionImg) {
+                callback(errors, null)
+                return
+            }
+
+            const file = files.collisionImg;
+            fileValidation.validateFile(file).forEach(error => {
+                errors.push(error);
+            });
+
+            if (errors.length > 0) {
+                callback(errors, null);
+                return;
+            }
+
             const oldPath = files.collisionImg.filepath;
             const timeStamp = new Date().valueOf().toString()
-            const newImgName = sessionID + '_' + timeStamp + '_' + files.collisionImg.originalFilename;
+            const newImgName = uploadData.sessionID + '_' + timeStamp + '_' + files.collisionImg.originalFilename;
             const newPath = uploadPath + newImgName;
 
+            <<
+            << << < HEAD
 
+                ===
+                === = >>>
+                >>> > development
             fileHandler.writeFileToServer(newPath, oldPath, async function(err, success) {
                 if (err > 0) {
                     errors.push(err)
-                }
+                } <<
+                << << < HEAD
 
                 const request = { image: { source: { filename: newPath } } }
                 const [result] = await googleClient.objectLocalization(request);
@@ -40,17 +71,45 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
 
                 const dbSuccess = await fileRepository.insertCollisionImg(sessionID, fields, newImgName);
 
+                ===
+                === =
+                const dbResponse = await fileRepository.insertCollisionImg(uploadData.sessionID, collisionsAt, newImgName);
+                if (dbResponse.length > 0) {
+                    dbResponse.forEach(error => {
+                        errors.push(error)
+
+                    })
+                    callback(errors, null)
+                    return
+                } >>>
+                >>> > development
                 //When file written to server, and callback is sucess. Use newPath and send image to Google API! Store the img description object to imgCollision
                 //Do it here...
-                callback(errors, { dbSuccess, success })
+                callback(errors, { dbResponse, success })
             })
         })
     }
 
-    exports.manageSingelFileDownload = async function(sessionID, imgName, callback) {
+    exports.manageSingleFileDownload = async function(sessionID, imgName, callback) {
         const errors = [];
+        sessionValidation.validateSessionID(sessionID).forEach(error => {
+            errors.push(error);
+        });
+
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+
         const oneImg = await fileRepository.getOneCollisionImg(sessionID, imgName);
-        console.log(oneImg)
+        if (oneImg.length > 0) {
+            oneImg.forEach(error => {
+                errors.push(error)
+
+            })
+            callback(errors, null)
+            return
+        }
         const imgPath = uploadPath + oneImg.imgName;
         callback(errors, imgPath)
     }
@@ -58,7 +117,26 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
     exports.manageMultipleFileDownload = async function(sessionID, callback) {
         const errors = [];
         const imgArrayPath = [];
+
+        sessionValidation.validateSessionID(sessionID).forEach(error => {
+            errors.push(error);
+        });
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+
         const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
+
+        if (imgArrayObjects[0] != undefined) {
+            if (typeof imgArrayObjects[0] == "string") {
+                imgArrayObjects.forEach(error => {
+                    errors.push(error)
+                })
+                callback(errors, null)
+                return
+            }
+        }
 
         //This can be avoided if path is stored in database, but that would later
         imgArrayObjects.forEach(imgObject => {
@@ -67,7 +145,6 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
                 path: uploadPath + imgObject.imgName
             })
         })
-        console.log(imgArrayPath, 'Array with path and name? ')
         callback(errors, imgArrayPath);
     }
 
