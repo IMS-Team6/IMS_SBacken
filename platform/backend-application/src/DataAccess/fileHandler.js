@@ -1,7 +1,7 @@
 const fs = require('fs');
 const PImage = require('pureimage');
 const FontManager = require('node-system-fonts');
-const { log } = require('console');
+
 
 
 module.exports = function() {
@@ -27,7 +27,7 @@ module.exports = function() {
         const avaliableFonts = FontManager.getAvailableFontsSync()
 
         const stream = fs.createReadStream(inputFile);
-        console.log(stream)
+
         let promise;
         if (inputFile.match(/\.jpg$/)) {
             promise = PImage.decodeJPEGFromStream(stream);
