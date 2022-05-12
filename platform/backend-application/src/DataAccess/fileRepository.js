@@ -35,10 +35,10 @@ module.exports = function() {
             if(result){
                 return result;
             }else{
-                return ["imageDoesNotExist"]
+                return ["imageDoesNotExist"];
             }
         }catch{
-            return ["internalError"]
+            return ["internalError"];
         }        
     };
 
@@ -51,7 +51,6 @@ module.exports = function() {
             const result = await sessions.find({sessionID: sessionID }).toArray();
             dbClient.close();
             if(result.length > 0){
-
                 return result;
             }else{
                 return ["imageDoesNotExist"];

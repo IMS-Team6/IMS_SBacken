@@ -14,7 +14,7 @@ module.exports = function() {
         const error = [];
         if (sessionData.positions == null || undefined) {
             error.push("positionsMustExist");
-            return error
+            return error;
         };
         if (sessionData.positions.posX == null || sessionData.positions.posY == null) {
             error.push("positionMustNotBeNull");

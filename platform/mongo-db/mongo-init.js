@@ -29,7 +29,7 @@ db.session.insert({
 
 db.session.insert({
     sessionID: "123456",
-    robotState: "Moving",
+    robotState: "MOVING",
     positions: {
         posX: [0, 1, 1, 0, -1, -2, -2, -1],
         posY: [0, 1, 2, 3, 3, 2, 1, 0]
