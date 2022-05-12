@@ -26,40 +26,39 @@ module.exports = function() {
         }
     };
 
-    exports.getAllCollisionImg = async function(sessionID) {
-        await dbClient.connect();
-        const sessions = dbClient.db("mongodb").collection("collisonImg");
-        
-        try{
-            //This duplicates the entier object from mongoDB without _id
-            const result = await sessions.find({ sessionID: sessionID }).toArray();
-            dbClient.close();
-            return result;
-        }catch{
-            return ["internalError"]
-        }
-
-        
-    };
-
     exports.getOneCollisionImg = async function(sessionID, imgName) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
-
         try{
-            //This duplicates the entier object from mongoDB without _id
             var result = await sessions.findOne({ sessionID: sessionID, imgName: imgName }, { _id: 0 });
             dbClient.close();
-            return result;
+            if(result){
+                return result;
+            }else{
+                return ["imageDoesNotExist"]
+            }
         }catch{
             return ["internalError"]
-        }
-
-        
+        }        
     };
 
+    exports.getAllCollisionImg = async function(sessionID) {
+        const errors = [];
+        await dbClient.connect();
+        const sessions = dbClient.db("mongodb").collection("collisonImg");
+        
+        try{
+            const result = await sessions.find({sessionID: sessionID }).toArray();
+            dbClient.close();
+            if(result.length > 0){
 
-
+                return result;
+            }else{
+                return ["imageDoesNotExist"];
+            }
+        }catch{
+            return ["internalError"];
+        }
+    };
     return exports;
-
 }

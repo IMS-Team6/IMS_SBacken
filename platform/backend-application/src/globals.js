@@ -24,7 +24,8 @@ module.exports = function() {
             fileTypeNotSupported: 'File type is not supported',
             collisionsAtMustExist: 'Collision positions must exist',
             invalidImageKey: 'Wrong collision image key name',
-            internalError: "Internal server error"
+            internalError: "Internal server error",
+            imageDoesNotExist: "Image does not exist"
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

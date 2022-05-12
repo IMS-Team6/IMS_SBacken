@@ -34,7 +34,6 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             });
 
             if(!files.collisionImg){
-                errors.push("invalidImageKey")
                 callback(errors, null)
                 return
             }
@@ -76,16 +75,24 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
 
     exports.manageSingleFileDownload = async function(sessionID, imgName, callback) {
         const errors = [];
-        sessionValidation.validateSessionID(uploadData.sessionID).forEach(error => {
+        sessionValidation.validateSessionID(sessionID).forEach(error => {
             errors.push(error);
         });
+
         if (errors.length > 0) {
             callback(errors, null);
             return;
         }
 
         const oneImg = await fileRepository.getOneCollisionImg(sessionID, imgName);
-        console.log(oneImg)
+        if(oneImg.length > 0){
+            oneImg.forEach(error => {
+                errors.push(error)
+                
+            })
+            callback(errors, null)
+            return
+        }
         const imgPath = uploadPath + oneImg.imgName;
         callback(errors, imgPath)
     }
@@ -94,7 +101,7 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         const errors = [];
         const imgArrayPath = [];
 
-        sessionValidation.validateSessionID(uploadData.sessionID).forEach(error => {
+        sessionValidation.validateSessionID(sessionID).forEach(error => {
             errors.push(error);
         });
         if (errors.length > 0) {
@@ -104,6 +111,16 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
 
         const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
 
+        if(imgArrayObjects[0] != undefined){  
+            if(typeof imgArrayObjects[0] == "string"){
+                imgArrayObjects.forEach(error => {
+                    errors.push(error)
+                })
+                callback(errors, null)
+                return
+            }
+        }
+
         //This can be avoided if path is stored in database, but that would later
         imgArrayObjects.forEach(imgObject => {
             imgArrayPath.push({
@@ -111,7 +128,6 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
                 path: uploadPath + imgObject.imgName
             })
         })
-        console.log(imgArrayPath, 'Array with path and name? ')
         callback(errors, imgArrayPath);
     }
 

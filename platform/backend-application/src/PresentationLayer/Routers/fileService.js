@@ -13,15 +13,13 @@ module.exports = function({ globals, fileManager, fileRepository }) {
         };
 
         fileManager.manageFileUpload(payload, request, function(errs, success) {
-            if (errs) {
-                response.send(globals.errorTranslation(errs))
+            if (errs.length > 0) {
+                response.status(400).json(globals.errorTranslation(errs))
                 return
             }
-            response.send('success');
-
+            response.status(200).json("success");
         });
     });
-
 
     router.get('/collisionImg/:sessionID', async function(request, response) {
         console.log('Multiple file download')
@@ -31,6 +29,7 @@ module.exports = function({ globals, fileManager, fileRepository }) {
 
         response.json(objects)
     })
+
     router.get('/collisionImg/:sessionID/:imgName', async function(request, response) {
         console.log('Multiple file download')
 
@@ -41,7 +40,6 @@ module.exports = function({ globals, fileManager, fileRepository }) {
         response.json(objects)
     })
 
-
     router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response) {
         console.log('Single file download')
 
@@ -49,9 +47,11 @@ module.exports = function({ globals, fileManager, fileRepository }) {
         const imgName = request.params.imgName
 
         fileManager.manageSingleFileDownload(sessionID, imgName, function(error, imgPath) {
-            if (error > 0) {
-                response.status(400).json('Failed')
+            if (error.length > 0) {
+                response.status(404).json(globals.errorTranslation(error));
+                return
             }
+            console.log("trying to download the singleImage...")
             response.download(imgPath)
         })
 
@@ -63,17 +63,14 @@ module.exports = function({ globals, fileManager, fileRepository }) {
         const sessionID = request.params.sessionID
 
         fileManager.manageMultipleFileDownload(sessionID, function(error, imgArrayPath) {
-            if (error > 0) {
-                response.status(400).json('Failed to download')
+            if (error.length > 0) {
+                console.log("fileServiceError: " + error)
+                response.status(404).json(globals.errorTranslation(error));
+                return
             }
+            console.log("imgArrayP:" + imgArrayPath);
             response.zip(imgArrayPath);
         })
-
-
-
     })
-
-
-
     return router
 }
