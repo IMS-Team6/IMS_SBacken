@@ -6,22 +6,25 @@ module.exports = function() {
 
     exports.insertCollisionImg = async function(sessionID, collisionsAt, imgName) {
         await dbClient.connect();
-        const sessions = dbClient.db("mongodb").collection("collisonImg");
+        const request = dbClient.db("mongodb").collection("collisonImg");
         //This duplicates the entier object from mongoDB without _id
-        var collisionImg = await sessions.findOne({ sessionID: '' }, { _id: 0 });
-        // Set the values from sessinData to the duplicated object
-        delete collisionImg['_id']
-        collisionImg.sessionID = sessionID;
-        collisionImg.collisionsAt.posX = collisionsAt.posX;  //.posX
-        collisionImg.collisionsAt.posY = collisionsAt.posY;
-        collisionImg.imgName = imgName;
+        var collisionImgObj = await request.findOne({ sessionID: '', });
 
-        try{
+        // Set the values from sessinData to the duplicated object
+        console.log(collisionImgObj)
+        delete collisionImgObj['_id']
+        collisionImgObj.sessionID = sessionID;
+        collisionImgObj.collisionsAt.posX = collisionsAt.posX; //.posX
+        collisionImgObj.collisionsAt.posY = collisionsAt.posY;
+        collisionImgObj.imgName = imgName;
+
+        try {
             // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
-            const resultX = await sessions.insertOne(collisionImg);
+            const dbResponse = await request.insertOne(collisionImgObj);
             dbClient.close();
-            return resultX;
-        }catch{
+            return dbResponse;
+        } catch {
+            dbClient.close();
             return ["internalError"]
         }
     };
@@ -29,34 +32,35 @@ module.exports = function() {
     exports.getOneCollisionImg = async function(sessionID, imgName) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
-        try{
-            var result = await sessions.findOne({ sessionID: sessionID, imgName: imgName }, { _id: 0 });
+        try {
+            const dbResponse = await sessions.findOne({ sessionID: sessionID, imgName: imgName }, { _id: 0 });
             dbClient.close();
-            if(result){
-                return result;
-            }else{
+            if (dbResponse) {
+                return dbResponse;
+            } else {
                 return ["imageDoesNotExist"]
             }
-        }catch{
+        } catch {
+            dbClient.close();
             return ["internalError"]
-        }        
+        }
     };
 
     exports.getAllCollisionImg = async function(sessionID) {
-        const errors = [];
+
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("collisonImg");
-        
-        try{
-            const result = await sessions.find({sessionID: sessionID }).toArray();
-            dbClient.close();
-            if(result.length > 0){
 
-                return result;
-            }else{
+        try {
+            const dbResponse = await sessions.find({ sessionID: sessionID }).toArray();
+            dbClient.close();
+            if (dbResponse.length > 0) {
+                return dbResponse;
+            } else {
                 return ["imageDoesNotExist"];
             }
-        }catch{
+        } catch {
+            dbClient.close();
             return ["internalError"];
         }
     };
