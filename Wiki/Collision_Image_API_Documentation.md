@@ -73,11 +73,7 @@ GET   |  http://3.72.195.76/api/ | /download/collisionImg/${sessionID} |
 
 Postman examle| Additional setting |
 --------------|--------------------|
-| http://3.72.195.76/api/collisionImg/123456 |Not required! |
-
-
-|GET  http://3.72.195.76/api/ | collisionImg/${sessionID}|
-|-----------------------------|--------------------------|
+|GET  http://3.72.195.76/api/collisionImg/123456| Not required! |
 
 Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
@@ -123,15 +119,11 @@ GET   |  http://3.72.195.76/api/ | /download/collisionImg/${sessionID} |
 
 Postman examle| Additional setting |
 --------------|--------------------|
-| http://3.72.195.76/api/collisionImg/123456 |Not required! |
-
-
-|GET http://3.72.195.76/api/  | collisionImg/${sessionID}/${imgName} |
-|-----------------------------|--------------------------------------|
+| GET http://3.72.195.76/api/collisionImg/123456/123456_1652391941122_Screenshot_3.jpg |Not required! |
 
 Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
-SessionID | '1234... numeric string' | String | Unique session identifier |
+SessionID | '1234... ' | String | Unique session identifier |
 collisionsAt | {posX, posX} | Object{Int,Int} | Returns objects with positions X and Y where collisions occured |
 posX | 1 | Int | Returns Integer value for position X where collision image was capture | 
 posY | 2 | Int | Returns Integer value for position Y where collision image was capture|
