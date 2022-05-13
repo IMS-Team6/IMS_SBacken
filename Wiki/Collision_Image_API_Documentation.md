@@ -78,6 +78,7 @@ Postman examle| Additional setting |
 
 |GET  http://3.72.195.76/api/ | collisionImg/${sessionID}|
 |-----------------------------|--------------------------|
+
 Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
 SessionID | '1234... numeric string' | String | Unique session identifier |
@@ -127,6 +128,7 @@ Postman examle| Additional setting |
 
 |GET http://3.72.195.76/api/  | collisionImg/${sessionID}/${imgName} |
 |-----------------------------|--------------------------------------|
+
 Key | Value | Data Type | Purpose 
 ----|-------|----------|---------
 SessionID | '1234... numeric string' | String | Unique session identifier |
