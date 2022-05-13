@@ -24,7 +24,7 @@ POST  |  http://3.72.195.76/api/ | upload/${sessionID}
 Postman examle| Additional setting |
 -------------|--------------------| 
 POST http://3.72.195.76/api/upload/123456 | Headers: Content/type : application/json |
-|| use the Body option |
+|| use the **Body** option and add Key and Value pairs bellow |
 
 
 
@@ -35,20 +35,32 @@ Key | Value | Data Type | Purpose
 collisionImg | some_img.jpeg | File: png, jpeg, jpg |  |
 posX | 1 | Integer | Returns Int value for position X | 
 posY | 2 | Integer | Returns Int value for position Y |
-collision | True or False | Boolean | Collision occured | 
 
-Python Example
+Python Example:
 ```
+
+import requests
+import json
+
+# TODO: Replace ${someValues} with incoming data
+# **Note** sessionID must exists
+url = "http://3.72.195.76/api/upload/${sessionID}"
+
 payload={
-  'posX': '13',
-  'posY': '15'
-  }
+'posX': '${posX}',
+'posY': '${posY}'
+}
 files=[
-  ('collisionImg',('obstacle.png',open('/C:/Users/Dejansky/Desktop/obstacle.png','rb'),'image/png'))
+    #collisionImg is a key!            c:/path/to/image/theImg.jpeg      image/(png,jpeg,jpg)
+  ('collisionImg',('${imageName}',open('${pathToImg}/${imageName}','rb'),'image/png'))
 ]
 headers = {
   'Content-Type': 'application/json'
 }
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text) 
 ```
 
 
