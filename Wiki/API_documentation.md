@@ -1,12 +1,18 @@
-#API Doccumentation:
+# Sessions API Doccumentation:
+
+Defenition of a session:
+    - A sessions can be created only once
+    - Each session is unique
+    - A sessions has a begging("START") and ending("STOP")  
+    - A sessions contains all events initiated during its lifespan 
 
 URI: http://3.72.195.76/api/PATH
 
 TYPE  | PATH                |   Description
 ------|---------------------|------------
 GET   |  sessions           |   Returns an Array[] with Objects of "sessions", a sessions contains sessionID: String, robotStatus: String, collision: Boolean
-GET   |  session/sessionID  |   Returns an session Object with all attributes
-POST  |  session/sessionID  |   Writes positions sent from robot, with current state and collision 
+GET   |  session/${sessionID}  |   Returns an session Object with all attributes
+POST  |  session/${sessionID}  |   Writes positions sent from robot, with current state and collision 
 
 
 # ----------- GET *Sessions* -----------
