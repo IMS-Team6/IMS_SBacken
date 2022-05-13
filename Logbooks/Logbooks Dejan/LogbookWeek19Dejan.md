@@ -17,3 +17,5 @@
     - Merge branches etc. 
     - Adding google auth.json file 
     - Testing that everything works
+  - Retrospective and team meeting - 60min -1hrs 
+  - Writing API documentation - 60min - 1hrs 
