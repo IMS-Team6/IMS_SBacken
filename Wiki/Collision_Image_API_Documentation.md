@@ -1,6 +1,7 @@
 # Sessions API Doccumentation:
 
 Defenition of a cillision image:
+
     - An collision image is captured when a "collision" occures
     - collision image is captured at certain coordinates
 
