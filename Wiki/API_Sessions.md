@@ -1,6 +1,7 @@
 # Sessions API Doccumentation:
 
 Defenition of a session:
+
     - A sessions can be created only once
     - Each session is unique
     - A sessions has a begging("START") and ending("STOP")  
