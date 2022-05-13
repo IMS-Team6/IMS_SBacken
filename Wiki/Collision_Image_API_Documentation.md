@@ -110,7 +110,7 @@ The request returns a list with all collisionImg objects with ${sessionID}. The 
 ```
 
 
-# ----------- GET *collision images* (multi) -----------
+# ----------- GET *collision image* (single) -----------
 
 TYPE  | URL | PATH              
 ------|-----|--------
