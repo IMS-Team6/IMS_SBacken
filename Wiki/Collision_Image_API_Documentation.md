@@ -24,7 +24,7 @@ POST  |  http://3.72.195.76/api/ | upload/${sessionID}
 Postman examle| Additional setting |
 -------------|--------------------| 
 POST http://3.72.195.76/api/upload/123456 | Headers: Content/type : application/json |
-| use the Body option |
+|| use the Body option |
 
 
 
