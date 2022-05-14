@@ -55,9 +55,7 @@ files=[
     #collisionImg is a key!            c:/path/to/image/theImg.jpeg      image/(png,jpeg,jpg)
   ('collisionImg',('${imageName}',open('${pathToImg}/${imageName}','rb'),'image/png'))
 ]
-headers = {
-  'Content-Type': 'application/json'
-}
+headers = {} # Keep the header empty
 
 response = requests.request("POST", url, headers=headers, data=payload, files=files)
 
