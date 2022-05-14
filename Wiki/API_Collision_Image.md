@@ -68,7 +68,7 @@ print(response.text)
 TYPE  | URL | PATH              
 ------|-----|--------
 GET   |  http://3.72.195.76/api/ | collisionImg/${sessionID} |
-GET   |  http://3.72.195.76/api/ | /download/collisionImg/${sessionID} |
+GET   |  http://3.72.195.76/api/ | download/collisionImg/${sessionID} |
 
 Postman examle| Additional setting |
 --------------|--------------------|
@@ -114,7 +114,7 @@ The request returns a list with all collisionImg objects with ${sessionID}. The 
 TYPE  | URL | PATH              
 ------|-----|--------
 GET   |  http://3.72.195.76/api/ | collisionImg/${sessionID} |
-GET   |  http://3.72.195.76/api/ | /download/collisionImg/${sessionID} |
+GET   |  http://3.72.195.76/api/ | download/collisionImg/${sessionID} |
 
 Postman examle| Additional setting |
 --------------|--------------------|
