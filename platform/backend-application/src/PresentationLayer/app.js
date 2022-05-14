@@ -4,11 +4,13 @@ const bodyParser = require('body-parser');
 
 module.exports = function({ sessionAPI, fileServiceAPI }) {
     const app = express();
-    app.use(bodyParser.json());
+
+    app.use(bodyParser.json({ limit: '2mb' }));
 
     app.use(bodyParser.urlencoded({
-        extended: true
-    }))
+        limit: '2mb',
+        extended: true,
+    }));
 
     app.use('/*', function(request, response, next) {
         console.log(request.method, request.url);
