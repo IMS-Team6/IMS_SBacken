@@ -19,3 +19,4 @@
     - Testing that everything works
   - Retrospective and team meeting - 60min -1hrs 
   - Writing API documentation - 60min - 1hrs 
+  - Bugix for POST file request - 180min - 3hrs
