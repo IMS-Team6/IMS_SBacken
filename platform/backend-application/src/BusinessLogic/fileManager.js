@@ -17,7 +17,6 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             return;
         }
 
-        console.log("trying to parse...");
         form.parse(request, async function(err, fields, files) {
             if (err) {
                 callback(err, []);
@@ -27,9 +26,7 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
                 posX: fields.posX,
                 posY: fields.posY
             }
-            console.log("validating uploadData...");
             fileValidation.validateUploadData(collisionsAt).forEach(error => {
-            console.log('error validating uploadData: ' + error)
             errors.push(error);
             });
 

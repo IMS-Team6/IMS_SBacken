@@ -28,11 +28,9 @@ module.exports = function({ sessionValidation, sessionRepository }) {
     exports.managePostSessionData = async function(sessionData, callback) {
         const errors = [];
         sessionValidation.validateSessionData(sessionData).forEach(error => {
-            console.log("Errors while validating sessionData!")
             errors.push(error);
         });
         sessionValidation.validateSessionID(sessionData).forEach(error => {
-            console.log("Errors while validating sessionID!")
             errors.push(error);
         });
 
@@ -47,20 +45,16 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             callback(errors, createSessionId);
             return;
         }
-        console.log("sessionMAN: Session exists!!!!")
         const writePosition = await sessionRepository.writePositions(sessionData);
         
         if(writePosition.length > 0){
-            console.log("Error while writing positions..")
             writePosition.forEach(error => {
                 errors.push(error);
             });
-            
+
             callback(errors, null);
             return;
         };
-
-        console.log("Successfully written positions..")
         callback(errors, writePosition);
         return;
     }

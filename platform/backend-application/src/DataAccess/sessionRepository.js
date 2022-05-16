@@ -52,25 +52,19 @@ module.exports = function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
         var dublicate = await sessions.findOne({ sessionID: sessionData.sessionID}, { _id: 0 });
-        console.log("förra robotstate: " + dublicate.robotState)
-        console.log("nya robotstate: " + sessionData.robotState)
 
         if(dublicate.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")){
-            console.log("Error robot state.....")
             return ["wrongRobotState"];
         }
 
         try{
             let query = {};
-            console.log("Trying to write positions...")
             if (sessionData.collision === true) {
-                console.log("pushing X value ")
                 query = { $set: { robotState: sessionData.robotState, collision: sessionData.collision }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY, "collisionPos.collX": sessionData.positions.posX, "collisionPos.collY": sessionData.positions.posY } };
             } else {
                 query = { $set: { robotState: sessionData.robotState }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
             };
             const result = await sessions.updateOne({ sessionID: sessionData.sessionID}, query);
-            console.log("writing result: " + result)
             dbClient.close();
             return result;
         }catch{
