@@ -1,10 +1,17 @@
-const path = require('path')
+const path = require('path');
+const fs = require('fs');
 
 module.exports = function() {
     const exports = {};
 
     exports.uploadPath = function() {
+
         const uploadPath = path.join(__dirname, 'uploads') + '/';
+
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        };
+
         return uploadPath
     }
 

@@ -1,17 +1,22 @@
 module.exports = function({ globals }) {
     const exports = {}
 
-    exports.validateFile = function(file) {
+    exports.validateFile = function(files) {
         const error = [];
         const maxFileSize = 1024 * 1024 * 1; //Add to globals folder   
-        const allowedExtensions = /(\jpg|\jpeg|\svg|\png)$/i;   // allowed image formats: jpg/jpeg/png/svg
+        const allowedExtensions = /(\jpg|\jpeg|\png)$/i; // allowed image formats: jpg/jpeg/png/svg
 
-        if (!allowedExtensions.exec(file.mimetype)) {
+        if (!files.collisionImg) {
+            error.push('fileTypeNotSupported')
+            return
+        }
+
+        if (!allowedExtensions.exec(files.collisionImg.mimetype)) {
             error.push('fileTypeNotSupported')
             return error
-          }
+        }
 
-        if (file.size > maxFileSize) {
+        if (files.size > maxFileSize) {
             error.push('fileSizeLimit')
         }
         return error
@@ -20,7 +25,6 @@ module.exports = function({ globals }) {
     exports.validateUploadData = function(collisionsAt) {
         const error = [];
         if (collisionsAt == null || undefined) {
-            console.log('collisionsAt: ' + collisionsAt.posX)
             error.push("collisionsAtMustExist");
             return error
         };

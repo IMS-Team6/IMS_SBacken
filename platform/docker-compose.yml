@@ -8,6 +8,8 @@ services:
       - "./backend-application/src:/backend-application/src"
     depends_on:
       - mongo-db
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/backend-application/src/google_auth.json
   mongo-db:
     image: mongo:latest
     container_name: mongodb

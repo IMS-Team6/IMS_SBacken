@@ -1,42 +1,41 @@
 const formidable = require('formidable');
+const vision = require('@google-cloud/vision');
 
-module.exports = function({ fileValidation, globals, fileHandler, sessionValidation, fileRepository }) {
+const googleClient = new vision.ImageAnnotatorClient();
+
+module.exports = function({ fileValidation, globals, fileHandler, sessionValidation, fileRepository, sessionRepository }) {
 
     const uploadPath = globals.uploadPath();
     const exports = {}
 
-    exports.manageFileUpload = function(uploadData, request, callback) {
+    exports.manageFileUpload = async function(uploadData, request, callback) {
         const form = new formidable.IncomingForm();
         const errors = [];
         sessionValidation.validateSessionID(uploadData.sessionID).forEach(error => {
             errors.push(error);
         });
 
-        if (errors.length > 0) {
-            callback(errors, null);
+        const sessionExists = await sessionRepository.getSessionWithID(uploadData.sessionID)
+        if (!sessionExists) {
+            callback(['sessionIDNotExist'], null);
             return;
         }
 
         form.parse(request, async function(err, fields, files) {
             if (err) {
-                callback(err, []);
+                callback(['internalError'], []);
                 return;
             }
             const collisionsAt = {
                 posX: fields.posX,
                 posY: fields.posY
             }
+
             fileValidation.validateUploadData(collisionsAt).forEach(error => {
-            errors.push(error);
+                errors.push(error);
             });
 
-            if(!files.collisionImg){
-                callback(errors, null)
-                return
-            }
-
-            const file = files.collisionImg;
-            fileValidation.validateFile(file).forEach(error => {
+            fileValidation.validateFile(files).forEach(error => {
                 errors.push(error);
             });
 
@@ -50,21 +49,27 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             const newImgName = uploadData.sessionID + '_' + timeStamp + '_' + files.collisionImg.originalFilename;
             const newPath = uploadPath + newImgName;
 
+
             fileHandler.writeFileToServer(newPath, oldPath, async function(err, success) {
                 if (err > 0) {
                     errors.push(err)
                 }
+
+                const request = { image: { source: { filename: newPath } } }
+                const [result] = await googleClient.objectLocalization(request);
+                const objects = result.localizedObjectAnnotations;
+
+                fileHandler.highlightImageObjects(newPath, objects);
+
                 const dbResponse = await fileRepository.insertCollisionImg(uploadData.sessionID, collisionsAt, newImgName);
-                if(dbResponse.length > 0){
+                if (dbResponse.length > 0) {
                     dbResponse.forEach(error => {
                         errors.push(error)
-                        
+
                     })
                     callback(errors, null)
                     return
                 }
-                //When file written to server, and callback is sucess. Use newPath and send image to Google API! Store the img description object to imgCollision
-                //Do it here...
                 callback(errors, { dbResponse, success })
             })
         })
@@ -82,10 +87,10 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         }
 
         const oneImg = await fileRepository.getOneCollisionImg(sessionID, imgName);
-        if(oneImg.length > 0){
+        if (oneImg.length > 0) {
             oneImg.forEach(error => {
                 errors.push(error)
-                
+
             })
             callback(errors, null)
             return
@@ -108,8 +113,8 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
 
         const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
 
-        if(imgArrayObjects[0] != undefined){  
-            if(typeof imgArrayObjects[0] == "string"){
+        if (imgArrayObjects[0] != undefined) {
+            if (typeof imgArrayObjects[0] == "string") {
                 imgArrayObjects.forEach(error => {
                     errors.push(error)
                 })
