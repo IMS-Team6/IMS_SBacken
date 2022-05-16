@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  "backend-application":
+    build: "./backend-application"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./backend-application/src:/backend-application/src"
+    depends_on:
+      - mongo-db
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/backend-application/src/google_auth.json
+  mongo-db:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+        MONGO_INITDB_DATABASE: mongodb
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - "./mongo-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      - "./mongo-db/mongo_data/db:/data/db"
+    ports:
+       - "27017:27017"
