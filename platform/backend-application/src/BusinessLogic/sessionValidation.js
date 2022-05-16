@@ -14,13 +14,15 @@ module.exports = function() {
         const error = [];
         if (sessionData.positions == null || undefined) {
             error.push("positionsMustExist");
-            return error
+            return error;
         };
         if (sessionData.positions.posX == null || sessionData.positions.posY == null) {
             error.push("positionMustNotBeNull");
         } else if (sessionData.positions.posX == NaN || sessionData.positions.posY == NaN) {
             error.push("positionWrongType");
-        };
+        } else if ((sessionData.positions.posX % 1) != 0 || (sessionData.positions.posY % 1) != 0) {
+            error.push("positionTypeIsNotInteger");
+        }
         if (typeof sessionData.robotState == (null || undefined)) {
             error.push("robotStateMustExist");
         };

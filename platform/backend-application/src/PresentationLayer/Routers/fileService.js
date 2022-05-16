@@ -41,7 +41,6 @@ module.exports = function({ globals, fileManager, fileRepository }) {
     })
 
     router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response) {
-        console.log('Single file download')
 
         const sessionID = request.params.sessionID
         const imgName = request.params.imgName
@@ -51,20 +50,17 @@ module.exports = function({ globals, fileManager, fileRepository }) {
                 response.status(404).json(globals.errorTranslation(error));
                 return
             }
-            console.log("trying to download the singleImage...")
             response.download(imgPath)
         })
 
     })
 
     router.get('/download/collisionImg/:sessionID', async function(request, response) {
-        console.log('Multiple file download')
 
         const sessionID = request.params.sessionID
 
         fileManager.manageMultipleFileDownload(sessionID, function(error, imgArrayPath) {
             if (error.length > 0) {
-                console.log("fileServiceError: " + error)
                 response.status(404).json(globals.errorTranslation(error));
                 return
             }

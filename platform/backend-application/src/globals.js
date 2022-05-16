@@ -32,7 +32,9 @@ module.exports = function() {
             collisionsAtMustExist: 'Collision positions must exist',
             invalidImageKey: 'Wrong collision image key name',
             internalError: "Internal server error",
-            imageDoesNotExist: "Image does not exist"
+            imageDoesNotExist: "Image does not exist",
+            wrongRobotState: "Wrong robot state",
+            positionTypeIsNotInteger: "postion type is not an intenger"
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

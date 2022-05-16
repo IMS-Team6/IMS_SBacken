@@ -5,8 +5,8 @@ module.exports = function({ sessionValidation, sessionRepository }) {
 
     exports.manageGetSessions = async function(callback) {
         const errors = [];
-        const x = await sessionRepository.getSessions();
-        callback(errors, x);
+        const getSessions = await sessionRepository.getSessions(errors);
+        callback(errors, getSessions);
         return;
     };
 
@@ -19,8 +19,8 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             callback(errors, null);
             return;
         }
-        const x = await sessionRepository.getSessionWithID(sessionData);
-        callback(errors, x);
+        const getSessionId = await sessionRepository.getSessionRobotState(sessionData.sessionID);
+        callback(errors, getSessionId);
         return;
 
     };
@@ -41,17 +41,22 @@ module.exports = function({ sessionValidation, sessionRepository }) {
 
         const exists = await sessionRepository.getSessionWithID(sessionData.sessionID)
         if (!exists) {
-            const x = await sessionRepository.createSessionWithID(sessionData);
-            callback(errors, x);
+            const createSessionId = await sessionRepository.createSessionWithID(sessionData);
+            callback(errors, createSessionId);
             return;
         }
-        const x = await sessionRepository.writePositions(sessionData);
-        callback(errors, x);
+        const writePosition = await sessionRepository.writePositions(sessionData);
+        
+        if(writePosition.length > 0){
+            writePosition.forEach(error => {
+                errors.push(error);
+            });
+
+            callback(errors, null);
+            return;
+        };
+        callback(errors, writePosition);
         return;
-
-    };
-
-
+    }
     return exports;
-
 }

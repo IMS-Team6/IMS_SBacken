@@ -27,7 +27,7 @@ module.exports = function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
         //This duplicates the entier object from mongoDB without _id
-        var duplicate = await sessions.findOne({ sessionID: '987654' }, { _id: 0 });
+        var duplicate = await sessions.findOne({ sessionID: '987654'}, { _id: 0 });
         // Set the values from sessinData to the duplicated object
         delete duplicate['_id']
         duplicate.sessionID = sessionData.sessionID;
@@ -48,19 +48,28 @@ module.exports = function() {
     };
 
     exports.writePositions = async function(sessionData) {
-
-        let query = {};
-        if (sessionData.collision === true) {
-            query = { $set: { collision: sessionData.collision }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY, "collisionPos.collX": sessionData.positions.posX, "collisionPos.collY": sessionData.positions.posY } };
-        } else {
-            query = { $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
-        };
-
+        
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        const result = await sessions.updateOne({ sessionID: sessionData.sessionID }, query);
-        dbClient.close();
-        return result;
+        var dublicate = await sessions.findOne({ sessionID: sessionData.sessionID}, { _id: 0 });
+
+        if(dublicate.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")){
+            return ["wrongRobotState"];
+        }
+
+        try{
+            let query = {};
+            if (sessionData.collision === true) {
+                query = { $set: { robotState: sessionData.robotState, collision: sessionData.collision }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY, "collisionPos.collX": sessionData.positions.posX, "collisionPos.collY": sessionData.positions.posY } };
+            } else {
+                query = { $set: { robotState: sessionData.robotState }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
+            };
+            const result = await sessions.updateOne({ sessionID: sessionData.sessionID}, query);
+            dbClient.close();
+            return result;
+        }catch{
+            return ["internalError"]
+        }
     };
 
     return exports;

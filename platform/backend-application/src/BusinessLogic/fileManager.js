@@ -21,7 +21,6 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             return;
         }
 
-
         form.parse(request, async function(err, fields, files) {
             if (err) {
                 callback(['internalError'], []);
