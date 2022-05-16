@@ -18,6 +18,7 @@ module.exports = function() {
         const sessions = dbClient.db("mongodb").collection("session");
         const result = await sessions.findOne({ sessionID: thisSessionID });
 
+        console.log(result)
         dbClient.close();
         return result;
     };
@@ -27,7 +28,7 @@ module.exports = function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
         //This duplicates the entier object from mongoDB without _id
-        var duplicate = await sessions.findOne({ sessionID: '987654'}, { _id: 0 });
+        var duplicate = await sessions.findOne({ sessionID: '987654' }, { _id: 0 });
         // Set the values from sessinData to the duplicated object
         delete duplicate['_id']
         duplicate.sessionID = sessionData.sessionID;
@@ -48,26 +49,26 @@ module.exports = function() {
     };
 
     exports.writePositions = async function(sessionData) {
-        
+
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        var dublicate = await sessions.findOne({ sessionID: sessionData.sessionID}, { _id: 0 });
+        var dublicate = await sessions.findOne({ sessionID: sessionData.sessionID }, { _id: 0 });
 
-        if(dublicate.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")){
+        if (dublicate.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")) {
             return ["wrongRobotState"];
         }
 
-        try{
+        try {
             let query = {};
             if (sessionData.collision === true) {
                 query = { $set: { robotState: sessionData.robotState, collision: sessionData.collision }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY, "collisionPos.collX": sessionData.positions.posX, "collisionPos.collY": sessionData.positions.posY } };
             } else {
                 query = { $set: { robotState: sessionData.robotState }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
             };
-            const result = await sessions.updateOne({ sessionID: sessionData.sessionID}, query);
+            const result = await sessions.updateOne({ sessionID: sessionData.sessionID }, query);
             dbClient.close();
             return result;
-        }catch{
+        } catch {
             return ["internalError"]
         }
     };

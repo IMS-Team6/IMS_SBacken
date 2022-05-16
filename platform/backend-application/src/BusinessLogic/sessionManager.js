@@ -10,16 +10,16 @@ module.exports = function({ sessionValidation, sessionRepository }) {
         return;
     };
 
-    exports.manageGetSessionWithID = async function(sessionData, callback) {
+    exports.manageGetSessionWithID = async function(sessionID, callback) {
         const errors = [];
-        sessionValidation.validateSessionID(sessionData).forEach(error => {
+        sessionValidation.validateSessionID(sessionID).forEach(error => {
             errors.push(error);
         });
         if (errors.length > 0) {
             callback(errors, null);
             return;
         }
-        const getSessionId = await sessionRepository.getSessionRobotState(sessionData.sessionID);
+        const getSessionId = await sessionRepository.getSessionWithID(sessionID);
         callback(errors, getSessionId);
         return;
 
@@ -46,8 +46,8 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             return;
         }
         const writePosition = await sessionRepository.writePositions(sessionData);
-        
-        if(writePosition.length > 0){
+
+        if (writePosition.length > 0) {
             writePosition.forEach(error => {
                 errors.push(error);
             });
