@@ -6,10 +6,15 @@ module.exports = function({ sessionValidation, sessionRepository }) {
     exports.manageGetSessions = async function(callback) {
         const errors = [];
         const getSessions = await sessionRepository.getSessions(errors);
-        if (getSessions && getSessions.length > 0) {
-            errors.push(getSessions)
-            callback(errors, null);
-            return;
+
+        if (getSessions[0] != undefined) {
+            if (typeof getSessions[0] == "string") {
+                getSessions.forEach(error => {
+                    errors.push(error)
+                })
+                callback(errors, null)
+                return
+            }
         }
         callback([], getSessions)
         return;

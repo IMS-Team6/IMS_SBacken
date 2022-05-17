@@ -10,16 +10,17 @@ module.exports = function() {
 
         try {
             const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1, _id: 0 }).toArray();
+            console.log(result)
             dbClient.close();
             if (result) {
                 return result;
             } else {
                 return ["sessionsDoNotExist"]
+
             }
         } catch {
-            return [
-                ["internalError"]
-            ]
+            return ["internalError"]
+
         }
     }
 
@@ -38,9 +39,8 @@ module.exports = function() {
                 return ["sessionDoesNotExist"]
             }
         } catch {
-            return [
-                ["internalError"]
-            ]
+            return ["internalError"]
+
         }
 
     };
