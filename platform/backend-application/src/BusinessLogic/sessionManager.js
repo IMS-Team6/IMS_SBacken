@@ -48,7 +48,7 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             errors.push(error);
         });
 
-        sessionValidation.validateSessionID(sessionData).forEach(error => {
+        sessionValidation.validateSessionID(sessionData.sessionID).forEach(error => {
             errors.push(error);
         });
 

@@ -1,11 +1,11 @@
 module.exports = function() {
     const exports = {};
 
-    exports.validateSessionID = function(sessionData) {
+    exports.validateSessionID = function(sessionID) {
         const error = [];
         const regex = /^[0-9]*$/;
-        console.log(sessionData, 'in valdiation?')
-        if (typeof sessionData.sessionID !== 'string' || !regex.test(sessionData.sessionID)) {
+
+        if (typeof sessionID !== 'string' || !regex.test(sessionID)) {
             error.push("sessionIDNotANumerciStr");
         };
         console.log(error)
