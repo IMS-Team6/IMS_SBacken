@@ -34,7 +34,10 @@ module.exports = function() {
             internalError: "Internal server error",
             imageDoesNotExist: "Image does not exist",
             wrongRobotState: "Wrong robot state",
-            positionTypeIsNotInteger: "postion type is not an intenger"
+            positionTypeIsNotInteger: "postion type is not an intenger",
+            inavlidFileSignature: 'Invalid file signature, corrupt image',
+            sessionDoesNotExist: 'This session does not exist',
+            sessionsDoNotExist: 'There are currently nu sessions'
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

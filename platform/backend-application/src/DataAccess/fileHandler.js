@@ -16,29 +16,43 @@ module.exports = function() {
                 callback(err, [])
                 return
             }
-            callback([], 'sucess')
+            callback([], 'File successfully uploaded')
             return
         })
 
     }
 
-    exports.highlightImageObjects = async function(inputFile, faces) {
+    exports.highlightImageObjects = async function(inputFile, objects) {
         // Open the original image
-        const avaliableFonts = FontManager.getAvailableFontsSync()
-
+        const errors = [];
+        const avaliableFonts = FontManager.getAvailableFontsSync();
         const stream = fs.createReadStream(inputFile);
 
         let promise;
         if (inputFile.match(/\.jpg$/)) {
-            promise = PImage.decodeJPEGFromStream(stream);
-
+            await PImage.decodeJPEGFromStream(stream).then((stream) => {
+                promise = stream
+            }).catch((error) => {
+                console.log('Failed to decode Stream!', error);
+                errors.push(['inavlidFileSignature']);
+            })
         } else if (inputFile.match(/\.png$/)) {
-            promise = PImage.decodePNGFromStream(stream);
+            await PImage.decodePNGFromStream(stream).then((stream) => {
+                console.log(stream, 'Stream success')
+                promise = stream
+            }).catch((error) => {
+                console.log('Failed to decode Stream!', error);
+                errors.push(['inavlidFileSignature']);
+            })
+
         } else {
-            throw new Error(`Unknown filename extension ${inputFile}`);
+            return ['fileTypeNotSupported']
         }
 
-        const img = await promise;
+        if (errors.length > 0) {
+            return errors
+        }
+        const img = promise;
         const fontLoad = PImage.registerFont(avaliableFonts[0].path, 'myFont', avaliableFonts[0].weight, avaliableFonts[0].style)
         fontLoad.loadSync();
 
@@ -50,11 +64,11 @@ module.exports = function() {
         context.lineWidth = '5';
 
 
-        faces.forEach(face => {
+        objects.forEach(object => {
             context.beginPath();
             let origX = 0;
             let origY = 0;
-            face.boundingPoly.normalizedVertices.forEach((bounds, i) => {
+            object.boundingPoly.normalizedVertices.forEach((bounds, i) => {
                 if (i === 0) {
                     origX = bounds.x * img.width;
                     origY = bounds.y * img.height;
@@ -70,7 +84,7 @@ module.exports = function() {
             context.fillStyle = 'rgba(255,0,0,0.8)';
             context.font = "" + fontSize + "px myFont";
 
-            context.fillText(face.name, origX, origY + fontSize)
+            context.fillText(object.name, origX, origY + fontSize)
         });
 
         // Write the result to a file
@@ -81,7 +95,7 @@ module.exports = function() {
         } else if (inputFile.match(/\.png$/)) {
             await PImage.encodePNGToStream(img, writeStream);
         } else {
-            throw new Error(`Unknown filename extension ${inputFile}`);
+            return errors;
         }
 
     }

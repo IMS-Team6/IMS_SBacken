@@ -1,7 +1,7 @@
 const { query } = require('express');
 const dbClient = require('./connectMongodb');
 
-module.exports = function() {
+module.exports = function({ sessionRepository }) {
     const exports = {};
 
     exports.insertCollisionImg = async function(sessionID, collisionsAt, imgName) {
@@ -22,10 +22,13 @@ module.exports = function() {
             // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
             const dbResponse = await request.insertOne(collisionImgObj);
             dbClient.close();
+            await sessionRepository.updateCollisionImgStatus(sessionID);
             return dbResponse;
         } catch {
             dbClient.close();
-            return ["internalError"]
+            return [
+                ["internalError"]
+            ]
         }
     };
 

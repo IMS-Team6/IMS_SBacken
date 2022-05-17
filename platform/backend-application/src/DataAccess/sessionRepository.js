@@ -7,20 +7,42 @@ module.exports = function() {
     exports.getSessions = async function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1, _id: 0 }).toArray();
 
-        dbClient.close();
-        return result;
+        try {
+            const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1, _id: 0 }).toArray();
+            dbClient.close();
+            if (result) {
+                return result;
+            } else {
+                return ["sessionsDoNotExist"]
+            }
+        } catch {
+            return [
+                ["internalError"]
+            ]
+        }
     }
 
-    exports.getSessionWithID = async function(thisSessionID) {
+    exports.getSessionWithID = async function(thisSessionID, callback) {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        const result = await sessions.findOne({ sessionID: thisSessionID });
 
-        console.log(result)
-        dbClient.close();
-        return result;
+
+        try {
+            const result = await sessions.findOne({ sessionID: thisSessionID });
+            dbClient.close();
+
+            if (result) {
+                return result;
+            } else {
+                return ["sessionDoesNotExist"]
+            }
+        } catch {
+            return [
+                ["internalError"]
+            ]
+        }
+
     };
 
     //Call this function on robotState: START
@@ -52,9 +74,9 @@ module.exports = function() {
 
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        var dublicate = await sessions.findOne({ sessionID: sessionData.sessionID }, { _id: 0 });
+        var foundSession = await sessions.findOne({ sessionID: sessionData.sessionID }, { _id: 0 });
 
-        if (dublicate.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")) {
+        if (foundSession.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")) {
             return ["wrongRobotState"];
         }
 
@@ -66,6 +88,21 @@ module.exports = function() {
                 query = { $set: { robotState: sessionData.robotState }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
             };
             const result = await sessions.updateOne({ sessionID: sessionData.sessionID }, query);
+            dbClient.close();
+            return result;
+        } catch {
+            return ["internalError"]
+        }
+    };
+
+    exports.updateCollisionImgStatus = async function(thiSessionID) {
+
+        await dbClient.connect();
+        const sessions = dbClient.db("mongodb").collection("session");
+
+        try {
+            const query = { $set: { collisionImgExists: true } };
+            const result = await sessions.updateOne({ sessionID: thiSessionID }, query);
             dbClient.close();
             return result;
         } catch {

@@ -25,6 +25,7 @@ db.session.insert({
         collX: [],
         collY: []
     },
+    collisionImgExists: false,
 });
 
 db.session.insert({
@@ -39,4 +40,5 @@ db.session.insert({
         collX: [1, 0, -2, -1],
         collY: [1, 3, 2, 0]
     },
+    collisionImgExists: false,
 });

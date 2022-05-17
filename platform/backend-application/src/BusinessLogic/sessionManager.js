@@ -6,7 +6,12 @@ module.exports = function({ sessionValidation, sessionRepository }) {
     exports.manageGetSessions = async function(callback) {
         const errors = [];
         const getSessions = await sessionRepository.getSessions(errors);
-        callback(errors, getSessions);
+        if (getSessions && getSessions.length > 0) {
+            errors.push(getSessions)
+            callback(errors, null);
+            return;
+        }
+        callback([], getSessions)
         return;
     };
 
@@ -20,8 +25,14 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             return;
         }
         const getSessionId = await sessionRepository.getSessionWithID(sessionID);
-        callback(errors, getSessionId);
+        if (getSessionId && getSessionId.length > 0) {
+            errors.push(getSessionId)
+            callback(errors, null);
+            return;
+        }
+        callback([], getSessionId)
         return;
+
 
     };
 
