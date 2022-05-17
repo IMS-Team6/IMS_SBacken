@@ -33,7 +33,7 @@ module.exports = function() {
             invalidImageKey: 'Wrong collision image key name',
             internalError: "Internal server error",
             imageDoesNotExist: "Image does not exist",
-            wrongRobotState: "Wrong robot state",
+            wrongRobotState: "Current session state is STOP, create new session",
             positionTypeIsNotInteger: "postion type is not an intenger",
             inavlidFileSignature: 'Invalid file signature, corrupt image',
             sessionDoesNotExist: 'This session does not exist',

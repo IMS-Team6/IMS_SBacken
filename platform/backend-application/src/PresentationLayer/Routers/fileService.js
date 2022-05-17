@@ -3,7 +3,6 @@ const zip = require('express-zip');
 
 
 module.exports = function({ globals, fileManager, fileRepository }) {
-    const uploadPath = globals.uploadPath();
     const router = express.Router()
 
     router.post('/upload/:sessionID', (request, response, next) => {
@@ -21,23 +20,40 @@ module.exports = function({ globals, fileManager, fileRepository }) {
         });
     });
 
-    router.get('/collisionImg/:sessionID', async function(request, response) {
-        console.log('Multiple file download')
 
-        const sessionID = request.params.sessionID
-        const objects = await fileRepository.getAllCollisionImg(sessionID);
-
-        response.json(objects)
-    })
 
     router.get('/collisionImg/:sessionID/:imgName', async function(request, response) {
         console.log('Multiple file download')
 
-        const sessionID = request.params.sessionID
-        const imgName = request.params.imgName
-        const objects = await fileRepository.getOneCollisionImg(sessionID, imgName);
+        const payload = {
+            sessionID: request.params.sessionID,
+            imgName: request.params.imgName
+        }
+        fileManager.manageGetCollisionImg(payload, function(errors, resolved) {
+            if (errors.length > 0 && errors) {
+                response.status(400).json(globals.errorTranslation(errors))
+                return
+            }
+            response.status(200).json(resolved)
+            return
+        });
 
-        response.json(objects)
+    })
+
+    router.get('/collisionImg/:sessionID', async function(request, response) {
+        console.log('Multiple file download')
+
+        const sessionID = request.params.sessionID
+        fileManager.manageGetAllCollisionImg(sessionID, function(errors, resolved) {
+            console.log(errors, resolved)
+            if (errors.length > 0) {
+                response.status(400).json(globals.errorTranslation(errors))
+                return
+            }
+            response.status(200).json(resolved);
+            return
+        });
+
     })
 
     router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response) {
@@ -64,7 +80,7 @@ module.exports = function({ globals, fileManager, fileRepository }) {
                 response.status(404).json(globals.errorTranslation(error));
                 return
             }
-            console.log("imgArrayP:" + imgArrayPath);
+            console.log(imgArrayPath, 'From API!!!')
             response.zip(imgArrayPath);
         })
     })

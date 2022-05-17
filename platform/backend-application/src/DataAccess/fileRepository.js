@@ -11,7 +11,6 @@ module.exports = function({ sessionRepository }) {
         var collisionImgObj = await request.findOne({ sessionID: '', });
 
         // Set the values from sessinData to the duplicated object
-        console.log(collisionImgObj)
         delete collisionImgObj['_id']
         collisionImgObj.sessionID = sessionID;
         collisionImgObj.collisionsAt.posX = collisionsAt.posX; //.posX

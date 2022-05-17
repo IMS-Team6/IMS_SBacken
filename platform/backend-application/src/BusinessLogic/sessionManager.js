@@ -55,12 +55,13 @@ module.exports = function({ sessionValidation, sessionRepository }) {
             return;
         }
 
-        const exists = await sessionRepository.getSessionWithID(sessionData.sessionID)
-        if (!exists) {
+        const response = await sessionRepository.getSessionWithID(sessionData.sessionID)
+        if (response && response.length > 0) {
             const createSessionId = await sessionRepository.createSessionWithID(sessionData);
-            callback(errors, createSessionId);
+            callback([], createSessionId);
             return;
         }
+
         const writePosition = await sessionRepository.writePositions(sessionData);
 
         if (writePosition.length > 0) {

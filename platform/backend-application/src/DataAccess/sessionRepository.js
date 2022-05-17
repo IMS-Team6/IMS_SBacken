@@ -10,7 +10,7 @@ module.exports = function() {
 
         try {
             const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1, _id: 0 }).toArray();
-            console.log(result)
+
             dbClient.close();
             if (result) {
                 return result;
@@ -50,7 +50,7 @@ module.exports = function() {
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
         //This duplicates the entier object from mongoDB without _id
-        var duplicate = await sessions.findOne({ sessionID: '987654' }, { _id: 0 });
+        var duplicate = await sessions.findOne({ sessionID: '987654' });
         // Set the values from sessinData to the duplicated object
         delete duplicate['_id']
         duplicate.sessionID = sessionData.sessionID;
@@ -74,10 +74,13 @@ module.exports = function() {
 
         await dbClient.connect();
         const sessions = dbClient.db("mongodb").collection("session");
-        var foundSession = await sessions.findOne({ sessionID: sessionData.sessionID }, { _id: 0 });
 
-        if (foundSession.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING")) {
-            return ["wrongRobotState"];
+        let foundSession = await sessions.findOne({ sessionID: sessionData.sessionID })
+
+        if (foundSession) {
+            if (foundSession.robotState == "STOP" && (sessionData.robotState == "START" || sessionData.robotState == "MOVING" || sessionData.robotState == "STOP")) {
+                return ["wrongRobotState"];
+            }
         }
 
         try {

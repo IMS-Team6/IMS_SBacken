@@ -16,8 +16,8 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             errors.push(error);
         });
 
-        const sessionExists = await sessionRepository.getSessionWithID(uploadData.sessionID)
-        if (!sessionExists) {
+        const response = await sessionRepository.getSessionWithID(uploadData.sessionID)
+        if (response && response.length > 0) {
             callback(['sessionIDNotExist'], null);
             return;
         }
@@ -118,6 +118,7 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
         }
 
         const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
+        console.log(imgArrayObjects)
 
         if (imgArrayObjects[0] != undefined) {
             if (typeof imgArrayObjects[0] == "string") {
@@ -136,7 +137,57 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
                 path: uploadPath + imgObject.imgName
             })
         })
+        console.log(imgArrayPath, 'the images=')
         callback(errors, imgArrayPath);
+    }
+
+    exports.manageGetCollisionImg = async function(payload, callback) {
+        const errors = [];
+
+        sessionValidation.validateSessionID(payload.sessionID).forEach(error => {
+            errors.push(error);
+        });
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+
+        const oneImg = await fileRepository.getOneCollisionImg(payload.sessionID, payload.imgName);
+        if (oneImg.length > 0) {
+            oneImg.forEach(error => {
+                errors.push(error)
+
+            })
+            callback(errors, null)
+            return
+        }
+        callback(errors, oneImg)
+    }
+
+    exports.manageGetAllCollisionImg = async function(sessionID, callback) {
+        const errors = [];
+
+        sessionValidation.validateSessionID(sessionID).forEach(error => {
+            errors.push(error);
+        });
+        if (errors.length > 0) {
+            callback(errors, null);
+            return;
+        }
+
+        const imgArrayObjects = await fileRepository.getAllCollisionImg(sessionID);
+
+        if (imgArrayObjects[0] != undefined) {
+            if (typeof imgArrayObjects[0] == "string") {
+                imgArrayObjects.forEach(error => {
+                    errors.push(error)
+                })
+                callback(errors, null)
+                return
+            }
+        }
+        callback(errors, imgArrayObjects);
+        return
     }
 
     return exports
