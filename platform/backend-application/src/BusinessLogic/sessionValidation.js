@@ -23,8 +23,14 @@ module.exports = function() {
         } else if ((sessionData.positions.posX % 1) != 0 || (sessionData.positions.posY % 1) != 0) {
             error.push("positionTypeIsNotInteger");
         }
+        console.log(sessionData, 'Session Data!!!')
         if (typeof sessionData.robotState == (null || undefined)) {
             error.push("robotStateMustExist");
+        } else if (
+            sessionData.robotState !== 'START' &&
+            sessionData.robotState !== 'MOVING' &&
+            sessionData.robotState !== 'STOP') {
+            error.push("robotSateIncorrect");
         };
         if (sessionData.collision == null || undefined) {
             error.push("collisionMustExist");

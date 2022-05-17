@@ -32,12 +32,14 @@ module.exports = function() {
             collisionsAtMustExist: 'Collision positions must exist',
             invalidImageKey: 'Wrong collision image key name',
             internalError: "Internal server error",
-            imageDoesNotExist: "Image does not exist",
+            imageDoesNotExist: "No image or image object found",
             wrongRobotState: "Current session state is STOP, create new session",
             positionTypeIsNotInteger: "postion type is not an intenger",
             inavlidFileSignature: 'Invalid file signature, corrupt image',
             sessionDoesNotExist: 'This session does not exist',
-            sessionsDoNotExist: 'There are currently nu sessions'
+            sessionsDoNotExist: 'There are currently nu sessions',
+            cannotUploadImgToStoppedSession: 'You cannot upload image to a session with state STOP',
+            robotSateIncorrect: 'Incorrect robotState, must be explicitly START, STOP or MOVING'
         }
 
         const errorMessages = error_arr.map(e => errorTranslations[e]);

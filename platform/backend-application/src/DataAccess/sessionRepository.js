@@ -45,6 +45,28 @@ module.exports = function() {
 
     };
 
+    exports.getSessionWithIDAndState = async function(sessionID) {
+        await dbClient.connect();
+        const sessions = dbClient.db("mongodb").collection("session");
+
+
+        try {
+            const resolved = await sessions.findOne({ sessionID: sessionID });
+            dbClient.close();
+            console.log(resolved, '????????')
+            if (resolved && resolved.robotState == "STOP") {
+                return ["cannotUploadImgToStoppedSession"];
+            } else if (!resolved) {
+                return ["sessionDoesNotExist"]
+            }
+            return resolved;
+        } catch {
+            return ["internalError"]
+
+        }
+
+    };
+
     //Call this function on robotState: START
     exports.createSessionWithID = async function(sessionData) {
         await dbClient.connect();

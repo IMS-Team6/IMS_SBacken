@@ -16,9 +16,11 @@ module.exports = function({ fileValidation, globals, fileHandler, sessionValidat
             errors.push(error);
         });
 
-        const response = await sessionRepository.getSessionWithID(uploadData.sessionID)
+
+        const response = await sessionRepository.getSessionWithIDAndState(uploadData.sessionID)
         if (response && response.length > 0) {
-            callback(['sessionIDNotExist'], null);
+            errors.push(response)
+            callback(errors, null);
             return;
         }
 
