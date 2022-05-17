@@ -43,9 +43,11 @@ module.exports = function({ sessionValidation, sessionRepository }) {
 
     exports.managePostSessionData = async function(sessionData, callback) {
         const errors = [];
+
         sessionValidation.validateSessionData(sessionData).forEach(error => {
             errors.push(error);
         });
+
         sessionValidation.validateSessionID(sessionData).forEach(error => {
             errors.push(error);
         });
