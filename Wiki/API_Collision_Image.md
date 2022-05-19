@@ -15,8 +15,8 @@ Definition of a collision image:
 
 URI: http://3.72.195.76/api/${PATH} <br><br>
 
-| TYPE | PATH                                          | Description                                                                      |
-| ---- | --------------------------------------------- | -------------------------------------------------------------------------------- |
+| TYPE | PATH                                          |    Description                |
+| ---- | --------------------------------------------- | ----------------------------- |
 | GET  | collisionImg/${sessionID}                     | **Returns** an Array[] with all   with the unique sessionID                      |
 | GET  | download/collisionImg/${sessionID}            | **Downloads** a collection of all images with sessionID, compressed in .zip file |
 | GET  | collisionImg/${sessionID}/${ImgName}          | **Returns** specific Objects "collisionImg" from a session with unique ImgName   |
@@ -47,7 +47,7 @@ URI: http://3.72.195.76/api/${PATH} <br><br>
 | posY         | 2             | Integer              | Returns Int value for position Y |
 
 Python Example:
-```
+```py
 
 import requests
 import json
@@ -83,8 +83,8 @@ print(response.text)
 | ----------------------------------------------- | ------------------ |
 | GET  http://3.72.195.76/api/collisionImg/123456 | Not required!      |
 
-| Key          | Value                    | Data Type       | Purpose                                                                |
-| ------------ | ------------------------ | --------------- | ---------------------------------------------------------------------- |
+| Key          | Value                    | Data Type       | Purpose                                                 |
+| ------------ | ------------------------ | --------------- | ------------------------------------------------------- |
 | sessionID    | '1234... numeric string' | String          | Unique session identifier                                              |
 | collisionsAt | {posX, posX}             | Object{Int,Int} | Returns objects with positions X and Y where collisions occurred       |
 | posX         | 1                        | Int             | Returns Integer value for position X where collision image was capture |
@@ -93,7 +93,7 @@ print(response.text)
 
 The request returns a list with all collisionImg objects with ${sessionID}. The data looks like this: 
 
-```
+```json
 [
      {
         "_id": "627d800603e8a09950e6d1e7",
@@ -138,7 +138,7 @@ The request returns a list with all collisionImg objects with ${sessionID}. The 
 
 The request returns single collisionImg object with ${sessionID} and ${imgName}. The data looks like this: 
 
-```
+```json
      {
         "_id": "627d800603e8a09950e6d1e7",
         "sessionID": "123456",

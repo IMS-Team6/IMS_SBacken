@@ -20,8 +20,25 @@
 ## Presentation Layer
 The Presentaiton Layer is only responsible for receiving http requests and sending back responses. The layer uses Business Logic Layer to carry out the http requests. 
 ### Session API
-Purpose of file and description of all functions
-This file is where we wrote our endpoints we have two get functions and one for post function, the get function one is for getting all sessions and the other one is for getting a session with a specific id and the post function is for creating the robotsate and it uses a paylod of session id, postion x and y robotsate the different state start,moving and stop and collision. 
+*Purpose of file and description of all functions...*
+
+This file is where we wrote our endpoints we have two get functions and one for post function, the get function one is for getting all sessions and the other one is for getting a session with a specific id and the post function is for creating the robotsate and it uses a paylod of session id, postion x and y robotsate the different state start,moving and stop and collision.
+
+*Förklara vad funktionen gör, varför den gör det, vad den returnerar. Notera skriv INTE HUR den gör* <br>
+
+
+```js 
+router.get('/sessions', async function(request, response));
+```
+ 
+```js
+router.get('/sessions/:sessionID', async function(request, response));
+```
+
+```js
+ router.post('/session/:sessionID', async function (request, response));
+```
+
 get request 1 path name : /sessions
 get request 2 path name : /session/:sessionID
 post request path name :/session/:sessionID

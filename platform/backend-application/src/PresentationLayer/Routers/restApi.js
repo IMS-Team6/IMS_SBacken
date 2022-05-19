@@ -34,7 +34,7 @@ module.exports = function({ sessionManager, globals }) {
 
     });
 
-    router.post('/session/:sessionID', async(request, response) => {
+    router.post('/session/:sessionID', async function(request, response) {
 
         const payload = {
             sessionID: request.params.sessionID,
