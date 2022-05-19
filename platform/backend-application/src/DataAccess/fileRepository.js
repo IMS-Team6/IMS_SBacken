@@ -20,11 +20,11 @@ module.exports = function({ sessionRepository }) {
         try {
             // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
             const dbResponse = await request.insertOne(collisionImgObj);
-            dbClient.close();
+            await dbClient.close();
             await sessionRepository.updateCollisionImgStatus(sessionID);
             return dbResponse;
         } catch {
-            dbClient.close();
+            await dbClient.close();
             return [
                 ["internalError"]
             ]
@@ -36,14 +36,14 @@ module.exports = function({ sessionRepository }) {
         const sessions = dbClient.db("mongodb").collection("collisonImg");
         try {
             const dbResponse = await sessions.findOne({ sessionID: sessionID, imgName: imgName }, { _id: 0 });
-            dbClient.close();
+            await dbClient.close();
             if (dbResponse) {
                 return dbResponse;
             } else {
                 return ["imageDoesNotExist"]
             }
         } catch {
-            dbClient.close();
+            await dbClient.close();
             return ["internalError"]
         }
     };
@@ -55,14 +55,14 @@ module.exports = function({ sessionRepository }) {
 
         try {
             const dbResponse = await sessions.find({ sessionID: sessionID }).toArray();
-            dbClient.close();
+            await dbClient.close();
             if (dbResponse.length > 0) {
                 return dbResponse;
             } else {
                 return ["imageDoesNotExist"];
             }
         } catch {
-            dbClient.close();
+            await dbClient.close();
             return ["internalError"];
         }
     };
