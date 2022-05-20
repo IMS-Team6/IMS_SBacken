@@ -12,7 +12,7 @@ module.exports = function({ sessionManager, globals }) {
             if (errors.length == 0) {
                 response.status(200).json(data);
             } else {
-                response.status(500).json(globals.errorTranslation(errors))
+                response.status(400).json(globals.errorTranslation(errors))
             };
 
         });
@@ -27,7 +27,7 @@ module.exports = function({ sessionManager, globals }) {
             if (errors.length <= 0) {
                 response.status(200).json(data);
             } else {
-                response.status(500).json(globals.errorTranslation(errors));
+                response.status(400).json(globals.errorTranslation(errors));
             };
 
         });

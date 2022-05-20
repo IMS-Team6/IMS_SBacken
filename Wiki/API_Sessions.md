@@ -45,7 +45,7 @@ URI: http://3.72.195.76/api/PATH <br>
 Description: In order to fetch positions from previous sessions and not only the latests
 The request returns a list with session objects. The data looks like this: 
 
-```
+```json
 [
     {
         "_id": "626ef4eef436caf350f32187", // This should not be returned! Although left for debug purpose
@@ -90,7 +90,7 @@ The request returns a list with session objects. The data looks like this:
 Description: To make it possible to draw robot path and collisions, the request fetches specified session using sessionID.
 The request returns the entire session Object and it's attributes.
 
-```
+```json
 {
     "_id": "626ef4eef436caf350f32188",  
     "sessionID": "123456",              
@@ -135,7 +135,7 @@ The request returns the entire session Object and it's attributes.
 Description: Robot should generate a sessionID only once it starts the first time, the sessionID is passed in the POST request!
 The request must contain all values as in this object. sessionID must be a String consisting only of numbers 0-9!
 
-```
+```json
 {   
     "robotState":"Moving",      
     "positions":{               
@@ -145,3 +145,6 @@ The request must contain all values as in this object. sessionID must be a Strin
     "collision":true           
 }
 ```
+
+## ----------- API Mockup -----------
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/API_Mockups_sessions.png)

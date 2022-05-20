@@ -11,6 +11,8 @@ Definition of a collision image:
 [Get Collision Images](#get-collision-images)
 [Get Collision Image](#get-collision-image)
 [Google Vision Classification](#google-vision-classification)
+[API Mockup](#api-mockup)
+
 <br>
 
 URI: http://3.72.195.76/api/${PATH} <br><br>
@@ -153,6 +155,8 @@ The request returns single collisionImg object with ${sessionID} and ${imgName}.
 
 ## ----------- Google Vision Classification -----------
 The Google Vision API uses the *objectLocalization* function to fetch the object classification in the image. This is then highlighted with "pureimage" library.  The saved classified image looks like this. :) <br>
-![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/collisionImg.jpg)
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/collisionImg_01.jpg)
 
 
+## ----------- API MOCKUP -----------
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/API_Mockups_collisionImg.png)

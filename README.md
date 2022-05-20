@@ -21,6 +21,9 @@ The task for backend is stated as following:
 
 1. Clone the repository, use `git clone https://github.com/IMS-Team6/IMS_SBackend.git`
 2. Switch to directory `./platform` 
-3. Run `docker-compose up --build -V` to start the docker containers, use `docker-compose down` to shutdown docker containers 
-4. Use http://localhost:8080/api/sessions to fetch all sessions, the code will initiate two sessions (123456 and 987654).
+3. Run your favorit **CLI** (PowerShell, Bash etc...) in this directory
+4. Run `docker-compose up --build -V` to start the docker containers, use `docker-compose down` to shutdown docker containers 
+5. Use http://localhost:8080/api/sessions to fetch all sessions, the code will initiate two sessions (123456 and 987654).
 
+## Assignment Mockup 
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/System_Mockup.png) 

@@ -24,7 +24,7 @@ MongoDB saves data in so called collections, a collection consists of objects.
 | collisionPos | {collX[], collY[]}       | Object{[],[]} | Returns objects with positions X and Y where collisions occured            |
 | collX        | [1,2,3,4]                | Array[Int]    | Returns Array[] with Integer values for position X where collision occured |
 | collY        | [9,8,7,6]                | Array[Int]    | Returns Array[] with Integer values for position Y where collision occured |
-  ```
+  ```js
   {
     Session: {
         sessionID: String,
@@ -52,7 +52,7 @@ MongoDB saves data in so called collections, a collection consists of objects.
 | posX         | 1             | Int             | Returns Integer value for position X where collision image was capture |
 | posY         | 2             | Int             | Returns Integer value for position Y where collision image was capture |
 | imgName      | 'someimg.jpg' | String          | Unique image name identifier                                           |
-```
+```js
 {
     sessionID: String,
     collisionsAt: {
