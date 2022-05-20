@@ -104,13 +104,32 @@ managePostSessionData takes in session data as parameter and validates each sess
 
 ### Session Validation
 Purpose of file and description of all functions
-in this file we validate two different functions one for session id and the other one for session data we look all posible way to validate the postions , collison and robot state and we psuh our earror in globals file where we specifying what each errors do .
+```js 
+ exports.validateSessionID = function(sessionData) 
+```
+this function is for validating session id it takes session data as a prameter and pushes eror messages into globals file where we specifying what each errors do 
+```js 
+exports.validateSessionData = function(sessionData)
+```
+this function is for validating session data such as postions x and y, collison and robotstate pushes eror messages into globals file where we specifying what each errors do.
+
 ### File Manager
 Purpose of file and description of all functions
+```js 
+exports.manageFileUpload = function(uploadData, request, callback)
 
+```
 ### File Validation
 Purpose of file and description of all functions
-<br>
+```js 
+exports.validateFile = function(file) 
+```
+this function is for validating file  it takes file as a prameter and pushes eror messages into globals file where we specifying what each errors do 
+
+```js 
+ exports.validateUploadData = function(collisionsAt)
+ ```
+ this function is for validating the uploaded data  it takes collisionsAt as a prameter and pushes eror messages into globals file where we specifying what each errors do 
 
 ## Data Access Layer
 The Data Access Layer is responsible for connecting and sending queries to the database. The layer catches the errors which might acquire while carrying out the queries and sends them to the Presentation Layer using Business Logic Layer.
