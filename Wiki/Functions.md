@@ -117,8 +117,9 @@ this function is for validating session data such as postions x and y, collison 
 Purpose of file and description of all functions
 ```js 
 exports.manageFileUpload = function(uploadData, request, callback)
-
 ```
+this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
+
 ### File Validation
 Purpose of file and description of all functions
 ```js 
@@ -135,11 +136,38 @@ this function is for validating file  it takes file as a prameter and pushes ero
 The Data Access Layer is responsible for connecting and sending queries to the database. The layer catches the errors which might acquire while carrying out the queries and sends them to the Presentation Layer using Business Logic Layer.
 ### Connect MongoDB
 Purpose of file and description of all functions
-
+```js 
+sync function run()
+```
+in this function we use it to run the mongo db 
 ### Session Repository
-writePositions here 
 Purpose of file and description of all functions
+```js 
+exports.getSessionWithID = async function(thisSessionID)
+```
+```js 
+exports.createSessionWithID = async function(sessionData) {
+```
+```js 
+exports.writePositions = async function(sessionData)
+```
+
 ### File Repository
 Purpose of file and description of all functions
+```js 
+  exports.insertCollisionImg = async function(sessionID, collisionsAt, imgName)
+```
+```js 
+  exports.getOneCollisionImg = async function(sessionID, imgName)
+```
+```js 
+   exports.getAllCollisionImg = async function(sessionID) 
+```
 ### File Handler
 Purpose of file and description of all functions
+```js 
+exports.writeFileToServer = function(newPath, oldPath, callback) 
+ ```
+ this function is for writing file to the server and takes in two parameter the new path and the old path and returns if the file was written in sucess or an error message
+ 
+
