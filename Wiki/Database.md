@@ -65,5 +65,5 @@ MongoDB saves data in so called collections, a collection consists of objects.
 
 ### Mock-up 
 A session may have 0 or many collision images, but a collision image may only belong to one session!
-![alt text]([https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/Database_UML.png](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/Database%20UML.png))
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/Database%20UML.png)
 
