@@ -11,7 +11,7 @@ module.exports = function() {
         try {
             const result = await sessions.find({}).project({ sessionID: 1, robotState: 1, collision: 1, _id: 0 }).toArray();
 
-            dbClient.close();
+            await dbClient.close();
             if (result) {
                 return result;
             } else {
@@ -31,7 +31,7 @@ module.exports = function() {
 
         try {
             const result = await sessions.findOne({ sessionID: thisSessionID });
-            dbClient.close();
+            await dbClient.close();
 
             if (result) {
                 return result;
@@ -52,8 +52,8 @@ module.exports = function() {
 
         try {
             const resolved = await sessions.findOne({ sessionID: sessionID });
-            dbClient.close();
-            console.log(resolved, '????????')
+            await  dbClient.close();
+          
             if (resolved && resolved.robotState == "STOP") {
                 return ["cannotUploadImgToStoppedSession"];
             } else if (!resolved) {
@@ -88,7 +88,7 @@ module.exports = function() {
         // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
         const resultX = await sessions.insertOne(duplicate);
 
-        dbClient.close();
+        await dbClient.close();
         return resultX;
     };
 
@@ -113,7 +113,7 @@ module.exports = function() {
                 query = { $set: { robotState: sessionData.robotState }, $push: { "positions.posX": sessionData.positions.posX, "positions.posY": sessionData.positions.posY } };
             };
             const result = await sessions.updateOne({ sessionID: sessionData.sessionID }, query);
-            dbClient.close();
+            await dbClient.close();
             return result;
         } catch {
             return ["internalError"]
@@ -128,7 +128,7 @@ module.exports = function() {
         try {
             const query = { $set: { collisionImgExists: true } };
             const result = await sessions.updateOne({ sessionID: thiSessionID }, query);
-            dbClient.close();
+            await  dbClient.close();
             return result;
         } catch {
             return ["internalError"]

@@ -1,4 +1,4 @@
-# Logbook Week 19 - Sprint 5 - API requests for image file read/write, Google Vision - Total hours this week: ~26 hours and going
+# Logbook Week 19 - Sprint 5 - API requests for image file read/write, Google Vision - Total hours this week: ~31
   - Sprint Planning - 60min - 1hrs
   - Meeting with backend team - 60min - 1hrs
   - Looking into Google Vision - 240min - 6hrs

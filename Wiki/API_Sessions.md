@@ -15,11 +15,11 @@ Defenition of a session:
 
 URI: http://3.72.195.76/api/PATH <br>
 
-| TYPE | PATH                 | Description                                                                                                                   |
-| ---- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| TYPE | PATH | Description                                         |
+| ---- | -------------------- | ----------------------------------- |
 | GET  | sessions             | Returns an Array[] with Objects of "sessions", a sessions contains sessionID: String, robotStatus: String, collision: Boolean |
-| GET  | session/${sessionID} | Returns an session Object with all attributes                                                                                 |
-| POST | session/${sessionID} | Writes positions sent from robot, with current state and collision                                                            |
+| GET  | session/${sessionID} | Returns an session Object with all attributes   |
+| POST | session/${sessionID} | Writes positions sent from robot, with current state and collision  |
 
 <br>
 
