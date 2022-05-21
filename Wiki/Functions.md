@@ -25,77 +25,96 @@ The Presentaiton Layer is only responsible for receiving http requests and sendi
 *Purpose of file and description of all functions...*
 
 
-
-
-This file is where we wrote our endpoints for session api, we have two get functions and one for post function.
-***
-*Förklara vad funktionen gör, varför den gör det, vad den returnerar. Notera skriv INTE HUR den gör* <br>
+In order to fetch all sessions, the API call uses the /sessions path as parameter. The call returns "sessions" objects in a list. 
 ```js 
 router.get('/sessions', async function(request, response));
 ```
-this funtion takes in /sessions as parameter and returns a list of all sessions in an  object. this function calls functions in business layer to look if any err occured and to validate 
-status code 200  returns an object 
-status code 500 returns 500 and error message
-*** 
+This API call returns the following statuses:
+
+Status: 200 Body: Array[Object, Object...] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
+
+
+In order to fetch a specific session the sessionID must be included in the parameter, the API call uses /sessions/:sessionID path as parameters. The call returns a session object.
 ```js
 router.get('/sessions/:sessionID', async function(request, response));
 ```
-this funtion takes in /sessions/:sessionID as parameter and returns the session with that specific id. It calls functions in business layer for validations and to see if any err occured 
-status code 200  returns an object 
-status code 500 returns 500 and error message
-***
+This API call returns the following statuses:
+
+Status: 200 Body: [Object, Object]  <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
+
+
+In order to post a session or update positions, the API call uses the /session/:sessionID path as parameters. The call returns an "acknowledged" object.
 ```js
  router.post('/session/:sessionID', async function (request, response));
 ```
-this funtion takes in /sessions/:sessionID as parameter and it uses a paylod of session id, postion x and y robotsate the different state start,moving and stop and collision.it asks business layer if any err occured and also to validate the states.
-status code 200  returns an object 
-status code 400 for error message
-***
+This API call returns the following statuses:
 
-get request 1 path name : /sessions
-get request 2 path name : /session/:sessionID
-post request path name :/session/:sessionID
+Status: 200 Body: [Object, Object] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
 
 ### File Service API
-Purpose of file and description of all functions
+*Purpose of file and description of all functions...*
 
-This file is where we wrote our endpoints for file service api. Module function exporterar different functions from other two layers business and data acceess this function takes in 3 parameterar.The api end points for file server is specified in this file  4 different get request for getting different files and one post request for creating the file upload .
+In order to upload a collision image, the API call uses the /upload/:sessionID path as parameters. The call requires a body which includes a collision image file with the key name "collisionImg" and positions x and y with the keys "posX" and "posY".
 ```js 
 router.post('/upload/:sessionID', (request, response, next))
 ```
-This funtion takes in /upload/:sessionID as parameter it calls a function in business layer for validations and to see if any err occured it returns all collion image
-status code that has been used  200 if is succeeded
-400 for error message .
+This API call returns the following statuses:
 
+Status: 200 Body: ['success'] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
+
+
+In order to get all collisions in a session, the API call uses the /collisionImg/:sessionID path as parameters. The call returns an array of collision objects.
 ```js 
 router.get('/collisionImg/:sessionID', async function(request, response)
 ```
-This funtion takes in /collisionImg/:sessionID as parameter it calls a function in data access layer and  it returns all collion image as an object.
+This API call returns the following statuses:
+
+Status: 200 Body: Array[Object, Object...] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
 
+In order to get a specific collision image, the API call uses the /collisionImg/:sessionID/:imgName path as parameters. The call returns an collision object.
 ```js 
 router.get('/collisionImg/:sessionID/:imgName', async function(request, response)
 ```
-This funtion takes in /collisionImg/:sessionID/:imgName as parameter it calls a function in data access layer and  it returns one collion image as an object.
+This API call returns the following statuses:
 
+Status: 200 Body: [Object, Object] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
+
+
+In order to download a specific collision image, the API call uses the /download/collisionImg/:sessionID/:imgName path as parameters. The call returns and downloads an image file.
 ```js 
 router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response)
 ```
-This funtion takes in /download/collisionImg/:sessionID/:imgName as parameter it calls a function in business layer for validations and to see if any err occured it returns one single file that is downloaded. 
-status code 404 for error message .
+This API call returns the following statuses:
 
+Status: 200 Body: [Object, Object] <br />
+Status: 404 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
+
+
+In order to download all collision images from a session, the API call uses the /download/collisionImg/:sessionID/ path as parameters. The call returns and downloads a zip file containing collision images.
 ```js 
 router.get('/download/collisionImg/:sessionID', async function(request, response)
 ```
-This funtion takes in /download/collisionImg/:sessionID' as parameter it calls a function in business layer for validations and to see if any err occured it returns a multiple file that is downloaded. 
-status code 404 for error message .
+This API call returns the following statuses:
 
+Status: 200 Body: [Object, Object] <br />
+Status: 404 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
-path name: upload/:sessionID:
-path name: /collisionImg/:sessionID
-path name :/collisionImg/:sessionID/:imgName
-path name /download/collisionImg/:sessionID
 
 ## Business Logic Layer
 The Business Logic Layer is responsible for providing business logic which includes the validations for requests. The layer carries out a request only if the request goes throuth validations. If the request is acceptable then the layer makes use of Data Access Layer to send queries to the database. If the request is not acceptable then Business Logic Layer responses back with errors.
