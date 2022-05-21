@@ -5,13 +5,13 @@ Definition of a collision image:
     - An collision image is captured when a "collision" occurs
     - collision image is captured at certain coordinates
 
-| Table of content:  |
-----------------------
-| [Post Collision Image](#post-collisionimg) |
-| [Get Collision Images](#get-collision-images) |
-| [Get Collision Image](#get-collision-image) |
-| [Google Vision Classification](#google-vision-classification) |
-| [API Mockup](#api-mockup) |
+| Table of content:  
+------------------------------
+- [Post Collision Image](#post-collisionimg)
+- [Get Collision Images](#get-collision-images)
+- [Get Collision Image](#get-collision-image)
+- [Google Vision Classification](#google-vision-classification)
+- [API Mockup](#api-mockup)
 
 <br>
 
@@ -152,7 +152,7 @@ The request returns single collisionImg object with ${sessionID} and ${imgName}.
     }
 ```
 <br><br>
-
+ 
 ## ----------- Google Vision Classification -----------
 The Google Vision API uses the *objectLocalization* function to fetch the object classification in the image. This is then highlighted with "pureimage" library.  The saved classified image looks like this. :) <br>
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/collisionImg_01.jpg)
