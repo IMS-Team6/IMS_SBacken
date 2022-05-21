@@ -6,11 +6,10 @@ Definition of a collision image:
     - collision image is captured at certain coordinates
 
 | Table of content:  
-------------------------------
-- [Post Collision Image](#post-collisionimg)
-- [Get Collision Images](#get-collision-images)
-- [Get Collision Image](#get-collision-image)
-- [Google Vision Classification](#google-vision-classification)
+- [Post Collision Image](#post-collisionimg) 
+- [Get Collision Images](#get-collision-images) 
+- [Get Collision Image](#get-collision-image) 
+- [Google Vision Classification](#google-vision-classification) 
 - [API Mockup](#api-mockup)
 
 <br>
@@ -28,7 +27,8 @@ URI: http://3.72.195.76/api/${PATH} <br><br>
 <br>
 <br>
 
-## ----------- POST *collisionImg* -----------
+## POST *collisionImg*
+***
 
 | TYPE | URL                     | PATH                |
 | ---- | ----------------------- | ------------------- |
@@ -74,7 +74,8 @@ print(response.text)
 ```
 <br><br>
 
-## ----------- GET *Collision Images* -----------
+## GET *Collision Images*
+***
 
 | TYPE | URL                     | PATH                               |
 | ---- | ----------------------- | ---------------------------------- |
@@ -119,8 +120,8 @@ The request returns a list with all collisionImg objects with ${sessionID}. The 
 ```
 <br><br>
 
-## ----------- GET *collision image* -----------
-
+## GET *collision image*
+***
 | TYPE | URL                     | PATH                               |
 | ---- | ----------------------- | ---------------------------------- |
 | GET  | http://3.72.195.76/api/ | collisionImg/${sessionID}          |
@@ -153,10 +154,12 @@ The request returns single collisionImg object with ${sessionID} and ${imgName}.
 ```
 <br><br>
  
-## ----------- Google Vision Classification -----------
+## Google Vision Classification
+***
 The Google Vision API uses the *objectLocalization* function to fetch the object classification in the image. This is then highlighted with "pureimage" library.  The saved classified image looks like this. :) <br>
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/collisionImg_01.jpg)
 
 
-## ----------- API MOCKUP -----------
+## API MOCKUP
+***
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/API_Mockups_collisionImg.png)

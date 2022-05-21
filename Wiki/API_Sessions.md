@@ -9,23 +9,23 @@ Defenition of a session:
 
 | Table of content:  |
 ------------------------------
-[Get Session](#get-session)
-[Get Sessions](#get-sessions)
-[Post Session](#post-session)
+- [Get Session](#get-session)
+- [Get Sessions](#get-sessions)
+- [Post Session](#post-session)
 
 URI: http://3.72.195.76/api/PATH <br>
 
-| TYPE | PATH | Description                                         |
-| ---- | -------------------- | ----------------------------------- |
+| TYPE | PATH                 | Description                                                                                                                   |
+| ---- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | GET  | sessions             | Returns an Array[] with Objects of "sessions", a sessions contains sessionID: String, robotStatus: String, collision: Boolean |
-| GET  | session/${sessionID} | Returns an session Object with all attributes   |
-| POST | session/${sessionID} | Writes positions sent from robot, with current state and collision  |
+| GET  | session/${sessionID} | Returns an session Object with all attributes                                                                                 |
+| POST | session/${sessionID} | Writes positions sent from robot, with current state and collision                                                            |
 
 <br>
 
 
-## ----------- GET *Sessions* -----------
-
+## GET *Sessions* 
+***
 | TYPE | URL                     | PATH                 |
 | ---- | ----------------------- | -------------------- |
 | GET  | http://3.72.195.76/api/ | session/${sessionID} |
@@ -63,8 +63,8 @@ The request returns a list with session objects. The data looks like this:
 ```
 
 
-## ----------- GET *session* -----------
-
+## GET *session*
+***
 | TYPE | URL                     | PATH                 |
 | ---- | ----------------------- | -------------------- |
 | GET  | http://3.72.195.76/api/ | session/${sessionID} |
@@ -107,8 +107,8 @@ The request returns the entire session Object and it's attributes.
 }
 ```
 
-## ----------- POST *session* -----------
-
+## POST *session*
+***
 | TYPE | URL                     | PATH                 |
 | ---- | ----------------------- | -------------------- |
 | POST | http://3.72.195.76/api/ | session/${sessionID} |
