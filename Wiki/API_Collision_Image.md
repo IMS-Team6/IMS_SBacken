@@ -1,4 +1,4 @@
-# Sessions API Documentation:
+# Collision Image API Documentation:
 
 Definition of a collision image:
 
@@ -6,19 +6,19 @@ Definition of a collision image:
     - collision image is captured at certain coordinates
 
 | Table of content:  |
-------------------------------
-[Post Collision Image](#post-collisionimg)
-[Get Collision Images](#get-collision-images)
-[Get Collision Image](#get-collision-image)
-[Google Vision Classification](#google-vision-classification)
-[API Mockup](#api-mockup)
+----------------------
+| [Post Collision Image](#post-collisionimg) |
+| [Get Collision Images](#get-collision-images) |
+| [Get Collision Image](#get-collision-image) |
+| [Google Vision Classification](#google-vision-classification) |
+| [API Mockup](#api-mockup) |
 
 <br>
 
 URI: http://3.72.195.76/api/${PATH} <br><br>
 
-| TYPE | PATH                                          |    Description                |
-| ---- | --------------------------------------------- | ----------------------------- |
+| TYPE | PATH                                          | Description                                                                      |
+| ---- | --------------------------------------------- | -------------------------------------------------------------------------------- |
 | GET  | collisionImg/${sessionID}                     | **Returns** an Array[] with all   with the unique sessionID                      |
 | GET  | download/collisionImg/${sessionID}            | **Downloads** a collection of all images with sessionID, compressed in .zip file |
 | GET  | collisionImg/${sessionID}/${ImgName}          | **Returns** specific Objects "collisionImg" from a session with unique ImgName   |
@@ -85,8 +85,8 @@ print(response.text)
 | ----------------------------------------------- | ------------------ |
 | GET  http://3.72.195.76/api/collisionImg/123456 | Not required!      |
 
-| Key          | Value                    | Data Type       | Purpose                                                 |
-| ------------ | ------------------------ | --------------- | ------------------------------------------------------- |
+| Key          | Value                    | Data Type       | Purpose                                                                |
+| ------------ | ------------------------ | --------------- | ---------------------------------------------------------------------- |
 | sessionID    | '1234... numeric string' | String          | Unique session identifier                                              |
 | collisionsAt | {posX, posX}             | Object{Int,Int} | Returns objects with positions X and Y where collisions occurred       |
 | posX         | 1                        | Int             | Returns Integer value for position X where collision image was capture |
