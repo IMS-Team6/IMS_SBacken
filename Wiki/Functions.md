@@ -1,7 +1,6 @@
 # Code structure and functions
 
-
-
+***Change file name to "Software Design Description"***
 - [Code structure and functions](#code-structure-and-functions)
   - [Presentation Layer](#presentation-layer)
     - [Session API](#session-api)
@@ -17,35 +16,41 @@
     - [File Repository](#file-repository)
     - [File Handler](#file-handler)
 
+![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/Backend_architecture.png)
+
+
 ## Presentation Layer
 The Presentaiton Layer is only responsible for receiving http requests and sending back responses. The layer uses Business Logic Layer to carry out the http requests. 
 ### Session API
 *Purpose of file and description of all functions...*
 
 
-*Förklara vad funktionen gör, varför den gör det, vad den returnerar. Notera skriv INTE HUR den gör* <br>
+
 
 This file is where we wrote our endpoints for session api, we have two get functions and one for post function.
-
+***
+*Förklara vad funktionen gör, varför den gör det, vad den returnerar. Notera skriv INTE HUR den gör* <br>
 ```js 
 router.get('/sessions', async function(request, response));
 ```
 this funtion takes in /sessions as parameter and returns a list of all sessions in an  object. this function calls functions in business layer to look if any err occured and to validate 
 status code 200  returns an object 
 status code 500 returns 500 and error message
- 
+*** 
 ```js
 router.get('/sessions/:sessionID', async function(request, response));
 ```
 this funtion takes in /sessions/:sessionID as parameter and returns the session with that specific id. It calls functions in business layer for validations and to see if any err occured 
 status code 200  returns an object 
 status code 500 returns 500 and error message
+***
 ```js
  router.post('/session/:sessionID', async function (request, response));
 ```
 this funtion takes in /sessions/:sessionID as parameter and it uses a paylod of session id, postion x and y robotsate the different state start,moving and stop and collision.it asks business layer if any err occured and also to validate the states.
 status code 200  returns an object 
 status code 400 for error message
+***
 
 get request 1 path name : /sessions
 get request 2 path name : /session/:sessionID
@@ -57,7 +62,7 @@ Purpose of file and description of all functions
 
 This file is where we wrote our endpoints for file service api. Module function exporterar different functions from other two layers business and data acceess this function takes in 3 parameterar.The api end points for file server is specified in this file  4 different get request for getting different files and one post request for creating the file upload .
 ```js 
-router.post('/upload/:sessionID', (request, response, next)
+router.post('/upload/:sessionID', (request, response, next))
 ```
 This funtion takes in /upload/:sessionID as parameter it calls a function in business layer for validations and to see if any err occured it returns all collion image
 status code that has been used  200 if is succeeded

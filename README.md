@@ -12,17 +12,17 @@ This backend application is written in collaboration with Husqvarna AB, Jönköp
 
 This application is built with Express NodeJS in a dockerized environment. If you do not have Docker, use the following link to download Docker https://docs.docker.com/get-docker/. 
 The task for backend is stated as following: 
--  *Backend1: The backend shall publish a REST API for reading and writing position data that is sent from the Mower. *
--  *Backend2: The REST API shall contain a service for reading and writing image data. *
--  *Backend3: When image is written, the service shall perform an image classification via for example Google API. *
+-  *Backend1: The backend shall publish a REST API for reading and writing position data that is sent from the Mower.*
+-  *Backend2: The REST API shall contain a service for reading and writing image data.*
+-  *Backend3: When image is written, the service shall perform an image classification via for example Google API.*
   
 
 ## Get Started
 
 1. Clone the repository, use `git clone https://github.com/IMS-Team6/IMS_SBackend.git`
-2. Switch to directory `./platform` 
+2. Switch to directory `./IMS_SBackend/platform` 
 3. Run your favorit **CLI** (PowerShell, Bash etc...) in this directory
-4. Run `docker-compose up --build -V` to start the docker containers, use `docker-compose down` to shutdown docker containers 
+4. Run `docker-compose up --build -V` to start the docker build, use `docker-compose down` to shutdown and remove docker containers 
 5. Use http://localhost:8080/api/sessions to fetch all sessions, the code will initiate two sessions (123456 and 987654).
 
 ## Assignment Mockup 
