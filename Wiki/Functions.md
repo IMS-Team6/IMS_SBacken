@@ -2,6 +2,7 @@
 
 ***Change file name to "Software Design Description"***
 - [Code structure and functions](#code-structure-and-functions)
+  - [The Tier Architecture](#the-tier-architecture)
   - [Presentation Layer](#presentation-layer)
     - [Session API](#session-api)
     - [File Service API](#file-service-api)
@@ -16,6 +17,7 @@
     - [File Repository](#file-repository)
     - [File Handler](#file-handler)
 
+## The Tier Architecture
 ![alt text](https://github.com/IMS-Team6/IMS_SBackend/blob/main/Wiki/media/Backend_architecture.png)
 
 
