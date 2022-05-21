@@ -23,20 +23,18 @@ The Presentaiton Layer is only responsible for receiving http requests and sendi
 *Purpose of file and description of all functions...*
 
 
-In order to fetch all sessions, the API call uses the /sessions path as parameter. It returns "sessions" objects in a list. 
+In order to fetch all sessions, the API call uses the /sessions path as parameter. The call returns "sessions" objects in a list. 
 ```js 
 router.get('/sessions', async function(request, response));
 ```
-
 This API call returns the following statuses:
 
 Status: 200 Body: Array[Object, Object...] <br />
-Status: 200 Body: [Object, Object] <br />
 Status: 400 Body: ['Some error']  <br />
 Status: 500 Body: ['Internal server error']  <br />
 
 
-In order to fetch a specific session the sessionID must be included in the parameter, the API call uses /sessions/:sessionID path as parameters. It returns a session object.
+In order to fetch a specific session the sessionID must be included in the parameter, the API call uses /sessions/:sessionID path as parameters. The call returns a session object.
 ```js
 router.get('/sessions/:sessionID', async function(request, response));
 ```
@@ -47,7 +45,7 @@ Status: 400 Body: ['Some error']  <br />
 Status: 500 Body: ['Internal server error']  <br />
 
 
-In order to post a session or update positions, the API call uses the /session/:sessionID path as parameters. It returns an "acknowledged" object.
+In order to post a session or update positions, the API call uses the /session/:sessionID path as parameters. The call returns an "acknowledged" object.
 ```js
  router.post('/session/:sessionID', async function (request, response));
 ```
@@ -61,31 +59,60 @@ Status: 500 Body: ['Internal server error']  <br />
 ### File Service API
 *Purpose of file and description of all functions...*
 
+In order to upload a collision image, the API call uses the /upload/:sessionID path as parameters. The call requires a body which includes a collision image file with the key name "collisionImg" and positions x and y with the keys "posX" and "posY".
+```js 
+router.post('/upload/:sessionID', (request, response, next)
+```
+This API call returns the following statuses:
 
+Status: 200 Body: ['success'] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
+
+
+In order to get all collisions in a session, the API call uses the /collisionImg/:sessionID path as parameters. The call returns an array of collision objects.
 ```js 
 router.get('/collisionImg/:sessionID', async function(request, response)
 ```
+This API call returns the following statuses:
+
+Status: 200 Body: Array[Object, Object...] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
 
+In order to get a specific collision image, the API call uses the /collisionImg/:sessionID/:imgName path as parameters. The call returns an collision object.
 ```js 
 router.get('/collisionImg/:sessionID/:imgName', async function(request, response)
 ```
+This API call returns the following statuses:
+
+Status: 200 Body: [Object, Object] <br />
+Status: 400 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
 
+In order to download a specific collision image, the API call uses the /download/collisionImg/:sessionID/:imgName path as parameters. The call returns and downloads an image file.
 ```js 
 router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response)
 ```
+This API call returns the following statuses:
+
+Status: 200 Body: [Object, Object] <br />
+Status: 404 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
 
+In order to download all collision images from a session, the API call uses the /download/collisionImg/:sessionID/ path as parameters. The call returns and downloads a zip file containing collision images.
 ```js 
 router.get('/download/collisionImg/:sessionID', async function(request, response)
 ```
+This API call returns the following statuses:
 
+Status: 200 Body: [Object, Object] <br />
+Status: 404 Body: ['Some error']  <br />
+Status: 500 Body: ['Internal server error']  <br />
 
-path name: upload/:sessionID:
-path name: /collisionImg/:sessionID
-path name :/collisionImg/:sessionID/:imgName
-path name /download/collisionImg/:sessionID
 
 ## Business Logic Layer
 The Business Logic Layer is responsible for providing business logic which includes the validations for requests. The layer carries out a request only if the request goes throuth validations. If the request is acceptable then the layer makes use of Data Access Layer to send queries to the database. If the request is not acceptable then Business Logic Layer responses back with errors.
