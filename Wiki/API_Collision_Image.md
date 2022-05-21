@@ -7,11 +7,11 @@ Definition of a collision image:
 
 | Table of content:  |
 ------------------------------
-[Post Collision Image](#post-collisionimg)
-[Get Collision Images](#get-collision-images)
-[Get Collision Image](#get-collision-image)
-[Google Vision Classification](#google-vision-classification)
-[API Mockup](#api-mockup)
+- [Post Collision Image](#post-collisionimg)
+- [Get Collision Images](#get-collision-images)
+- [Get Collision Image](#get-collision-image)
+- [Google Vision Classification](#google-vision-classification)
+- [API Mockup](#api-mockup)
 
 <br>
 
