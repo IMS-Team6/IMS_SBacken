@@ -160,7 +160,7 @@ managePostSessionData takes in session data as parameter and validates each sess
 ```js 
   exports.manageGetSessions = async function(callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Array[Object{},...], error)`
 <br>
 
 ***
@@ -169,7 +169,7 @@ Return: `Array[Object{}, Object{}]`
 ```js 
   exports.manageGetSessionWithID = async function(sessionID, callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Array[Object{},...], error)`
 <br>
 
 ***
@@ -179,7 +179,7 @@ Return: `Array[Object{}, Object{}]`
   exports.managePostSessionData = async function(sessionData, callback)
 ```
 
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Array[Object{},...], error)`
 
 <br>
 
@@ -193,7 +193,7 @@ Return: `Array[Object{}, Object{}]`
 ```js 
   exports.validateSessionData = function(sessionData)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Array[error...]`
 
 <br>
 
@@ -205,151 +205,164 @@ this function manges the file upload and takes in upload data as a parameter it 
 ```js 
 exports.validateSessionID = function(sessionID)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Array[error...]`
 
 <br>
 
 ***
-
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
 
 
 ### **File Manager**
 *`fileManager.js` is responseble for managing data from presentation layer.*
 
-`manageFileUpload()` thakes in these, does this 
+`manageFileUpload()` takes `uploadData`, `request` and a `callback` function as parameters. uploadData consists of sessionID, the `requests` consists of file and other data. The function handles the logic and returns a callback with an object or error.  
 ```js 
 exports.manageFileUpload = function(uploadData, request, callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Objects{}, [errors])`
 
 <br>
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
-`manageSingleFileDownload()` thakes in these, does this 
+`manageSingleFileDownload()` takes in `sessionID`, `imgName` and a `callback` function. It manages the logic and returns a callback with a image object or error.
 ```js 
 exports.manageSingleFileDownload = async function(sessionID, imgName, callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Object{}, [errors])`
 
 <br>
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
-`manageMultipleFileDownload()` thakes in these, does this 
+`manageMultipleFileDownload()` takes a `sessionID` as parameter, and manages the logic. The callback returns an Array with collision image objects or errors.  
 ```js 
 exports.manageMultipleFileDownload = async function(sessionID, callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Array[Object{},...], [errors])`
 
 <br>
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
-`manageGetCollisionImg()` thakes in these, does this 
+`manageGetCollisionImg()` takes in the `payload` and a `callback` parameter. Payload consist of `sessionID` and `imgName`.  The callback return an object or error. 
 ```js 
 exports.manageGetCollisionImg = async function(payload, callback) 
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Array[Object{},...], [errors])`
 
 <br>
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
-`manageGetAllCollisionImg()` thakes in these, does this 
+`manageGetAllCollisionImg()` manages the logic before fetching data from data access layer. The callback return an object or error. 
 ```js 
 exports.manageGetAllCollisionImg = async function(sessionID, callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `callback(Array[Object{},...], [errors])`
 
 <br>
 
 ***
-
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
 
 ### **File Validation**
 *`fileValidation.js` is responseble for managing data from presentation layer.*
 Purpose of file and description of all functions
 
-`validateFile()` thakes in these, does this 
+`validateFile()` takes in a file as parameters, it checks whatever the files is supored etc.  
 ```js 
 exports.validateFile = function(file) 
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Array[error...]`
 
 <br>
 
 ***
 
-`validateUploadData()` thakes in these, does this 
-this function is for validating file  it takes file as a prameter and pushes eror messages into globals file where we specifying what each errors do 
+`validateUploadData()` takes in `collisionsAt` object that is sent together with a file, and validates its data.
 
 ```js 
 exports.validateUploadData = function(collisionsAt)
 ```
 
-Return: `Array[Object{}, Object{}]`
+Return: `Array[error...]`
 
 <br>
 
 ***
- 
 
 ## **Data Access Layer**
 The Data Access Layer is responsible for connecting and sending queries to the database. The layer catches the errors which might acquire while carrying out the queries and sends them to the Presentation Layer using Business Logic Layer.
-### **Connect MongoDB**
-*`connectMongodb.js` is responseble for managing data from presentation layer.*
-Purpose of file and description of all functions
 
-`run()` thakes in these, does this 
+### **Connect MongoDB**
+*`connectMongodb.js` is responseble for connecting to mongoDB* Returns a `client connection`
+
+`run()` Checks whatever it's possible to connect to mongoDB.
 ```js 
 sync function run()
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Success or Fail`
 
 <br>
 
 ***
 
-in this function we use it to run the mongo db 
 ### **Session Repository**
 *`sessionRepository.js` is responseble for storing session data to database.*
 Purpose of file and description of all functions
 
-`getSessionWithID()` thakes in these, does this 
+`getSessions()` takes no parameters, fetches all session object stored in collection
+```js 
+exports.getSessions = async function()
+```
+Return: `Array[Object{}, Object{}...] or [errors]`
+
+<br>
+
+***
+
+`getSessionWithID()` fetches a session with the given `sessionID`
 ```js 
 exports.getSessionWithID = async function(thisSessionID)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Object{} or [errors]`
 
 <br>
 
 ***
-`createSessionWithID()` thakes in these, does this 
+`createSessionWithID()` creates a session with given `sessionData`(sessionData is defined in the API) 
 ```js 
-exports.createSessionWithID = async function(sessionData) {
+exports.createSessionWithID = async function(sessionData)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `[['aknowleged:1']] or [errors]`
 
 <br>
 
 ***
-`writePositions()` thakes in these, does this 
+`getSessionWithIDAndState()` uses `sessionID` to fetch a singel session.
+```js 
+exports.getSessionWithIDAndState = async function(sessionID)
+```
+Return: `Object{}`
+
+<br>
+
+***
+`writePositions()` takes in `sessionData` as parameter (sessionData is defined in the API). This functions updates a session and the data sent.
 ```js 
 exports.writePositions = async function(sessionData)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `[['aknowleged:1']] or [errors]`
+
+<br>
+
+***
+
+`updateCollisionImgStatus()` uses `sessionID` to update whatever a session has a image stored.
+```js 
+exports.updateCollisionImgStatus = async function(thiSessionID)
+```
+Return: `[['aknowleged:1']] or [errors]`
 
 <br>
 
@@ -359,29 +372,29 @@ Return: `Array[Object{}, Object{}]`
 *`fileRepository.js` is responseble for storing file related object to database.*
 Purpose of file and description of all functions
 
-`insertCollisionImg()` thakes in these, does this 
+`insertCollisionImg()` takes `sessionID`, `collisionsAt` and `imgName` as parameters. These are later used to store a unique collision image object.
 ```js 
   exports.insertCollisionImg = async function(sessionID, collisionsAt, imgName)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `[['aknowleged:1']] or [errors]`
 
 <br>
 
 ***
-`getOneCollisionImg()` thakes in these, does this 
+`getOneCollisionImg()` takes in `sessionID` and `imgName` as parameters, these parameters are used to fetch a single cillision image objects related to the sessionID and imgName.
 ```js 
   exports.getOneCollisionImg = async function(sessionID, imgName)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Object{} or [errors]`
 
 <br>
 
 ***
-`getAllCollisionImg()` thakes in these, does this 
+`getAllCollisionImg()` takes in `sessionID` as parameter, the sessionID is later used to fetch all cillision image objects related to that sessionID.
 ```js 
    exports.getAllCollisionImg = async function(sessionID) 
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `Array[Object,...] or [errors]`
 
 <br>
 
@@ -390,21 +403,21 @@ Return: `Array[Object{}, Object{}]`
 *`fileHandler.js` is responseble for storing files to server*
 
 
-`writeFileToServer()` thakes in these, does this 
+`writeFileToServer()` takes in `newPath`, `oldPath` and a `callback` function as parameters. oldPath is synced into rawdata which is later written to newPath. The callback function returns success or fail. 
 ```js 
 exports.writeFileToServer = function(newPath, oldPath, callback) 
  ```
- Return: `Array[Object{}, Object{}]`
+ Return: `Success or [errors]`
 
 <br>
 
 ***
 
-`highlightImageObjects()` thakes in these, does this 
+`highlightImageObjects()` takes `inputFile`, and a `objects` as parameters. The function highlights the objects objects and writes them to inputFile. 
 ```js 
-exports.highlightImageObjects = function(newPath, oldPath, callback) 
+exports.highlightImageObjects = async function(inputFile, objects)
  ```
- Return: `Array[Object{}, Object{}]`
+ Return: `Success or [errors]`
 
 <br>
 
