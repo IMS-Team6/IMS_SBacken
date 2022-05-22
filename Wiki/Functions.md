@@ -35,7 +35,7 @@ In order to fetch all sessions, the API call uses the `/sessions` path as the id
 ```js 
 router.get('/sessions', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -49,7 +49,7 @@ To fetch a specific session the `/sessions/sessionID` must be passed as identifi
 ```js
 router.get('/sessions/:sessionID', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: [Object{}]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -63,7 +63,7 @@ In order to post a session or update positions, the API call uses the URI path `
 ```js
  router.post('/session/:sessionID', async function (request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 201 Body: ['Aknoweledged']` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -79,7 +79,7 @@ In order to upload a collision image, the API call uses the `/upload/:sessionID`
 ```js 
 router.post('/upload/:sessionID', (request, response, next))
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -92,7 +92,7 @@ To get all collision image objects belonging to a session, the API call requiers
 ```js 
 router.get('/collisionImg/:sessionID', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -105,7 +105,7 @@ In order to download all collision images from a session, the API call uses the 
 ```js 
 router.get('/download/collisionImg/:sessionID', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -118,7 +118,7 @@ In order to get a specific collision image, the API call uses the `/collisionImg
 ```js 
 router.get('/collisionImg/:sessionID/:imgName', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: [Object{}]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -131,7 +131,7 @@ In order to download a specific collision image, the API call uses the `/downloa
 ```js 
 router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -165,21 +165,21 @@ Return: `Array[Object{}, Object{}]`
 
 ***
 
-`manageGetSessionWithID()` thakes in these, does this 
+`manageGetSessionWithID()` takes in sessionID as parameters, and calls data access layer to fetch the session with that given id.
 ```js 
   exports.manageGetSessionWithID = async function(sessionID, callback)
 ```
-Return: `Array[Object{}, Object{}]`
+Return: `[Object{}, Object{}]`
 <br>
 
 ***
 
-`managePostSessionData()` thakes in these, does this 
+`managePostSessionData()` takes in sessionData object as parameters, and calls data access layer to create a session or update one. 
 ```js 
   exports.managePostSessionData = async function(sessionData, callback)
 ```
 
-Return: `Array[Object{}, Object{}]`
+Return: `[Object{}, Object{}]`
 
 <br>
 
@@ -189,7 +189,7 @@ Return: `Array[Object{}, Object{}]`
 ### **Session Validation**
 *`sessionValidation.js` is responseble for managing data from presentation layer.*
 
-`validateSessionData()` thakes in these, does this 
+`validateSessionData()` takes in sessionID as parameter and validates it.
 ```js 
   exports.validateSessionData = function(sessionData)
 ```
@@ -199,9 +199,7 @@ Return: `Array[Object{}, Object{}]`
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
-`manageGetAllCollisionImg()` thakes in these, does this 
+`validateSessionData()` thakes in sessionData object as parameter, and validates the object.
 ```js 
 exports.validateSessionID = function(sessionID)
 ```
@@ -211,13 +209,11 @@ Return: `Array[Object{}, Object{}]`
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
 
 ### **File Manager**
 *`fileManager.js` is responseble for managing data from presentation layer.*
 
-`manageFileUpload()` thakes in these, does this 
+`manageFileUpload()` thakes in uploadData object and request as parameters, and calls data access layer to post the uploadData object
 ```js 
 exports.manageFileUpload = function(uploadData, request, callback)
 ```
