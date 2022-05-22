@@ -1,4 +1,4 @@
-# Logbook Week 20 - Sprint 6 - Hotfixes, documentation - Total hours this week: ~13hrs, and going
+# Logbook Week 20 - Sprint 6 - Hotfixes, documentation, report - Total hours this week: ~24,5hrs 
 *Note: Hours per week do not include lectures and other discussions...* 
 
   - Testing backend functionallity woth hardware team - 30min
@@ -9,4 +9,12 @@
     - 502 Proxy Error: Somehow the application crashed, later I discovered that corrupt file was uploaded, or wrong filename extenssion was added. 
     - Application started crashing, not all error handling was working as intended. Troubleshooting each function and performed testing. 
   - Sprint planing - ~30min 
-  - Sync meeting - ~60min 
+  - Sync meeting - ~60min
+  - Adding more documentation ~ 10hours
+    - Images, system overview 
+    - Completing documentation etc.
+    - Writing report (Together with all team members)
+    - Finalizing report with Kirillos
+    - 
+  - Sunday meeting ~ 20-30 min 
+ 
