@@ -100,7 +100,7 @@ The API returns following responses:
 `Status: 500 Body: ['Internal server error']`  <br />
 <br>
 ***
-In order to download all collision images from a session, the API call uses the /download/collisionImg/:sessionID/ path as parameters. The call returns and downloads a zip file containing collision images.
+In order to download all collision images from a session, the API call uses the `/download/collisionImg/:sessionID/` path as parameters. The call returns and downloads a zip file containing collision images.
 
 ```js 
 router.get('/download/collisionImg/:sessionID', async function(request, response));
@@ -157,7 +157,7 @@ Return: `callback(Array[Object{},...], [errors])`
 
 ***
 
-`manageGetSessionWithID()` takes in sessionID as parameters, and calls data access layer to fetch the session with that given id.
+`manageGetSessionWithID()` takes in `sessionID` as parameter, and calls data access layer to fetch the session with that given id.
 ```js 
   exports.manageGetSessionWithID = async function(sessionID, callback)
 ```
@@ -166,7 +166,7 @@ Return: `callback(Object{}, [errors])`
 
 ***
 
-`managePostSessionData()` takes in sessionData object as parameters, and calls data access layer to create a session or update one. 
+`managePostSessionData()` takes in `sessionData` object as parameters, and calls data access layer to create a session or update one. 
 ```js 
   exports.managePostSessionData = async function(sessionData, callback)
 ```
@@ -178,7 +178,7 @@ Return: `callback(Object{}, [errors])`
 ### **Session Validation**
 *`sessionValidation.js` is responseble for managing data from presentation layer.*
 
-`validateSessionData()` takes in sessionID as parameter and validates it.
+`validateSessionData()` takes in `sessionID` as parameter and validates it.
 ```js 
   exports.validateSessionData = function(sessionData)
 ```
@@ -187,7 +187,7 @@ Return: `Array[error...]`
 
 ***
 
-`validateSessionData()` thakes in sessionData object as parameter, and validates the object.
+`validateSessionData()` thakes in `sessionData` object as parameter, and validates the object.
 ```js 
 exports.validateSessionID = function(sessionID)
 ```
