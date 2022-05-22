@@ -1,6 +1,5 @@
 # **Code structure and functions**
 
-***Change file name to "Software Design Description"***
 - [**Code structure and functions**](#code-structure-and-functions)
   - [**The 3 Tier Architecture**](#the-3-tier-architecture)
   - [**Presentation Layer**](#presentation-layer)
@@ -29,13 +28,14 @@
 The Presentation Layer is only responsible for receiving http requests and sending back responses. The application layer sends data to *Business Logic Layer* to carry out logical processing of the data. 
 
 ### **Session API**
-*`resAPI.js` is responseble for all sessions related requests.* To learn more about the API, read more in API_sessions.md
+*`resAPI.js` is responseble for all sessions related requests.* To learn more about the API, read more in API_sessions.md <br>
+***Disclaimer, we do not handle all the mentioned resposnes, although they were intended. This is to be done in a future improvement.***
 
 In order to fetch all sessions, the API call uses the `/sessions` path as the identifier. The call returns "sessions" objects in a list. 
 ```js 
 router.get('/sessions', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -49,7 +49,7 @@ To fetch a specific session the `/sessions/sessionID` must be passed as identifi
 ```js
 router.get('/sessions/:sessionID', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: [Object{}]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -63,7 +63,7 @@ In order to post a session or update positions, the API call uses the URI path `
 ```js
  router.post('/session/:sessionID', async function (request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 201 Body: ['Aknoweledged']` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -79,7 +79,7 @@ In order to upload a collision image, the API call uses the `/upload/:sessionID`
 ```js 
 router.post('/upload/:sessionID', (request, response, next))
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -92,7 +92,7 @@ To get all collision image objects belonging to a session, the API call requiers
 ```js 
 router.get('/collisionImg/:sessionID', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -105,7 +105,7 @@ In order to download all collision images from a session, the API call uses the 
 ```js 
 router.get('/download/collisionImg/:sessionID', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -118,7 +118,7 @@ In order to get a specific collision image, the API call uses the `/collisionImg
 ```js 
 router.get('/collisionImg/:sessionID/:imgName', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: [Object{}]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -131,7 +131,7 @@ In order to download a specific collision image, the API call uses the `/downloa
 ```js 
 router.get('/download/collisionImg/:sessionID/:imgName', async function(request, response));
 ```
-Thes API returns following responses:
+The API returns following responses:
 
 `Status: 200 Body: Array[Object, Object...]` <br />
 `Status: 400 Body: ['Bad request']`  <br />
@@ -145,14 +145,6 @@ Thes API returns following responses:
 ## **Business Logic Layer**
 The Business Logic Layer is responsible for providing business logic which includes the validations for requests. The layer carries out a request only if the request goes throuth validations. If the request is acceptable then the layer makes use of Data Access Layer to send queries to the database. If the request is not acceptable then Business Logic Layer responses back with errors.
 
-
-Purpose of file and description of all functions
-
-module function exporterar different functions from other two layers business and data acceess this function takes in two parameters session repository and session validation. in this file we have tre different functions that manges different things.
-manageGesessions function manages to get all sessions
-manageGetSessionWithID this function takes in session data as a parameter and also gets the robot states from the repository and if error occurs it validated the session id by calling the session validation where we have all validations for different functions.
-managePostSessionData takes in session data as parameter and validates each session data and session id, it is where we look if the session id exist and if it doesnt it craetes one by calling the create sessions with id and returns back the created session id. we also craete the write the position by calling the write function from the repository and returns back the written position if no eror occurred.
-
 ### **Session Manager**
 *`sessionManager.js` is responseble for managing data from presentation layer.*
 
@@ -160,54 +152,47 @@ managePostSessionData takes in session data as parameter and validates each sess
 ```js 
   exports.manageGetSessions = async function(callback)
 ```
-Return: `callback(Array[Object{},...], error)`
-<br>
+Return: `callback(Array[Object{},...], [errors])`
+<br><br>
 
 ***
 
-`manageGetSessionWithID()` thakes in these, does this 
+`manageGetSessionWithID()` takes in sessionID as parameters, and calls data access layer to fetch the session with that given id.
 ```js 
   exports.manageGetSessionWithID = async function(sessionID, callback)
 ```
-Return: `callback(Array[Object{},...], error)`
-<br>
+Return: `callback(Object{}, [errors])`
+<br><br>
 
 ***
 
-`managePostSessionData()` thakes in these, does this 
+`managePostSessionData()` takes in sessionData object as parameters, and calls data access layer to create a session or update one. 
 ```js 
   exports.managePostSessionData = async function(sessionData, callback)
 ```
 
-Return: `callback(Array[Object{},...], error)`
-
-<br>
-
+Return: `callback(Object{}, [errors])`
+<br><br>
 ***
-
 
 ### **Session Validation**
 *`sessionValidation.js` is responseble for managing data from presentation layer.*
 
-`validateSessionData()` thakes in these, does this 
+`validateSessionData()` takes in sessionID as parameter and validates it.
 ```js 
   exports.validateSessionData = function(sessionData)
 ```
 Return: `Array[error...]`
-
-<br>
+<br><br>
 
 ***
 
-this function manges the file upload and takes in upload data as a parameter it calls the validation session id function to validate the session id
-
-`manageGetAllCollisionImg()` thakes in these, does this 
+`validateSessionData()` thakes in sessionData object as parameter, and validates the object.
 ```js 
 exports.validateSessionID = function(sessionID)
 ```
 Return: `Array[error...]`
-
-<br>
+<br><br>
 
 ***
 
@@ -220,8 +205,7 @@ Return: `Array[error...]`
 exports.manageFileUpload = function(uploadData, request, callback)
 ```
 Return: `callback(Objects{}, [errors])`
-
-<br>
+<br><br>
 
 ***
 
@@ -230,8 +214,7 @@ Return: `callback(Objects{}, [errors])`
 exports.manageSingleFileDownload = async function(sessionID, imgName, callback)
 ```
 Return: `callback(Object{}, [errors])`
-
-<br>
+<br><br>
 
 ***
 
@@ -240,8 +223,7 @@ Return: `callback(Object{}, [errors])`
 exports.manageMultipleFileDownload = async function(sessionID, callback)
 ```
 Return: `callback(Array[Object{},...], [errors])`
-
-<br>
+<br><br>
 
 ***
 
@@ -250,8 +232,7 @@ Return: `callback(Array[Object{},...], [errors])`
 exports.manageGetCollisionImg = async function(payload, callback) 
 ```
 Return: `callback(Array[Object{},...], [errors])`
-
-<br>
+<br><br>
 
 ***
 
@@ -260,8 +241,7 @@ Return: `callback(Array[Object{},...], [errors])`
 exports.manageGetAllCollisionImg = async function(sessionID, callback)
 ```
 Return: `callback(Array[Object{},...], [errors])`
-
-<br>
+<br><br>
 
 ***
 
@@ -274,8 +254,7 @@ Purpose of file and description of all functions
 exports.validateFile = function(file) 
 ```
 Return: `Array[error...]`
-
-<br>
+<br><br>
 
 ***
 
@@ -286,8 +265,7 @@ exports.validateUploadData = function(collisionsAt)
 ```
 
 Return: `Array[error...]`
-
-<br>
+<br><br>
 
 ***
 
@@ -299,11 +277,10 @@ The Data Access Layer is responsible for connecting and sending queries to the d
 
 `run()` Checks whatever it's possible to connect to mongoDB.
 ```js 
-sync function run()
+async function run()
 ```
 Return: `Success or Fail`
-
-<br>
+<br><br>
 
 ***
 
@@ -316,9 +293,7 @@ Purpose of file and description of all functions
 exports.getSessions = async function()
 ```
 Return: `Array[Object{}, Object{}...] or [errors]`
-
-<br>
-
+<br><br>
 ***
 
 `getSessionWithID()` fetches a session with the given `sessionID`
@@ -326,8 +301,7 @@ Return: `Array[Object{}, Object{}...] or [errors]`
 exports.getSessionWithID = async function(thisSessionID)
 ```
 Return: `Object{} or [errors]`
-
-<br>
+<br><br>
 
 ***
 `createSessionWithID()` creates a session with given `sessionData`(sessionData is defined in the API) 
@@ -335,8 +309,7 @@ Return: `Object{} or [errors]`
 exports.createSessionWithID = async function(sessionData)
 ```
 Return: `[['aknowleged:1']] or [errors]`
-
-<br>
+<br><br>
 
 ***
 `getSessionWithIDAndState()` uses `sessionID` to fetch a singel session.
@@ -344,8 +317,7 @@ Return: `[['aknowleged:1']] or [errors]`
 exports.getSessionWithIDAndState = async function(sessionID)
 ```
 Return: `Object{}`
-
-<br>
+<br><br>
 
 ***
 `writePositions()` takes in `sessionData` as parameter (sessionData is defined in the API). This functions updates a session and the data sent.
@@ -353,8 +325,7 @@ Return: `Object{}`
 exports.writePositions = async function(sessionData)
 ```
 Return: `[['aknowleged:1']] or [errors]`
-
-<br>
+<br><br>
 
 ***
 
@@ -363,8 +334,7 @@ Return: `[['aknowleged:1']] or [errors]`
 exports.updateCollisionImgStatus = async function(thiSessionID)
 ```
 Return: `[['aknowleged:1']] or [errors]`
-
-<br>
+<br><br>
 
 ***
 
@@ -377,8 +347,7 @@ Purpose of file and description of all functions
   exports.insertCollisionImg = async function(sessionID, collisionsAt, imgName)
 ```
 Return: `[['aknowleged:1']] or [errors]`
-
-<br>
+<br><br>
 
 ***
 `getOneCollisionImg()` takes in `sessionID` and `imgName` as parameters, these parameters are used to fetch a single cillision image objects related to the sessionID and imgName.
@@ -386,8 +355,7 @@ Return: `[['aknowleged:1']] or [errors]`
   exports.getOneCollisionImg = async function(sessionID, imgName)
 ```
 Return: `Object{} or [errors]`
-
-<br>
+<br><br>
 
 ***
 `getAllCollisionImg()` takes in `sessionID` as parameter, the sessionID is later used to fetch all cillision image objects related to that sessionID.
@@ -395,8 +363,7 @@ Return: `Object{} or [errors]`
    exports.getAllCollisionImg = async function(sessionID) 
 ```
 Return: `Array[Object,...] or [errors]`
-
-<br>
+<br><br>
 
 ***
 ### **File Handler**
@@ -408,8 +375,7 @@ Return: `Array[Object,...] or [errors]`
 exports.writeFileToServer = function(newPath, oldPath, callback) 
  ```
  Return: `Success or [errors]`
-
-<br>
+<br><br>
 
 ***
 
@@ -418,8 +384,7 @@ exports.writeFileToServer = function(newPath, oldPath, callback)
 exports.highlightImageObjects = async function(inputFile, objects)
  ```
  Return: `Success or [errors]`
-
-<br>
+<br><br>
 
 ***
  
