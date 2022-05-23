@@ -24,7 +24,6 @@ module.exports = function({ sessionRepository }) {
             await sessionRepository.updateCollisionImgStatus(sessionID);
             return dbResponse;
         } catch {
-            await dbClient.close();
             return [
                 ["internalError"]
             ]
@@ -43,7 +42,6 @@ module.exports = function({ sessionRepository }) {
                 return ["imageDoesNotExist"]
             }
         } catch {
-            await dbClient.close();
             return ["internalError"]
         }
     };
@@ -62,7 +60,6 @@ module.exports = function({ sessionRepository }) {
                 return ["imageDoesNotExist"];
             }
         } catch {
-            await dbClient.close();
             return ["internalError"];
         }
     };
