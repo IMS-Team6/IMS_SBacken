@@ -21,7 +21,7 @@ module.exports = function({ sessionRepository }) {
             // Insert the duplicated object, mongoDB will generate new unique _id (Not to be confused with sessionID)
             const dbResponse = await request.insertOne(collisionImgObj);
             await dbClient.close();
-            await sessionRepository.updateCollisionImgStatus(sessionID);
+            //await sessionRepository.updateCollisionImgStatus(sessionID);
             return dbResponse;
         } catch {
             return [
